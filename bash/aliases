@@ -1,3 +1,10 @@
-alias ea="$EDITOR $DOTFILES/bash/aliases" p && source $DOTFILES/bash/aliases"
+alias ea="$EDITOR $DOTFILES/bash/aliases && source $DOTFILES/bash/aliases"
 alias ee="$EDITOR $DOTFILES/bash/env"
 
+# GIT
+alias gs='git status'
+alias gd='git diff'
+alias gl='git log'
+function gac() {
+	git commit -v -a -m "$*"
+}
