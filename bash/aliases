@@ -1,0 +1,3 @@
+alias ea="$EDITOR $DOTFILES/bash/aliases" p && source $DOTFILES/bash/aliases"
+alias ee="$EDITOR $DOTFILES/bash/env"
+
