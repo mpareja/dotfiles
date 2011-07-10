@@ -1,10 +1,18 @@
 alias ea="$EDITOR $DOTFILES/bash/aliases && source $DOTFILES/bash/aliases"
 alias ee="$EDITOR $DOTFILES/bash/env"
 
+function mkcd() {
+	mkdir "$1"
+	cd "$1"
+}
+
 # GIT
 alias gs='git status'
 alias gd='git diff'
 alias gl='git log'
+function gc() {
+	git commit -v -m "$*"
+}
 function gac() {
 	git commit -v -a -m "$*"
 }
