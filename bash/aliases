@@ -14,5 +14,6 @@ function gc() {
 	git commit -v -m "$*"
 }
 function gac() {
-	git commit -v -a -m "$*"
+	git add .
+	git commit -v -m "$*"
 }
