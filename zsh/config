@@ -1,0 +1,5 @@
+source "$DOTFILES/bash/config"
+
+autoload compinit
+compinit
+
