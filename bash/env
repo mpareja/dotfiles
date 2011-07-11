@@ -1,4 +1,4 @@
-export DOTFILES=$(dirname $(dirname $BASH_SOURCE))
+# DOTFILES is declared in bashrc
 export RUBYMINE_JDK=/usr/lib/jvm/java-6-sun
 export EDITOR=vim
 export PATH=$PATH:~/bin

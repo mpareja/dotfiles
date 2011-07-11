@@ -1,4 +1,6 @@
-. ~/projects/dotfiles/bash/env
-. ~/projects/dotfiles/bash/config
-. ~/projects/dotfiles/bash/aliases
+export DOTFILES=$(dirname $BASH_SOURCE)
+
+. $DOTFILES/bash/env
+. $DOTFILES/bash/config
+. $DOTFILES/bash/aliases
 
