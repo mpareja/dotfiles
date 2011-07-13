@@ -1,0 +1,7 @@
+export DOTFILES=$(dirname $BASH_SOURCE)
+
+# include linux bashrc and add to it windows-only scripts path
+. $DOTFILES/bashrc
+
+export PATH=$PATH:$DOTFILES/winbin
+
