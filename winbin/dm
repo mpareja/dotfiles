@@ -1,1 +1,10 @@
-/c/programs/development/diffmerge/DiffMerge.exe --title1="Old Version" $1 --title2="New Version" $2
+DIFF=/c/programs/development/diffmerge/DiffMerge.exe
+if [ ! -e $DIFF ] ; then
+	DIFF=/d/programs/development/diffmerge/DiffMerge.exe
+fi
+if [ ! -e $DIFF ] ; then
+	DIFF=/d/programs/development/diffmerge/DiffMerge.exe
+fi
+
+$DIFF --title1="Old Version" $1 --title2="New Version" $2
+
