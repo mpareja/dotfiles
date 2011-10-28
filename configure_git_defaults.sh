@@ -1,4 +1,5 @@
 #!/bin/sh
+echo Configuring git defaults
 git config --global user.name "Mario Pareja"
 git config --global user.email "pareja.mario@gmail.com"
 git config --global core.autocrlf false
