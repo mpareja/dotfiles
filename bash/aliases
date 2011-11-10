@@ -1,6 +1,12 @@
 alias ea="$EDITOR $DOTFILES/bash/aliases && source $DOTFILES/bash/aliases"
 alias ee="$EDITOR $DOTFILES/bash/env"
 
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls='ls --color=auto'
+fi
+
 function mkcd() {
 	mkdir "$1"
 	cd "$1"
