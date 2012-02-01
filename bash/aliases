@@ -28,3 +28,6 @@ function gac() {
 	git add .
 	git commit -v -m "$*"
 }
+
+# RAILS
+alias r='bundle exec rails'
