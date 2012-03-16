@@ -13,12 +13,10 @@ if [ -e /c ]; then
   git config --global diff.tool diffmerge
   git config --global difftool.prompt false
 
-  DROPBOX=/c/profiles/mpareja/Desktop/Dropbox/command_line_tools/gitextdiff.sh
-  if [ ! -e "$DROPBOX" ]; then DROPBOX=/d/profiles/mpareja/Desktop/reference/command_line_tools/gitextdiff.sh; fi
-
-  DBDrive=${DROPBOX:1:1}
-  DBPath=${DROPBOX:2}
-  DIFF=$(echo $DBDrive:$DBPath \"\$LOCAL\" \"\$REMOTE\")
+  Tool=$DOTFILES/winbin/gitextdiff.sh
+  ToolDrive=${Tool:1:1}
+  ToolPath=${Tool:2}
+  DIFF=$(echo $ToolDrive:$ToolPath \"\$LOCAL\" \"\$REMOTE\")
 
   git config --global difftool.diffmerge.cmd "$DIFF"
 fi
