@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Download, compile, and copy the vcprompt command to ~/bin.
 #
