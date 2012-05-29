@@ -1,0 +1,3 @@
+#!/bin/bash
+apt-get install $* && \
+	echo `date` - $* >> /home/mpareja/installed_packages
