@@ -8,8 +8,11 @@ git config --global core.pager "less -q -x4"
 git config --global color.ui auto
 git config --global log.date relative
 
+git config --global guitool.gvim.cmd 'gvim "$FILENAME"'
+git config --global guitool.gvim.noconsole yes
 git config --global guitool."delete file".cmd 'rm $FILENAME'
 git config --global guitool."delete file".noconsole yes
+git config --global guitool."delete file".confirm yes
 git config --global guitool.difftool.cmd 'git difftool -- "$FILENAME"'
 git config --global guitool.difftool.noconsole yes
 git config --global guitool."difftool staged".cmd 'git difftool --staged -- "$FILENAME"'
@@ -26,4 +29,7 @@ if [ -e /c ]; then
   DIFF=$(echo $ToolDrive:$ToolPath \"\$LOCAL\" \"\$REMOTE\")
 
   git config --global difftool.diffmerge.cmd "$DIFF"
+
+  echo "Including TFS Checkin git gui tool"
+  git config --global guitool."TFS Checkin".cmd tfscheckin
 fi
