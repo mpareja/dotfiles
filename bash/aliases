@@ -20,6 +20,7 @@ function mkcd() {
 alias ga='git add'
 alias gs='git status'
 alias gd='git diff'
+alias gdc='git diff --cached'
 alias gl='git log'
 function gc() {
 	git commit -v -m "$*"
