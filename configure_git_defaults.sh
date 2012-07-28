@@ -9,6 +9,9 @@ git config --global color.ui auto
 git config --global log.date relative
 git config --global diff.renames copies
 
+# Borrowed from: http://www.jukie.net/bart/blog/pimping-out-git-log
+git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+
 git config --global guitool.gvim.cmd 'gvim "$FILENAME"'
 git config --global guitool.gvim.noconsole yes
 git config --global guitool."delete file".cmd 'rm $FILENAME'
