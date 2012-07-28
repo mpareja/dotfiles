@@ -7,6 +7,7 @@ git config --global core.editor vim
 git config --global core.pager "less -q -x4"
 git config --global color.ui auto
 git config --global log.date relative
+git config --global diff.renames copies
 
 git config --global guitool.gvim.cmd 'gvim "$FILENAME"'
 git config --global guitool.gvim.noconsole yes
