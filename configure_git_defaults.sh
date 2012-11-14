@@ -12,7 +12,7 @@ git config --global diff.renames copies
 git config --global alias.ca "commit --amend -C HEAD"
 
 # Borrowed from: http://www.jukie.net/bart/blog/pimping-out-git-log
-git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative"
 
 git config --global guitool.gvim.cmd 'gvim "$FILENAME"'
 git config --global guitool.gvim.noconsole yes
