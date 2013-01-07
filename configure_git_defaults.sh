@@ -35,7 +35,4 @@ if [ -e /c ]; then
   DIFF=$(echo $ToolDrive:$ToolPath \"\$LOCAL\" \"\$REMOTE\")
 
   git config --global difftool.diffmerge.cmd "$DIFF"
-
-  echo "Including TFS Checkin git gui tool"
-  git config --global guitool."TFS Checkin".cmd tfscheckin
 fi
