@@ -1,11 +1,4 @@
 #!/bin/sh
-if [ "$1" = '--install' ]; then
-	echo "Installing external diff tool"
-	git config --global difftool.diffmerge.cmd "$0 \"\$LOCAL\" \"\$REMOTE\""
-	git config --global diff.tool diffmerge
-	exit 0
-fi
-
 DIFF=/d/programs/development/diffmerge/DiffMerge.exe
 if [ ! -e "$DIFF" ]; then DIFF="$PROGRAMFILES/SourceGear/DiffMerge/DiffMerge.exe"; fi
 if [ ! -e "$DIFF" ]; then DIFF="$PROGRAMFILES/SourceGear/Common/DiffMerge/sgdm.exe"; fi
