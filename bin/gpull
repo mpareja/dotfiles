@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# load common code
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $DIR/gitcommon
+
+StashedChanged=0
+
+getlatest () {
+	stageUncommittedChanges
+
+	git pull --rebase
+
+	if [ $? -eq 0 ]; then
+		cleanup
+		echo.
+		echo !!!!!!!!!!!!!!!!!!!
+		echo Grabbed the latest.
+		echo !!!!!!!!!!!!!!!!!!!
+	else
+		echo.
+		echo !!!!!!!!!!!!!!!!
+		echo Found conflicts.
+		echo !!!!!!!!!!!!!!!!
+	fi
+}
+
+getlatest

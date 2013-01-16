@@ -1,0 +1,36 @@
+stageUncommittedChanges() {
+	if [ "`git status --porcelain`" != "" ]; then
+		quitely git add .
+		quitely git stash
+		if [ $? -eq 0 ]; then
+			StashedChanged=1
+		else
+			echo.
+			echo 'FAIL: unable to stash changes.'
+			exit 1
+		fi
+	fi
+}
+
+cleanup() {
+	if [ $StashedChanged -eq 1 ]; then
+		quitely git stash pop
+		if [ $? -eq 0 ]; then
+			quitely git reset
+			git status
+		else
+			echo.
+			echo 'FAILED: unable to pop your stash!'
+		fi
+	fi
+}
+
+quitely() {
+	msg=$($*)
+	code=$?
+	if [ $code -ne 0 ]; then
+		echo $msg
+	fi
+	return $code
+}
+

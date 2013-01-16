@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# load common code
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $DIR/gitcommon
+
+StashedChanged=0
+
+main () {
+	stageUncommittedChanges
+
+	git push
+
+	if [ $? -eq 0 ]; then
+		cleanup
+		echo.
+		echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		echo Everything checked in cleanly.
+		echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	else
+		git pull --rebase
+		if [ $? -eq 0 ]; then
+			git push
+			if [ $? -eq 0 ]; then
+				cleanup
+				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				echo Grabbed latest, rebased and everything checked in cleanly.
+				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			else
+				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				echo Grabbed latest, rebased but checkin failed.
+				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				exit 1
+			fi
+		else
+			echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			echo Grabbed latest and encountered conflict.
+			echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			exit 1
+		fi    
+	fi
+}
+
+main
+
