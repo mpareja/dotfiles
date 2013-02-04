@@ -1,0 +1,9 @@
+# Don't ring bell on completion
+set bell-style none
+
+set completion-ignore-case on
+
+# fix input issues for non-ascii characters
+set convert-meta off
+set output-meta on
+

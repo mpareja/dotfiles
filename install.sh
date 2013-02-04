@@ -2,7 +2,11 @@
 DotFiles=$(pwd)
 
 replace () {
-	target="$HOME/.$1"
+	if [ -z "$2" ]; then
+		target="$HOME/.$1"
+	else
+		target="$2"
+	fi
 	[ -e $target ] && rm $target
 	ln "$DotFiles/$1" $target
 }
@@ -18,5 +22,7 @@ else
 	replace tmux.conf
 	replace tmuxcolors.conf
 fi
+
+replace inputrc "$HOME/.inputrc"
 
 ./configure_git_defaults.sh
