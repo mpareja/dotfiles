@@ -7,8 +7,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 StashedChanged=0
 
 main () {
-	stageUncommittedChanges
-
 	git push
 
 	if [ $? -eq 0 ]; then
@@ -18,6 +16,8 @@ main () {
 		echo Everything checked in cleanly.
 		echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	else
+		stageUncommittedChanges
+
 		git pull --rebase
 		if [ $? -eq 0 ]; then
 			git push
