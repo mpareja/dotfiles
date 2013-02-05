@@ -1,6 +1,6 @@
 stageUncommittedChanges() {
 	if [ "`git status --porcelain`" != "" ]; then
-		quitely git add .
+		quitely git add -A
 		quitely git stash
 		if [ $? -eq 0 ]; then
 			StashedChanged=1
