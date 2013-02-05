@@ -30,6 +30,9 @@ git config --global guitool."View Staged Changes Externally".cmd 'git difftool -
 git config --global guitool."View Staged Changes Externally".noconsole yes
 
 if [ -e /c ]; then
+  echo "Using Windows Credential Store"
+  git config --global credential.helper wincred
+
   echo "Using DiffMerge for windows"
   git config --global diff.tool diffmerge
   git config --global difftool.prompt false
