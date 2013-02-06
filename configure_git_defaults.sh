@@ -18,9 +18,9 @@ git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(ye
 git config --global guitool."Delete File...".cmd 'rm $FILENAME'
 git config --global guitool."Delete File...".noconsole yes
 git config --global guitool."Delete File...".confirm yes
-git config --global guitool."Pull Latest Changes from GitHub".cmd "$DOTFILES/bin/gpull"
+git config --global guitool."Pull Latest Changes from GitHub".cmd "$(pwd)/bin/gpull"
 git config --global guitool."Pull Latest Changes from GitHub".confirm no
-git config --global guitool."Push Committed Changes to GitHub".cmd "$DOTFILES/bin/gpush"
+git config --global guitool."Push Committed Changes to GitHub".cmd "$(pwd)/bin/gpush"
 git config --global guitool."Push Committed Changes to GitHub".confirm yes
 git config --global guitool."Open File in Editor".cmd 'gvim "$FILENAME"'
 git config --global guitool."Open File in Editor".noconsole yes
@@ -37,7 +37,7 @@ if [ -e /c ]; then
   git config --global diff.tool diffmerge
   git config --global difftool.prompt false
 
-  Tool=$DOTFILES/winbin/gitextdiff.sh
+  Tool=$(pwd)/winbin/gitextdiff.sh
   ToolDrive=${Tool:1:1}
   ToolPath=${Tool:2}
   DIFF=$(echo $ToolDrive:$ToolPath \"\$LOCAL\" \"\$REMOTE\")
