@@ -1,5 +1,5 @@
 #!/bin/bash
-DotFiles=$(pwd)
+export DOTFILES=$(pwd)
 
 replace () {
 	if [ -z "$2" ]; then
@@ -8,16 +8,16 @@ replace () {
 		target="$2"
 	fi
 	[ -e $target ] && rm $target
-	ln "$DotFiles/$1" $target
+	ln "$DOTFILES/$1" $target
 }
 
 echo Creating default ~/.bashrc
 if [ -e /c ]; then
 	# windows
-	echo ". $DotFiles/bashrc_win" > ~/.bashrc
+	echo ". $DOTFILES/bashrc_win" > ~/.bashrc
 else
-	echo ". $DotFiles/bashrc" > ~/.bashrc
-	$DotFiles/gnome/solarized.sh dark
+	echo ". $DOTFILES/bashrc" > ~/.bashrc
+	$DOTFILES/gnome/solarized.sh dark
 
 	replace tmux.conf
 	replace tmuxcolors.conf
