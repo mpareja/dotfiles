@@ -1,7 +1,18 @@
 #!/bin/sh
 echo Configuring git defaults
-git config --global user.name "Mario Pareja"
-git config --global user.email "pareja.mario@gmail.com"
+
+FullName=$(git config --global user.name)
+if [ -z "$FullName" ]; then
+	read -p 'Enter Full Name: ' FullName
+fi
+
+Email=$(git config --global user.email)
+if [ -z "$Email" ]; then
+	read -p 'Enter Email Address: ' Email
+fi
+
+git config --global user.name "$FullName"
+git config --global user.email "$Email"
 git config --global core.autocrlf false
 git config --global core.editor vim
 git config --global core.pager "less -q -x4"
