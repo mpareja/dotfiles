@@ -26,6 +26,7 @@ git config --global alias.ca "commit --amend -C HEAD"
 # Borrowed from: http://www.jukie.net/bart/blog/pimping-out-git-log
 git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold cyan)<%an>%Creset' --abbrev-commit --date=relative"
 
+git config --global gui.gcwarning false
 git config --global guitool."Delete File...".cmd 'rm $FILENAME'
 git config --global guitool."Delete File...".noconsole yes
 git config --global guitool."Delete File...".confirm yes
