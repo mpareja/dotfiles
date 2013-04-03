@@ -7,7 +7,7 @@ stageUncommittedChanges() {
 		else
 			echo.
 			echo 'FAIL: unable to stash changes.'
-			exit 1
+			return 1
 		fi
 	fi
 }
@@ -22,6 +22,19 @@ cleanup() {
 			echo.
 			echo 'FAILED: unable to pop your stash!'
 		fi
+	fi
+}
+
+getlatest () {
+	git fetch
+	if [ $? -eq 0 ]; then
+		# rebase preserving feature branch merge commits
+		git rebase -p @{upstream}
+		if [ $? -ne 0 ]; then
+			return 1
+		fi
+	else
+		return 2
 	fi
 }
 

@@ -18,26 +18,37 @@ main () {
 	else
 		stageUncommittedChanges
 
-		git pull --rebase
-		if [ $? -eq 0 ]; then
-			git push
-			if [ $? -eq 0 ]; then
-				cleanup
-				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				echo Grabbed latest, rebased and everything checked in cleanly.
-				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			else
-				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				echo Grabbed latest, rebased but checkin failed.
-				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		getlatest
+		case $? in
+			0)  git push
+				if [ $? -eq 0 ]; then
+					cleanup
+					echo.
+					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					echo Grabbed latest, rebased and everything checked in cleanly.
+					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				else
+					echo.
+					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					echo Grabbed latest, rebased but checkin failed.
+					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					exit 3
+				fi
+				;;
+			1)  echo.
+				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				echo Grabbed latest and encountered conflict.
+				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				exit 1
-			fi
-		else
-			echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			echo Grabbed latest and encountered conflict.
-			echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			exit 1
-		fi    
+				;;
+			2)  cleanup
+				echo.
+				echo !!!!!!!!!!!!!!!!!!!!!!!
+				echo Failed to fetch latest.
+				echo !!!!!!!!!!!!!!!!!!!!!!!
+				exit 2
+				;;
+			esac
 	fi
 }
 

@@ -6,23 +6,28 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 StashedChanged=0
 
-getlatest () {
-	stageUncommittedChanges
+stageUncommittedChanges
 
-	git pull --rebase
-
-	if [ $? -eq 0 ]; then
-		cleanup
+getlatest
+case $? in
+	0)	cleanup
 		echo.
 		echo !!!!!!!!!!!!!!!!!!!
 		echo Grabbed the latest.
 		echo !!!!!!!!!!!!!!!!!!!
-	else
-		echo.
+		;;
+	1)  echo.
 		echo !!!!!!!!!!!!!!!!
 		echo Found conflicts.
 		echo !!!!!!!!!!!!!!!!
-	fi
-}
+		exit 1
+		;;
+	2)  cleanup
+		echo.
+		echo !!!!!!!!!!!!!!!!!!!!!!!
+		echo Failed to fetch latest.
+		echo !!!!!!!!!!!!!!!!!!!!!!!
+		exit 2
+		;;
+	esac
 
-getlatest
