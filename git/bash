@@ -1,0 +1,29 @@
+## Aliases
+
+alias ga='git add'
+alias gs='git status'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gl='git log'
+function gc() {
+	git commit -v -m "$*"
+}
+function gac() {
+	git add -A
+	git commit -v -m "$*"
+}
+
+__git_complete ga _git_add
+__git_complete gd _git_diff
+__git_complete gdc _git_diff
+__git_complete gl _git_log
+
+## Environment Variables
+
+# Update the command prompt to be <user>:<current_directory>(git_branch) >
+# Note that the git branch is given a special color
+if [ "$OS" == "Windows_NT" ] ; then
+	PS1="\n\[$GREEN\]\u \[$YELLOW\]\w\[$EBLACK\]\$(__git_ps1) \[$NO_COLOR\]\n$ "
+elif [ `which vcprompt` ] ; then
+	PS1="\n\[$GREEN\]\u \[$YELLOW\]\w\[$EBLACK\]\$(vcprompt -f \"[%b%m%u] \")\[$NO_COLOR\]\n$ "
+fi
