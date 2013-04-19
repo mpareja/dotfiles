@@ -23,10 +23,22 @@ main () {
 			0)  git push
 				if [ $? -eq 0 ]; then
 					cleanup
-					echo.
-					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					echo Grabbed latest, rebased and everything checked in cleanly.
-					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					if [ $? -eq 0 ]; then
+						echo.
+						echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+						echo Grabbed latest, rebased and everything checked in cleanly.
+						echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					else
+						echo.
+						echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+						echo Grabbed latest, rebased and everything checked in cleanly.
+						echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+						echo.
+						echo NOTE: The commits were pushed successfully but the changes you
+						echo had in your working directory seem to have conflicted with commits
+						echo from the upstream repository.
+						exit 4
+					fi
 				else
 					echo.
 					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

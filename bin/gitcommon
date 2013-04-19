@@ -21,6 +21,7 @@ cleanup() {
 		else
 			echo.
 			echo 'FAILED: unable to pop your stash!'
+			return 1
 		fi
 	fi
 }
