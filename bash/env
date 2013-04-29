@@ -2,7 +2,7 @@
 export RUBYMINE_JDK=/usr/lib/jvm/java-6-sun
 export EDITOR=vim
 
-if [ ${DOTFILES:1:1} = ":" ]; then
+if [ "${DOTFILES:1:1}" = ":" ]; then
 	export PATH=$PATH:~/bin:/${DOTFILES/:/}/bin
 else
 	export PATH=$PATH:~/bin:$DOTFILES/bin

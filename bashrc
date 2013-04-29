@@ -4,5 +4,5 @@ export DOTFILES=$(dirname $BASH_SOURCE)
 . $DOTFILES/bash/config
 . $DOTFILES/bash/aliases
 
-. `find $DOTFILES -type f -maxdepth 2 -iname bash`
+. `find $DOTFILES -maxdepth 2 -type f -iname bash`
 

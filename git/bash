@@ -13,10 +13,13 @@ function gac() {
 	git commit -v -m "$*"
 }
 
-__git_complete ga _git_add
-__git_complete gd _git_diff
-__git_complete gdc _git_diff
-__git_complete gl _git_log
+# configure completion for aliases
+if [ "`type -t __git_complete`" = "function" ]; then
+	__git_complete ga _git_add
+	__git_complete gd _git_diff
+	__git_complete gdc _git_diff
+	__git_complete gl _git_log
+fi
 
 ## Environment Variables
 
