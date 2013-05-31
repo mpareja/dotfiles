@@ -40,6 +40,8 @@ git config --global guitool."View Changes Externally".cmd 'git difftool -- "$FIL
 git config --global guitool."View Changes Externally".noconsole yes
 git config --global guitool."View Staged Changes Externally".cmd 'git difftool --staged -- "$FILENAME"'
 git config --global guitool."View Staged Changes Externally".noconsole yes
+git config --global guitool."Fix Trailing Whitespace on Staged File".cmd "$(pwd)/bin/fixtrailingwhitespace \" \$FILENAME\""
+git config --global guitool."Fix Trailing Whitespace on Staged File".noconsole yes
 
 if [ -e /c ]; then
   echo "Using Windows Credential Store"

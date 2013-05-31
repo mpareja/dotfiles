@@ -1,0 +1,8 @@
+#!/bin/bash
+# avoid issue where $FILENAME is not expanded preceeded 
+# character preceeding $ is a quote (regardless of the quote being escaped).
+PARAMS=$(echo $*)
+STAGED=$(git diff --cached --no-color -- "$PARAMS") && \
+echo "$STAGED" | git apply --index -R - && \
+echo "$STAGED" | git apply --index --whitespace=fix -
+
