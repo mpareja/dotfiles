@@ -57,4 +57,7 @@ if [ -e /c ]; then
   DIFF=$(echo $ToolDrive:$ToolPath \"\$LOCAL\" \"\$REMOTE\")
 
   git config --global difftool.diffmerge.cmd "$DIFF"
+else
+  echo "Using Cache Credential Store"
+  git config --global credential.helper cache
 fi
