@@ -21,6 +21,10 @@ else
 
 	replace tmux.conf
 	replace tmuxcolors.conf
+
+	echo Adding apt-install to /bin
+	APT_INSTALL="$DOTFILES/bin/apt-install"
+	[ -e $APT_INSTALL ] || sudo ln -s $APT_INSTALL /bin/apt-install 
 fi
 
 replace inputrc "$HOME/.inputrc"
