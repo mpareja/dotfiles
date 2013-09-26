@@ -58,6 +58,6 @@ if [ -e /c ]; then
 
   git config --global difftool.diffmerge.cmd "$DIFF"
 else
-  echo "Using Cache Credential Store"
-  git config --global credential.helper cache
+  echo "Using Cache Credential Store (4 hour cached password)"
+  git config --global credential.helper "cache --timeout 14400"
 fi
