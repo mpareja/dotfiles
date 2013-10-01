@@ -11,7 +11,7 @@ main () {
 
 	if [ $? -eq 0 ]; then
 		cleanup
-		echo.
+		echo
 		echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		echo Everything checked in cleanly.
 		echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -24,37 +24,37 @@ main () {
 				if [ $? -eq 0 ]; then
 					cleanup
 					if [ $? -eq 0 ]; then
-						echo.
+						echo
 						echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 						echo Grabbed latest, rebased and everything checked in cleanly.
 						echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					else
-						echo.
+						echo
 						echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 						echo Grabbed latest, rebased and everything checked in cleanly.
 						echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-						echo.
+						echo
 						echo NOTE: The commits were pushed successfully but the changes you
 						echo had in your working directory seem to have conflicted with commits
 						echo from the upstream repository.
 						exit 4
 					fi
 				else
-					echo.
+					echo
 					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					echo Grabbed latest, rebased but checkin failed.
 					echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					exit 3
 				fi
 				;;
-			1)  echo.
+			1)  echo
 				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				echo Grabbed latest and encountered conflict.
 				echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				exit 1
 				;;
 			2)  cleanup
-				echo.
+				echo
 				echo !!!!!!!!!!!!!!!!!!!!!!!
 				echo Failed to fetch latest.
 				echo !!!!!!!!!!!!!!!!!!!!!!!

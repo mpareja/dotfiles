@@ -12,30 +12,30 @@ getlatest
 case $? in
 	0)	cleanup
 		if [ $? -eq 0 ]; then
-			echo.
+			echo
 			echo !!!!!!!!!!!!!!!!!!!
 			echo Grabbed the latest.
 			echo !!!!!!!!!!!!!!!!!!!
 		else
-			echo.
+			echo
 			echo !!!!!!!!!!!!!!!!!!!
 			echo Grabbed the latest.
 			echo !!!!!!!!!!!!!!!!!!!
-			echo.
+			echo
 			echo NOTE: The latest commits were grabbed successfully, but the changes you
 			echo had in your working directory seem to have conflicted with commits
 			echo from the upstream repository.
 			exit 4
 		fi
 		;;
-	1)  echo.
+	1)  echo
 		echo !!!!!!!!!!!!!!!!
 		echo Found conflicts.
 		echo !!!!!!!!!!!!!!!!
 		exit 1
 		;;
 	2)  cleanup
-		echo.
+		echo
 		echo !!!!!!!!!!!!!!!!!!!!!!!
 		echo Failed to fetch latest.
 		echo !!!!!!!!!!!!!!!!!!!!!!!
