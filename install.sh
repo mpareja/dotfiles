@@ -8,7 +8,7 @@ replace () {
 		target="$2"
 	fi
 	[ -e $target ] && rm $target
-	ln "$DOTFILES/$1" $target
+	ln "$1" $target
 }
 
 echo Creating default ~/.bashrc
@@ -19,8 +19,11 @@ else
 	echo ". $DOTFILES/bashrc" > ~/.bashrc
 	$DOTFILES/gnome/solarized.sh dark
 
+	echo Replacing tmux configuration files
+	cd tmux
 	replace tmux.conf
 	replace tmuxcolors.conf
+	cd ..
 
 	echo Adding apt-install to /bin
 	APT_INSTALL="/bin/apt-install"
