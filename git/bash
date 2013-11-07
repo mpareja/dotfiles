@@ -9,7 +9,7 @@ function gc() {
 	git commit -v -m "$*"
 }
 function gac() {
-	git add -A
+	git add -A :/
 	git commit -v -m "$*"
 }
 
