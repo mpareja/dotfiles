@@ -5,7 +5,7 @@ stageUncommittedChanges() {
 		if [ $? -eq 0 ]; then
 			StashedChanged=1
 		else
-			echo.
+			echo
 			echo 'FAIL: unable to stash changes.'
 			return 1
 		fi
@@ -19,7 +19,7 @@ cleanup() {
 			quitely git reset
 			git status
 		else
-			echo.
+			echo
 			echo 'FAILED: unable to pop your stash!'
 			return 1
 		fi
