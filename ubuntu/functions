@@ -36,3 +36,8 @@ vim() {
 	./install.sh
 }
 
+virtualbox() {
+	header Installing latest VirtualBox...
+	local APP=$(apt-cache search virtualbox-[0-9] | sort -r | head -1 | cut -d ' ' -f 1)
+	echo apt-get install $APP
+}

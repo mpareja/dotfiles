@@ -3,6 +3,7 @@
 echo ======= Adding external repositories...
 add-apt-repository "deb http://linux.dropbox.com/ubuntu $(lsb_release -sc) main" # DROPBOX
 add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner" # SKYPE
+add-apt-repository "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" # VIRTUALBOX
 add-apt-repository ppa:gwendal-lebihan-dev/hexchat-stable # HEXCHAT
 add-apt-repository ppa:ricotz/docky # PLANK
 

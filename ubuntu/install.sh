@@ -12,3 +12,5 @@ github
 dotfiles
 vim
 
+read -n 1 -p 'Do you want to install VirtualBox (y/N)? ' CONFIRM
+[ $CONFIRM = 'y' ] && echo && virtualbox
