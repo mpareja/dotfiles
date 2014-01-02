@@ -17,13 +17,13 @@ curl -u $GIT_USERNAME https://api.github.com/user/keys -H 'Content-Type: applica
 
 echo ======= Configure dotfiles...
 mkdir -p ~/projects
-cd ~/projects
-git clone git@github.com:$GIT_USERNAME/dotfiles.git
-cd dotfiles
+[ -d ~/projects/dotfiles ] && rm -rI ~/projects/dotfiles
+git clone git@github.com:$GIT_USERNAME/dotfiles.git ~/projects/dotfiles
+cd ~/projects/dotfiles
 ./install.sh
 
 echo ======= About to recreate ~/.vim directory...
-rm -rI ~/.vim
+[ -d ~/.vim ] && rm -rI ~/.vim
 git clone git@github.com:$GIT_USERNAME/vim-settings.git ~/.vim
 cd ~/.vim
 ./install.sh
