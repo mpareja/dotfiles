@@ -1,0 +1,38 @@
+#!/bin/bash
+
+header() {
+	echo ======= $*
+}
+
+chrome() {
+	header Installing Google Chrome...
+	wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
+	software-center /tmp/google-chrome-stable_current_amd64.deb
+}
+
+github() {
+	header Configure GitHub SSH key...
+	mkdir -p ~/.ssh
+	cd ~/.ssh
+	ssh-keygen -t rsa -C "$GIT_EMAIL" -f ./id_rsa
+	echo Adding key to GitHub account
+	curl -u $GIT_USERNAME https://api.github.com/user/keys -H 'Content-Type: application/json' -d "{\"title\": \"$(hostname)\",\"key\": \"$(cat id_rsa.pub)\"}"
+}
+
+dotfiles() {
+	header Configure dotfiles...
+	mkdir -p ~/projects
+	[ -d ~/projects/dotfiles ] && rm -rI ~/projects/dotfiles
+	git clone git@github.com:$GIT_USERNAME/dotfiles.git ~/projects/dotfiles
+	cd ~/projects/dotfiles
+	./install.sh
+}
+
+vim() {
+	header About to recreate ~/.vim directory...
+	[ -d ~/.vim ] && rm -rI ~/.vim
+	git clone git@github.com:$GIT_USERNAME/vim-settings.git ~/.vim
+	cd ~/.vim
+	./install.sh
+}
+
