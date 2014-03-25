@@ -46,3 +46,8 @@ plank() {
 	header Configuring plank...
 	rm ~/.config/plank/dock1/launchers/plank.dockitem
 }
+
+defaultapps() {
+	header Configure default applications like pcmanfm...
+	exo-preferred-applications
+}

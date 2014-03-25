@@ -2,6 +2,7 @@ compizconfig-settings-manager
 curl
 dos2unix
 dropbox
+exo-utils
 filezilla
 g++
 git-gui
