@@ -23,7 +23,8 @@ dotfiles() {
 	header Configure dotfiles...
 	mkdir -p ~/projects
 	[ -d ~/projects/dotfiles ] && rm -rI ~/projects/dotfiles
-	git clone git@github.com:$GIT_USERNAME/dotfiles.git ~/projects/dotfiles
+	git clone git@github.com:$GIT_USERNAME/dotfiles.git ~/projects/dotfiles ||
+	  git clone git@github.com:mpareja/dotfiles.git ~/projects/dotfiles
 	cd ~/projects/dotfiles
 	./install.sh
 }
@@ -31,7 +32,8 @@ dotfiles() {
 vim() {
 	header About to recreate ~/.vim directory...
 	[ -d ~/.vim ] && rm -rI ~/.vim
-	git clone git@github.com:$GIT_USERNAME/vim-settings.git ~/.vim
+	git clone git@github.com:$GIT_USERNAME/vim-settings.git ~/.vim ||
+	  git clone git@github.com:mpareja/vim-settings.git ~/.vim
 	cd ~/.vim
 	./install.sh
 }
