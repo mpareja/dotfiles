@@ -8,10 +8,6 @@ hash dircolors 2>&- && {
 	alias ls='ls --color=auto'
 }
 
-hash gnome-open 2>&- && {
-	alias go="gnome-open";
-}
-
 function mkcd() {
 	mkdir "$1"
 	cd "$1"
