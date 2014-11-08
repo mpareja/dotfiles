@@ -4,9 +4,9 @@ echo ======= Adding external repositories...
 add-apt-repository "deb http://linux.dropbox.com/ubuntu $(lsb_release -sc) main" # DROPBOX
 add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner" # SKYPE
 add-apt-repository "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" # VIRTUALBOX
-add-apt-repository ppa:gwendal-lebihan-dev/hexchat-stable # HEXCHAT
-add-apt-repository ppa:ricotz/docky # PLANK
-add-apt-repository ppa:synapse-core/testing # SYNAPSE (not found in Ubuntu 14.04)
+add-apt-repository -y ppa:gwendal-lebihan-dev/hexchat-stable # HEXCHAT
+add-apt-repository -y ppa:ricotz/docky # PLANK
+add-apt-repository -y ppa:synapse-core/testing # SYNAPSE (not found in Ubuntu 14.04)
 
 # add dropbox GPG key
 apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
