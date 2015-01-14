@@ -53,3 +53,7 @@ defaultapps() {
 	header Configure default applications like pcmanfm...
 	exo-preferred-applications
 }
+
+docker() {
+	curl -sSL https://get.docker.com/ubuntu/ | sudo sh
+}
