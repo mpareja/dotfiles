@@ -23,6 +23,7 @@ cd $(mktemp -d)
 git clone https://github.com/visionmedia/n .
 make install
 
-echo ======= Installing latest stable node...
+echo ======= Installing latest stable node and npm...
 n stable
+npm install -g npm
 
