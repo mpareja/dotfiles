@@ -20,6 +20,7 @@ git config --global color.ui auto
 git config --global log.date relative
 git config --global diff.renames copies
 git config --global push.default upstream
+git config --global branch.autoSetupRebase always
 
 git config --global alias.ca "commit --amend -C HEAD"
 
