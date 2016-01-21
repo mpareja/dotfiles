@@ -47,6 +47,7 @@ virtualbox() {
 plank() {
 	header Configuring plank...
 	rm ~/.config/plank/dock1/launchers/plank.dockitem
+	cp -R plank ~/.config
 }
 
 defaultapps() {
