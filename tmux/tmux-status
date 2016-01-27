@@ -4,12 +4,12 @@ flash() {
 	local bg=$(tmux show-option -g message-bg | cut -c 12-)
 	local fg=$(tmux show-option -g message-fg | cut -c 12-)
 	local dtime=$(tmux show-option -g display-time | cut -c 14-)
-	tmux set-option message-bg $1
-	tmux set-option message-fg black
+	tmux set-option message-bg $1 > /dev/null
+	tmux set-option message-fg black > /dev/null
 	tmux display-message -F "$2"
 	sleep $(echo $dtime / 1000 | bc -l)
-	tmux set-option message-bg $bg
-	tmux set-option message-fg $fg
+	tmux set-option message-bg $bg > /dev/null
+	tmux set-option message-fg $fg > /dev/null
 }
 
 $@ && flash green "-------- PASS ---------"|| flash red "!!!!!!!! FAIL !!!!!!!!"
