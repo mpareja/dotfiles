@@ -1,6 +1,6 @@
 #!/bin/bash
 
-flash() {
+flashOld() {
 	local bg=$(tmux show-option -g message-bg | cut -c 12-)
 	local fg=$(tmux show-option -g message-fg | cut -c 12-)
 	local dtime=$(tmux show-option -g display-time | cut -c 14-)
@@ -10,6 +10,23 @@ flash() {
 	sleep $(echo $dtime / 1000 | bc -l)
 	tmux set-option message-bg $bg > /dev/null
 	tmux set-option message-fg $fg > /dev/null
+}
+
+flashNew() {
+	local style=$(tmux show-option -g message-style | cut -c 15-)
+	local dtime=$(tmux show-option -g display-time | cut -c 14-)
+	tmux set-option message-style fg=black,bg=$1 > /dev/null
+	tmux display-message -F "$2"
+	sleep $(echo $dtime / 1000 | bc -l)
+	tmux set-option message-style $style > /dev/null
+}
+
+flash() {
+	if [ $(tmux -V | cut -c 6) -ge 2 ]; then
+		flashNew $@
+	else
+		flashOld $@
+	fi
 }
 
 $@ && flash green "-------- PASS ---------"|| flash red "!!!!!!!! FAIL !!!!!!!!"
