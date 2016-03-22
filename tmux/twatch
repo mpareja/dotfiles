@@ -1,0 +1,8 @@
+#!/bin/bash
+
+tmux-status $@
+
+while inotifywait -qr -e modify -e move -e create -e delete --exclude '\.git/' .; do
+	tmux-status $@
+done
+
