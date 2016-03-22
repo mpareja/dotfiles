@@ -23,9 +23,9 @@ flashNew() {
 
 flash() {
 	if [ $(tmux -V | cut -c 6) -ge 2 ]; then
-		flashNew $@
+		flashNew "$@"
 	else
-		flashOld $@
+		flashOld "$@"
 	fi
 }
 
