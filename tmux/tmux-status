@@ -29,4 +29,4 @@ flash() {
 	fi
 }
 
-$@ && flash green "-------- PASS ---------"|| flash red "!!!!!!!! FAIL !!!!!!!!"
+$@ && flash green "PASS: $*"|| flash red "FAIL: $*"
