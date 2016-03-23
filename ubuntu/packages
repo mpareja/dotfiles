@@ -9,6 +9,7 @@ git-gui
 gparted
 hexchat
 indicator-multiload
+inotify-tools
 iotop
 jq
 meld
