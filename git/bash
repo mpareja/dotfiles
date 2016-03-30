@@ -30,3 +30,6 @@ if [ "$OS" == "Windows_NT" ] ; then
 else
 	PS1="\n\[$GREEN\]\u \[$YELLOW\]\w\[$NO_COLOR\]\$(__git_ps1) \[$NO_COLOR\]\n$ "
 fi
+
+## We must source this in the current shell, so can't do it in above if block
+[ "$OS" == "Windows_NT" ] && . /etc/profile.d/git-prompt.sh
