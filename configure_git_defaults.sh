@@ -61,4 +61,10 @@ if [ -e /c ]; then
 else
   echo "Using Cache Credential Store (4 hour cached password)"
   git config --global credential.helper "cache --timeout 14400"
+
+  if hash meld 2>/dev/null; then
+    echo "Using Meld as diff tool"
+    git config --global diff.tool meld
+    git config --global difftool.prompt false
+  fi
 fi
