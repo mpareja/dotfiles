@@ -32,4 +32,5 @@ else
 fi
 
 ## We must source this in the current shell, so can't do it in above if block
+[ "$OS" == "Darwin" ] && . /usr/local/etc/bash_completion.d/git-prompt.bash
 [ "$OS" == "Windows_NT" ] && . /etc/profile.d/git-prompt.sh
