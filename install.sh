@@ -11,19 +11,32 @@ replace () {
 	ln "$1" $target
 }
 
-echo Creating default ~/.bashrc
-if [ -e /c ]; then
-	# windows
-	echo ". $DOTFILES/bashrc_win" > ~/.bashrc
-else
-	echo ". $DOTFILES/bashrc" > ~/.bashrc
-	$DOTFILES/gnome/solarized.sh dark
-
+config_tmux() {
 	echo Replacing tmux configuration files
 	cd tmux
 	replace tmux.conf
 	replace tmuxcolors.conf
 	cd ..
+}
+
+echo Creating default ~/.bashrc
+if [ -e /c ]; then
+	# windows
+	echo ". $DOTFILES/bashrc_win" > ~/.bashrc
+elif [ "$(uname)" = "Darwin" ]; then
+	# mac
+	echo ". $DOTFILES/bashrc" > ~/.bashrc
+	echo ". ~/.bashrc" > ~/.bash_profile
+
+	config_tmux
+
+	read -p 'Hit enter to launch solarized terminal, then click Shell > Use Settings as Default'
+	open osx-terminal/solarized-dark.terminal
+else
+	echo ". $DOTFILES/bashrc" > ~/.bashrc
+	$DOTFILES/gnome/solarized.sh dark
+
+	config_tmux
 
 	echo Adding apt-install to /bin
 	APT_INSTALL="/bin/apt-install"
