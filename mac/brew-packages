@@ -1,7 +1,8 @@
-nvm
-wget
 git
 jq
+macvim
+nvm
 tmux
 vim
-macvim
+wget
+the_silver_searcher
