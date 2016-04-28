@@ -26,7 +26,7 @@ if [ -e /c ]; then
 elif [ "$(uname)" = "Darwin" ]; then
 	# mac
 	echo ". $DOTFILES/bashrc" > ~/.bashrc
-	echo ". ~/.bashrc" > ~/.bash_profile
+	echo ". $DOTFILES/bashrc" > ~/.bash_profile
 
 	config_tmux
 
