@@ -2,7 +2,16 @@
 
 tmux-status $@
 
-while inotifywait -qr -e modify -e move -e create -e delete --exclude '\.git/' .; do
-	tmux-status $@
-done
+if hash inotifywait 2> /dev/null; then
+	while inotifywait -qr -e modify -e move -e create -e delete --exclude '\.git/' .; do
+		tmux-status $@
+	done
+elif hash fswatch 2> /dev/null; then
+	while fswatch -1 -r --exclude '\.git/' .; do
+		tmux-status $@
+	done
+else
+	echo ERROR: no file monitoring tool found, install inotifywait or fswatch
+	exit 1
+fi
 
