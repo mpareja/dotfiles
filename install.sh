@@ -26,6 +26,15 @@ config_tmux() {
 	cd ..
 }
 
+config_i3() {
+	if [ -e ~/.config/i3 ]; then
+		echo Replacing i3 window manager configuration
+		cd i3
+		replace config ~/.config/i3/config
+		cd ..
+	fi
+}
+
 echo Creating default ~/.bashrc
 if [ -e /c ]; then
 	# windows
@@ -44,6 +53,7 @@ else
 	$DOTFILES/gnome/solarized.sh dark
 
 	config_tmux
+	config_i3
 
 	echo Adding apt-install to /bin
 	APT_INSTALL="/bin/apt-install"
