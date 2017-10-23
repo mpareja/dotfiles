@@ -171,6 +171,9 @@ bindsym $mod+Pause mode "passthrough"
 # Rename workspace
 bindsym $mod+comma exec ~/projects/dotfiles/i3/i3-rename-workspace
 
+# Move to new named workspace
+bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
+
 # Appearance
 new_window pixel 2
 

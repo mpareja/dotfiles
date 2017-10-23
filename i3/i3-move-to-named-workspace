@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Move current window to a workspace with the specifeid name.
+#
+#  + switches to the target workspace
+#  + searches for next available workspace number and prefaces the name with it
+
+get_next_workspace_num() {
+	local workspaces=$( \
+		i3-msg -t get_workspaces \
+			| jq '.[].num' | sort -n)
+
+	current=1
+	for j in $workspaces; do
+		if [ $j -gt $current ]; then
+			echo $current
+			return
+		fi
+
+		((current+=1))
+	done
+
+}
+
+get_prefix() {
+	prefix=$(get_next_workspace_num)
+	if [ "$prefix" != "" ]; then
+		prefix+=": "
+	fi
+	echo "$prefix%s"
+}
+
+prompt_and_move_to_workspace() {
+	i3-input -F "move container to workspace \"$(get_prefix)\"" -P 'New workspace name: ' \
+		| grep '^command = move container' \
+		| sed -e 's/^command = move container to workspace "\([^"]*\)"/\1/'
+}
+
+# move window and switch to the workspace
+workspace=$(prompt_and_move_to_workspace)
+i3-msg "workspace \"$workspace\""
+
