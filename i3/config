@@ -175,7 +175,7 @@ bindsym $mod+comma exec ~/projects/dotfiles/i3/i3-rename-workspace
 bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 
 # Appearance
-new_window pixel 2
+new_window pixel 4
 
 # ZOOM
 for_window [title="synapse"] floating enable
