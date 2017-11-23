@@ -180,6 +180,8 @@ new_window pixel 4
 # ZOOM
 for_window [title="synapse"] floating enable
 for_window [title="^Zoom Meeting ID: "] floating enable
+for_window [title="- Shutter"] floating enable
+
 
 # STARTUP APPLICATIONS
 exec synapse
