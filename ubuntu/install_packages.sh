@@ -8,6 +8,7 @@ add-apt-repository "deb http://debian.sur5r.net/i3/ $(lsb_release -sc) universe"
 add-apt-repository -y ppa:gwendal-lebihan-dev/hexchat-stable # HEXCHAT
 add-apt-repository -y ppa:ricotz/docky # PLANK
 add-apt-repository -y ppa:synapse-core/testing # SYNAPSE (not found in Ubuntu 14.04)
+add-apt-repository -y ppa:serge-rider/dbeaver-ce # dbeaver (optional dependency)
 
 # add dropbox GPG key
 apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E

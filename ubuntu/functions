@@ -10,6 +10,10 @@ chrome() {
 	software-center /tmp/google-chrome-stable_current_amd64.deb
 }
 
+dbeaver() {
+	apt install -y dbeaver-ce
+}
+
 github() {
 	header Configure GitHub SSH key...
 	mkdir -p ~/.ssh
