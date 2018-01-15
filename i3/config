@@ -157,7 +157,7 @@ bar {
 }
 
 ##### Additional Stuff Mario Added ######
-
+focus_follows_mouse no
 
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+x move workspace to output right
