@@ -5,5 +5,5 @@ get_workspace() {
 	  | cut -d"\"" -f2
 }
 
-i3-input -F "rename workspace to \"$(get_workspace): %s\"" -P 'New name: '
+i3-input -F "rename workspace to \"$(get_workspace): %s\"" -P 'Rename workspace to: '
 

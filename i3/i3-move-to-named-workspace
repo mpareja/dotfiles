@@ -31,7 +31,7 @@ get_prefix() {
 }
 
 prompt_and_move_to_workspace() {
-	i3-input -F "move container to workspace \"$(get_prefix)\"" -P 'New workspace name: ' \
+	i3-input -F "move container to workspace \"$(get_prefix)\"" -P 'Move to new workspace named: ' \
 		| grep '^command = move container' \
 		| sed -e 's/^command = move container to workspace "\([^"]*\)"/\1/'
 }
