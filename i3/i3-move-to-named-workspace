@@ -8,7 +8,7 @@
 get_next_workspace_num() {
 	local workspaces=$( \
 		i3-msg -t get_workspaces \
-			| jq '.[].num' | sort -n)
+			| jq '.[].num' | sort -n | grep -v '\-1')
 
 	current=1
 	for j in $workspaces; do
