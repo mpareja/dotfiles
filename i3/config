@@ -183,11 +183,32 @@ for_window [title="synapse"] floating enable
 for_window [title="^Zoom Meeting ID: "] floating enable, sticky enable
 for_window [title="- Shutter"] floating enable
 
-
 # STARTUP APPLICATIONS
 exec synapse
 exec --no-startup-id dropbox start
 exec --no-startup-id update-notifier
+
+# WORKSPACE & APP CONFIGURATION
+
+workspace "1:slack" output DP1
+workspace "2:email" output DP1
+workspace "3:todo-work" output DP1
+workspace "4:todo-home" output DP2
+workspace "vpn" output DP2
+
+for_window [title="360insights Slack - Google Chrome$"] move workspace 1:slack; move workspace to output DP1
+for_window [title="mpareja@360insights.com - Google Chrome$"] move workspace 2:email; move workspace to output DP1
+for_window [title="^Mario's Backlog \| Trello - Google Chrome$"] move workspace 3:todo-work; move workspace to output DP1
+for_window [title="^Finish Line \| Trello - Google Chrome$"] move workspace 4:todo-home; move workspace to output DP2
+for_window [title="^Oracle VM VirtualBox Manager$"] move workspace vpn; move workspace to output DP2
+
+exec google-chrome --new-window https://360insights.slack.com
+exec google-chrome --new-window http://cloudmail.360incentives.com
+exec google-chrome --new-window https://trello.com/b/rRIOWsup/marios-backlog
+exec google-chrome --new-window https://trello.com/b/lJKjLUkk/finish-line
+exec virtualbox
+
+#####
 
 # VMWARE
 #exec vmware-user-suid-wrapper --no-startup-id
