@@ -20,6 +20,7 @@ get_next_workspace_num() {
 		((current+=1))
 	done
 
+	echo $current
 }
 
 get_prefix() {
@@ -36,7 +37,9 @@ prompt_and_move_to_workspace() {
 		| sed -e 's/^command = move container to workspace "\([^"]*\)"/\1/'
 }
 
-# move window and switch to the workspace
+# move window
 workspace=$(prompt_and_move_to_workspace)
+
+# switch to workspace
 i3-msg "workspace \"$workspace\""
 
