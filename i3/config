@@ -207,7 +207,7 @@ for_window [title="^Oracle VM VirtualBox Manager$"] move workspace vpn; move wor
 
 exec google-chrome --new-window https://360insights.slack.com
 exec google-chrome --new-window http://cloudmail.360incentives.com
-exec google-chrome --new-window https://trello.com/b/rRIOWsup/marios-backlog
+exec google-chrome --new-window https://trello.com/b/rRIOWsup/marios-backlog https://360insights.atlassian.net/secure/RapidBoard.jspa?rapidView=118
 exec google-chrome --new-window https://trello.com/b/lJKjLUkk/finish-line
 exec virtualbox
 
