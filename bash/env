@@ -8,3 +8,7 @@ else
 	export PATH=$PATH:~/bin:$DOTFILES/bin
 fi
 
+if [ -d ~/.local/bin ]; then
+	export PATH=~/.local/bin:$PATH
+fi
+
