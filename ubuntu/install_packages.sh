@@ -19,13 +19,3 @@ wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | a
 echo ======= Installing packages...
 apt-get update
 xargs apt-get install -y < packages
-
-echo ======= Installing n the node version manager...
-cd $(mktemp -d)
-git clone https://github.com/visionmedia/n .
-make install
-
-echo ======= Installing latest stable node and npm...
-n stable
-npm install -g npm
-
