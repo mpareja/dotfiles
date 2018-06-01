@@ -1,3 +1,4 @@
+apt-listchanges
 compizconfig-settings-manager
 curl
 dos2unix
@@ -15,6 +16,7 @@ iotop
 jq
 meld
 mesa-utils
+mitmproxy
 openssh-server
 p7zip-full
 pcmanfm
@@ -26,11 +28,13 @@ skype
 synapse
 tmux
 traceroute
+tree
 unity-tweak-tool
 vim
 vim-gnome
 wireshark
 wmctrl
+x11vnc
 xclip
 xdotool
 xfonts-terminus
