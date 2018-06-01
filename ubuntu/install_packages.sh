@@ -1,6 +1,11 @@
 #!/bin/bash
 
+echo adding i3wm keyring required to avoid insecure repository warnings...
+/usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2018.01.30_all.deb keyring.deb SHA256:baa43dbbd7232ea2b5444cae238d53bebb9d34601cc000e82f11111b1889078a
+dpkg -i ./keyring.deb
+
 echo ======= Adding external repositories...
+
 add-apt-repository "deb http://linux.dropbox.com/ubuntu $(lsb_release -sc) main" # DROPBOX
 add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner" # SKYPE
 add-apt-repository "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" # VIRTUALBOX
