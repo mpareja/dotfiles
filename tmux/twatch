@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# consider using cross-platform fswatch (https://emcrisostomo.github.io/fswatch/)
 tmux-status $@
 
 if hash inotifywait 2> /dev/null; then
