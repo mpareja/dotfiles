@@ -196,6 +196,7 @@ for_window [title="- Shutter"] floating enable
 exec synapse
 exec --no-startup-id dropbox start
 exec --no-startup-id update-notifier
+exec --no-startup-id compton # compositor to enable transparency across apps
 
 # WORKSPACE & APP CONFIGURATION
 
