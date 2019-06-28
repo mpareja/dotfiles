@@ -184,6 +184,9 @@ bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 # Appearance
 new_window pixel 4
 
+# scratchpad
+bindsym $mod+grave scratchpad show
+bindsym $mod+Shift+grave move scratchpad
 # ZOOM
 for_window [title="synapse"] floating enable
 for_window [title="^Zoom Meeting ID: "] floating enable, sticky enable
