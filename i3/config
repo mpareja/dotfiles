@@ -187,6 +187,7 @@ new_window pixel 4
 # scratchpad
 bindsym $mod+grave scratchpad show
 bindsym $mod+Shift+grave move scratchpad
+
 # ZOOM
 for_window [title="synapse"] floating enable
 for_window [title="^Zoom Meeting ID: "] floating enable, sticky enable
@@ -197,6 +198,9 @@ exec synapse
 exec --no-startup-id dropbox start
 exec --no-startup-id update-notifier
 exec --no-startup-id compton # compositor to enable transparency across apps
+
+# STARTUP Policy Kit so apps that prompt for root access work
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 
 # WORKSPACE & APP CONFIGURATION
 
