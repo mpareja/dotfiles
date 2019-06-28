@@ -208,13 +208,8 @@ workspace "vpn" output DP2
 
 for_window [title="360insights Slack - Google Chrome$"] move workspace 1: slack; move workspace to output DP1
 for_window [title="mpareja@360insights.com - Google Chrome$"] move workspace 2: email; move workspace to output DP1
-for_window [title="^Finish Line \| Trello - Google Chrome$"] move workspace 10: todo-home; move workspace to output DP2
+# for_window [title="^Finish Line \| Trello - Google Chrome$"] move workspace 10: todo-home; move workspace to output DP2
 for_window [title="^Oracle VM VirtualBox Manager$"] move workspace vpn; move workspace to output DP2
-
-exec google-chrome --new-window https://360insights.slack.com
-exec google-chrome --new-window http://cloudmail.360incentives.com
-exec google-chrome --new-window https://trello.com/b/rRIOWsup/marios-backlog https://360insights.atlassian.net/secure/RapidBoard.jspa?rapidView=118
-exec google-chrome --new-window https://trello.com/b/lJKjLUkk/finish-line
 
 #####
 
