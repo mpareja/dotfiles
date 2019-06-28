@@ -166,6 +166,9 @@ bindsym $mod+Ctrl+Tab workspace back_and_forth
 bindsym $mod+x move workspace to output right
 bindsym $mod+Scroll_Lock exec i3lock -c 000000
 
+# Application Shortcuts
+bindsym Ctrl+mod1+Shift+f exec google-chrome
+
 # disable i3 shortcuts
 mode "passthrough" {
 		bindsym $mod+Pause mode "default"
