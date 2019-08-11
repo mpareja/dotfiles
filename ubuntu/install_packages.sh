@@ -11,7 +11,7 @@ add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner
 add-apt-repository "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" # VIRTUALBOX
 add-apt-repository "deb http://debian.sur5r.net/i3/ $(lsb_release -sc) universe" # i3wm
 add-apt-repository -y ppa:gwendal-lebihan-dev/hexchat-stable # HEXCHAT
-add-apt-repository -y ppa:ricotz/docky # PLANK
+# add-apt-repository -y ppa:ricotz/docky # PLANK
 add-apt-repository -y ppa:synapse-core/testing # SYNAPSE (not found in Ubuntu 14.04)
 add-apt-repository -y ppa:serge-rider/dbeaver-ce # dbeaver (optional dependency)
 
