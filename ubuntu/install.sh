@@ -16,10 +16,10 @@ sudo ./install_packages.sh
 chrome
 github
 dotfiles
-vim
 defaultapps
 docker
 install_node # I suspect needs to be after `dotfiles` due to bash profile updates
+vim # must be after installing node
 
 [ "$INST_DROPBOX" == 'y' ] && echo && dropbox
 [ "$INST_VBOX" == 'y' ] && echo && virtualbox

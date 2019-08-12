@@ -51,6 +51,11 @@ vim() {
 	git clone git@github.com:$GIT_USERNAME/vim-settings.git ~/.vim ||
 	  git clone git@github.com:mpareja/vim-settings.git ~/.vim
 	cd ~/.vim
+
+	# install node required to rebuild vim stuff
+	. ~/.bashrc
+	nvm install stable
+
 	./install.sh
 }
 
