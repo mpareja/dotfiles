@@ -1,5 +1,6 @@
 apt-listchanges
 compizconfig-settings-manager
+compton
 curl
 dos2unix
 exo-utils
