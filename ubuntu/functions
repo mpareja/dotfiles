@@ -11,7 +11,16 @@ chrome() {
 }
 
 dbeaver() {
-	apt install -y dbeaver-ce
+	sudo add-apt-repository -u -y ppa:serge-rider/dbeaver-ce # dbeaver (optional dependency)
+	sudo apt install -y dbeaver-ce
+}
+
+dropbox() {
+	sudo add-apt-repository -u -y "deb http://linux.dropbox.com/ubuntu $(lsb_release -sc) main" # DROPBOX
+	# add dropbox GPG key
+	sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
+	sudo apt update
+	sudo apt install -y dropbox
 }
 
 github() {
@@ -26,9 +35,12 @@ github() {
 dotfiles() {
 	header Configure dotfiles...
 	mkdir -p ~/projects
-	[ -d ~/projects/dotfiles ] && rm -rI ~/projects/dotfiles
-	git clone git@github.com:$GIT_USERNAME/dotfiles.git ~/projects/dotfiles ||
-	  git clone git@github.com:mpareja/dotfiles.git ~/projects/dotfiles
+
+	if [ ! -d ~/projects/dotfiles ]; then
+		git clone git@github.com:$GIT_USERNAME/dotfiles.git ~/projects/dotfiles ||
+		  git clone git@github.com:mpareja/dotfiles.git ~/projects/dotfiles
+	fi
+
 	cd ~/projects/dotfiles
 	./install.sh
 }
@@ -43,9 +55,13 @@ vim() {
 }
 
 virtualbox() {
+	# add VirtualBox GPG key
+	wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+	sudo add-apt-repository -u -y "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" # VIRTUALBOX
+
 	header Installing latest VirtualBox...
 	local APP=$(apt-cache search virtualbox-[0-9] | sort -r | head -1 | cut -d ' ' -f 1)
-	apt-get install $APP
+	sudo apt-get install -y $APP
 }
 
 plank() {
