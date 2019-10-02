@@ -2,9 +2,11 @@
 
 alias ga='git add'
 alias gs='git status'
+alias gsuk='git stash -u --keep-index'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gl='git log'
+
 function gc() {
 	git commit -v -m "$*"
 }
