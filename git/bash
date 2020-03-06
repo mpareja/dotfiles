@@ -3,6 +3,7 @@
 alias ga='git add'
 alias gs='git status'
 alias gsuk='git stash -u --keep-index'
+alias gsukc='gsuk && git commit -F "$(git rev-parse --show-toplevel)/.git/GITGUI_BCK" ; git stash pop'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gl='git log'
