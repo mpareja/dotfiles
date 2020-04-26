@@ -1,0 +1,7 @@
+#!/bin/bash
+
+flash() {
+  slack-notify "$1"
+}
+
+$@ && flash ":heavy_check_mark: PASS: $*"|| flash ":x: FAIL: $*"

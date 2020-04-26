@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+SLACK_URL=$(cat ~/.slackurl)
+ICON=${ICON-::ghost:}
+
+curl -X POST \
+	-H 'content-type: application/json' \
+	-d "{
+		\"channel\": \"#manual-hook\",
+		\"username\": \"webhookbot\",
+		\"text\": \"$*\",
+		\"icon_emoji\": \"$ICON\"
+	}" \
+	$SLACK_URL
