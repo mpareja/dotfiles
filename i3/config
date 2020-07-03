@@ -207,12 +207,14 @@ bindsym $mod+Shift+grave move scratchpad
 for_window [title="synapse"] floating enable
 for_window [title="^Zoom Meeting ID: "] floating enable, sticky enable
 for_window [title="- Shutter"] floating enable
+for_window [title="Microsoft Teams Notification"] floating enable
 
 # STARTUP APPLICATIONS
 exec synapse
 exec --no-startup-id dropbox start
 exec --no-startup-id update-notifier
 exec --no-startup-id compton # compositor to enable transparency across apps
+exec --no-startup-id redshift # compositor to enable transparency across apps
 
 # STARTUP Policy Kit so apps that prompt for root access work
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
