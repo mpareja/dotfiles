@@ -44,6 +44,8 @@ git config --global guitool."View Staged Changes Externally".noconsole yes
 git config --global guitool."Fix Trailing Whitespace on Staged File".cmd "$(pwd)/bin/fixtrailingwhitespace \" \$FILENAME\""
 git config --global guitool."Fix Trailing Whitespace on Staged File".noconsole yes
 
+git config --global merge.conflictStyle diff3
+
 if [ -e /c ]; then
   echo "Using Windows Credential Store"
   git config --global credential.helper wincred
