@@ -180,6 +180,8 @@ bindsym $mod+x move workspace to output right
 bindsym $mod+Scroll_Lock exec i3lock -c 000000
 bindsym $mod+Print exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
 
 # Application Shortcuts
 bindsym Ctrl+mod1+Shift+f exec google-chrome
