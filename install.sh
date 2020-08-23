@@ -29,21 +29,33 @@ config_i3() {
 	fi
 }
 
+add_bashrc_source() {
+	fileToPointTo=$1
+	fileToEdit=$2
+	reference=". $DOTFILES/$fileToPointTo"
+
+	if ! grep -q "$reference" "$fileToEdit" ; then
+		echo "Appending '$reference' to '$fileToEdit'"
+		echo "$reference" >> "$fileToEdit"
+	fi
+
+}
+
 echo Creating default ~/.bashrc
 if [ -e /c ]; then
 	# windows
-	echo ". $DOTFILES/bashrc_win" > ~/.bashrc
+	add_bashrc_source bashrc_win ~/.bashrc
 elif [ "$(uname)" = "Darwin" ]; then
 	# mac
-	echo ". $DOTFILES/bashrc" > ~/.bashrc
-	echo ". $DOTFILES/bashrc" > ~/.bash_profile
+	add_bashrc_source bashrc ~/.bashrc
+	add_bashrc_source bashrc ~/.bash_profile
 
 	config_tmux
 
 	read -p 'Hit enter to launch solarized terminal, then click Shell > Use Settings as Default'
 	open osx-terminal/solarized-dark.terminal
 else
-	echo ". $DOTFILES/bashrc" > ~/.bashrc
+	add_bashrc_source bashrc ~/.bashrc
 	$DOTFILES/gnome/solarized.sh dark
 
 	config_tmux
