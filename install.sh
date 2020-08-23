@@ -41,12 +41,26 @@ add_bashrc_source() {
 
 }
 
-echo Creating default ~/.bashrc
-if [ -e /c ]; then
-	# windows
+perform_install() {
+  echo Creating default ~/.bashrc
+  if [ -e /c ]; then
+    windows_install
+  elif [ "$(uname)" = "Darwin" ]; then
+    mac_install
+  else
+    linux_install
+  fi
+
+  replace inputrc "$HOME/.inputrc"
+
+  ./configure_git_defaults.sh
+}
+
+windows_install() {
 	add_bashrc_source bashrc_win ~/.bashrc
-elif [ "$(uname)" = "Darwin" ]; then
-	# mac
+}
+
+mac_install() {
 	add_bashrc_source bashrc ~/.bashrc
 	add_bashrc_source bashrc ~/.bash_profile
 
@@ -54,18 +68,25 @@ elif [ "$(uname)" = "Darwin" ]; then
 
 	read -p 'Hit enter to launch solarized terminal, then click Shell > Use Settings as Default'
 	open osx-terminal/solarized-dark.terminal
-else
+}
+
+linux_install() {
 	add_bashrc_source bashrc ~/.bashrc
-	$DOTFILES/gnome/solarized.sh dark
+
+	if [ -d /etc/regolith ]; then
+		echo Regolith detected: skipping colour and i3 configuration
+	else
+		### enable solarized for gnome
+		$DOTFILES/gnome/solarized.sh dark
+
+		config_i3
+	fi
 
 	config_tmux
-	config_i3
 
 	echo Adding apt-install to /bin
 	APT_INSTALL="/bin/apt-install"
 	[ -e $APT_INSTALL ] || sudo ln -s $DOTFILES/bin/apt-install $APT_INSTALL
-fi
+}
 
-replace inputrc "$HOME/.inputrc"
-
-./configure_git_defaults.sh
+perform_install
