@@ -21,12 +21,21 @@ config_tmux() {
 }
 
 config_i3() {
-	if [ -e ~/.config/i3 ]; then
-		echo Replacing i3 window manager configuration
-		cd i3
+	echo Replacing i3 window manager configuration
+
+	cd i3
+
+	if [ -d /etc/regolith ]; then
+		mkdir -p ~/.config/regolith/i3
+
+		replace config ~/.config/regolith/i3/config
+	else
+		mkdir -p ~/.config/i3
+
 		replace config ~/.config/i3/config
-		cd ..
 	fi
+
+	cd ..
 }
 
 add_bashrc_source() {
@@ -42,18 +51,18 @@ add_bashrc_source() {
 }
 
 perform_install() {
-  echo Creating default ~/.bashrc
-  if [ -e /c ]; then
-    windows_install
-  elif [ "$(uname)" = "Darwin" ]; then
-    mac_install
-  else
-    linux_install
-  fi
+	echo Creating default ~/.bashrc
+	if [ -e /c ]; then
+		windows_install
+	elif [ "$(uname)" = "Darwin" ]; then
+		mac_install
+	else
+		linux_install
+	fi
 
-  replace inputrc "$HOME/.inputrc"
+	replace inputrc "$HOME/.inputrc"
 
-  ./configure_git_defaults.sh
+	./configure_git_defaults.sh
 }
 
 windows_install() {
@@ -77,15 +86,14 @@ linux_install() {
 	replace dunst/dunstrc ~/.config/dunst/dunstrc
 
 	if [ -d /etc/regolith ]; then
-		echo Regolith detected: skipping colour and i3 configuration
+		echo Regolith detected: skipping colour configuration
 	else
 		### enable solarized for gnome
 		$DOTFILES/gnome/solarized.sh dark
-
-		config_i3
 	fi
 
 	config_tmux
+	config_i3
 
 	echo Adding apt-install to /bin
 	APT_INSTALL="/bin/apt-install"
