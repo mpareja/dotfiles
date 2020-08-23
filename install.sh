@@ -17,12 +17,6 @@ config_tmux() {
 	replace tmux.conf
 	replace tmuxcolors.conf
 
-	local tmux_ver=$(tmux -V | cut -c 6-)
-	if [ 1 -eq "$(echo "$tmux_ver < 2.1" |  bc -l)" ]; then
-		replace "tmux-lt-2.1.conf" "$HOME/.tmuxversionspecific.conf"
-	else
-		replace "tmux-ge-2.1.conf" "$HOME/.tmuxversionspecific.conf"
-	fi
 	cd ..
 }
 
