@@ -8,11 +8,6 @@ dpkg -i $i3keyring
 echo ======= Adding external repositories...
 echo "deb https://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" > /etc/apt/sources.list.d/sur5r-i3.list
 
-
-# notify-osd with notify-send timeout support
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 79114BDCE21DD54D
-echo "deb [arch=amd64] http://ppa.launchpad.net/leolik/leolik/ubuntu zesty main" > /etc/apt/sources.list.d/leolik-ubuntu-leolik-zesty.list
-
 echo ======= Installing packages...
 apt-get update
 xargs apt-get install -y < packages

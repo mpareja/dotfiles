@@ -3,6 +3,7 @@ compizconfig-settings-manager
 compton
 curl
 dos2unix
+dunst
 exo-utils
 filezilla
 g++

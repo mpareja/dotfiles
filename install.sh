@@ -73,6 +73,9 @@ mac_install() {
 linux_install() {
 	add_bashrc_source bashrc ~/.bashrc
 
+	mkdir -p ~/.config/dunst
+	replace dunst/dunstrc ~/.config/dunst/dunstrc
+
 	if [ -d /etc/regolith ]; then
 		echo Regolith detected: skipping colour and i3 configuration
 	else
