@@ -11,21 +11,6 @@
 
 set $mod Mod4
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:monospace 8
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 #### MARIO: I don't currently need NetworkManager, so don't use it
@@ -48,12 +33,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 bindsym mod1+F4 kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# kill -9 focused window
+bindsym mod1+Shift+F4 [con_id="__focused__"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)
 
 # change focus
 bindsym $mod+h focus left
@@ -94,16 +75,13 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle splitv splith
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+t focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
 
 # switch to workspace
 bindsym $mod+1 workspace number 1
@@ -133,27 +111,31 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 6 px or 6 ppt
+        bindsym j resize grow height 6 px or 6 ppt
+        bindsym k resize shrink height 6 px or 6 ppt
+        bindsym l resize grow width 6 px or 6 ppt
+
+        bindsym Shift+h resize shrink width 12 px or 12 ppt
+        bindsym Shift+j resize grow height 12 px or 12 ppt
+        bindsym Shift+k resize shrink height 12 px or 12 ppt
+        bindsym Shift+l resize grow width 12 px or 12 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 6 px or 6 ppt
+        bindsym Down resize grow height 6 px or 6 ppt
+        bindsym Up resize shrink height 6 px or 6 ppt
+        bindsym Right resize grow width 6 px or 6 ppt
+
+        bindsym Shift+Left resize shrink width 12 px or 12 ppt
+        bindsym Shift+Down resize grow height 12 px or 12 ppt
+        bindsym Shift+Up resize shrink height 12 px or 12 ppt
+        bindsym Shift+Right resize grow width 12 px or 12 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -163,12 +145,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-        status_command i3status
-}
-
 ##### Additional Stuff Mario Added ######
 focus_follows_mouse no
 
@@ -177,7 +153,6 @@ bindsym $mod+Shift+Tab workspace prev
 bindsym $mod+Ctrl+Tab workspace back_and_forth
 
 bindsym $mod+x move workspace to output right
-bindsym $mod+Scroll_Lock exec i3lock -c 000000
 bindsym $mod+Print exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # switch to workspace with urgent window automatically
@@ -198,9 +173,6 @@ bindsym $mod+comma exec ~/projects/dotfiles/i3/i3-rename-workspace
 # Move to new named workspace
 bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 
-# Appearance
-new_window pixel 4
-
 # scratchpad
 bindsym $mod+grave scratchpad show
 bindsym $mod+Shift+grave move scratchpad
@@ -215,11 +187,6 @@ for_window [title="Microsoft Teams Notification"] floating enable
 exec synapse
 exec --no-startup-id dropbox start
 exec --no-startup-id update-notifier
-exec --no-startup-id compton # compositor to enable transparency across apps
-exec --no-startup-id redshift # compositor to enable transparency across apps
-
-# STARTUP Policy Kit so apps that prompt for root access work
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 
 # WORKSPACE & APP CONFIGURATION
 
@@ -229,11 +196,248 @@ workspace "3: todo-work" output DP1
 workspace "5: slack" output DP1
 workspace "8: to-read" output DP1
 
-for_window [title=".* | Microsoft Teams$"] move workspace 1: teams; move workspace to output DP1
+for_window [title=".* \| Microsoft Teams$"] move workspace 1: teams; move workspace to output DP1
 for_window [title="Mail - Mario Pareja - Outlook"] move workspace 2: email; move workspace to output DP1
 for_window [title="^Slack \| .*"] move workspace 5: slack; move workspace to output DP1
 
-#####
-
 # VMWARE
 #exec vmware-user-suid-wrapper --no-startup-id
+
+###############################################################################
+# REGOLITH - most of the following comes from /etc/regolith/i3/config
+###############################################################################
+
+###############################################################################
+# Launcher dialogs
+###############################################################################
+
+set_from_resource $rofiTheme rofi.theme /etc/regolith/styles/lascaille/rofi.rasi
+
+## Launch // Application // <> Space ##
+set_from_resource $i3-wm.program.launcher.app i3-wm.program.launcher.app rofi -show drun -theme $rofiTheme
+bindsym $mod+space exec $i3-wm.program.launcher.app
+
+## Launch // Command // <><Shift> Space ##
+set_from_resource $i3-wm.program.launcher.cmd i3-wm.program.launcher.cmd rofi -show run -theme $rofiTheme
+bindsym $mod+Shift+space exec $i3-wm.program.launcher.cmd
+
+## Navigate // Window by Name // <><Ctrl> Space ##
+set_from_resource $i3-wm.program.launcher.window i3-wm.program.launcher.window rofi -show window -theme $rofiTheme
+bindsym $mod+Ctrl+space exec $i3-wm.program.launcher.window
+
+## Launch // This Dialog // <><Shift> ? ##
+set_from_resource $i3-wm.program.help i3-wm.program.help /usr/bin/remontoire-toggle
+bindsym $mod+Shift+question exec --no-startup-id $i3-wm.program.help
+
+## Launch // File Search // <><Alt> Space ##
+set_from_resource $i3-wm.program.file_search i3-wm.program.file_search rofi -show find -modi find:/usr/share/rofi/modi/finder.sh
+bindsym $mod+mod1+space exec $i3-wm.program.file_search
+
+hide_edge_borders smart
+
+###############################################################################
+# Session Management
+###############################################################################
+
+## Session // Logout // <><Shift> e ##
+set_from_resource $i3-wm.program.logout i3-wm.program.logout /usr/bin/gnome-session-quit --logout
+bindsym $mod+Shift+e exec $i3-wm.program.logout
+
+## Session // Reboot // <><Shift> b ##
+set_from_resource $i3-wm.program.reboot i3-wm.program.reboot /usr/bin/gnome-session-quit --reboot
+bindsym $mod+Shift+b exec $i3-wm.program.reboot
+
+## Session // Power Down // <><Shift> p ##
+set_from_resource $i3-wm.program.shutdown i3-wm.program.shutdown /usr/bin/gnome-session-quit --power-off
+bindsym $mod+Shift+p exec $i3-wm.program.shutdown
+
+## Session // Lock Screen // <> Escape ##
+set_from_resource $i3-wm.program.lock i3-wm.program.lock dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
+bindsym $mod+Escape exec $i3-wm.program.lock
+
+## Session // Sleep // <><Shift> s ##
+set_from_resource $i3-wm.program.sleep i3-wm.program.sleep systemctl suspend
+bindsym $mod+Shift+s exec $i3-wm.program.sleep
+
+###############################################################################
+# System Management
+###############################################################################
+
+## Modify // Settings // <> c ##
+set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center
+bindsym $mod+c exec $i3-wm.program.settings
+
+## Modify // Display Settings // <> d ##
+set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center display
+bindsym $mod+d exec $i3-wm.program.display
+
+## Modify // Wifi Settings // <> w ##
+set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center wifi
+bindsym $mod+Shift+w exec $i3-wm.program.wifi
+
+## Modify // Bluetooth Settings // <> b ##
+set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center bluetooth
+bindsym $mod+b exec $i3-wm.program.bluetooth
+
+## Launch // File Browser // <><Shift> n ##
+set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
+bindsym $mod+Shift+n exec $i3-wm.program.files
+
+## Launch // Notification Viewer // <> n ##
+set_from_resource $i3-wm.program.notification_ui i3-wm.program.notification_ui /usr/bin/rofication-gui
+bindsym $mod+n exec $i3-wm.program.notification_ui
+
+# Cause Settings app to float above tiled windows
+floating_maximum_size -1 x -1
+for_window [class="Gnome-control-center"] floating enable
+
+###############################################################################
+# i3 Appearance and Behavior
+###############################################################################
+
+# Disable titlebar
+set_from_resource $i3-wm.window.border.size i3-wm.window.border.size 1
+set_from_resource $i3-wm.floatingwindow.border.size i3-wm.floatingwindow.border.size 1
+default_border pixel $i3-wm.window.border.size
+default_floating_border pixel $i3-wm.floatingwindow.border.size
+
+# Specify the distance between windows in pixels. (i3-gaps)
+set_from_resource $i3-wm.gaps.inner.size i3-wm.gaps.inner.size 5
+set_from_resource $i3-wm.gaps.outer.size i3-wm.gaps.outer.size 0
+gaps inner $i3-wm.gaps.inner.size
+gaps outer $i3-wm.gaps.outer.size
+
+# Only enable gaps on a workspace when there is at least one container
+set_from_resource $i3-wm.gaps.smart i3-wm.gaps.smart on
+smart_gaps $i3-wm.gaps.smart
+
+# Enable popup during fullscreen
+set_from_resource $i3-wm.gaps.popup_during_fullscreen i3-wm.gaps.popup_during_fullscreen smart
+popup_during_fullscreen $i3-wm.gaps.popup_during_fullscreen
+
+# window focus follows your mouse movements as the mouse crosses window borders
+set_from_resource $i3-wm.gaps.focus_follows_mouse i3-wm.gaps.focus_follows_mouse no
+focus_follows_mouse $i3-wm.gaps.focus_follows_mouse
+
+###############################################################################
+# i3 Colors and Fonts
+###############################################################################
+
+# Create variables from Xresources for i3's look.
+set_from_resource $focused.color.border i3-wm.client.focused.color.border "#002b36"
+set_from_resource $focused.color.background i3-wm.client.focused.color.background "#586e75"
+set_from_resource $focused.color.text i3-wm.client.focused.color.text "#fdf6e3"
+set_from_resource $focused.color.indicator i3-wm.client.focused.color.indicator "#268bd2"
+set_from_resource $focused.color.child_border i3-wm.client.focused.color.child_border
+
+set_from_resource $focused_inactive.color.border i3-wm.client.focused_inactive.color.border "#002b36"
+set_from_resource $focused_inactive.color.background i3-wm.client.focused_inactive.color.background "#073642"
+set_from_resource $focused_inactive.color.text i3-wm.client.focused_inactive.color.text "#839496"
+set_from_resource $focused_inactive.color.indicator i3-wm.client.focused_inactive.color.indicator "#073642"
+set_from_resource $focused_inactive.color.child_border i3-wm.client.focused_inactive.color.child_border
+
+set_from_resource $unfocused.color.border i3-wm.client.unfocused.color.border "#002b36"
+set_from_resource $unfocused.color.background i3-wm.client.unfocused.color.background "#073642"
+set_from_resource $unfocused.color.text i3-wm.client.unfocused.color.text "#839496"
+set_from_resource $unfocused.color.indicator i3-wm.client.unfocused.color.indicator "#073642"
+set_from_resource $unfocused.color.child_border i3-wm.client.unfocused.color.child_border
+
+set_from_resource $urgent.color.border i3-wm.client.urgent.color.border "#002b36"
+set_from_resource $urgent.color.background i3-wm.client.urgent.color.background "#dc322f"
+set_from_resource $urgent.color.text i3-wm.client.urgent.color.text "#fdf6e3"
+set_from_resource $urgent.color.indicator i3-wm.client.urgent.color.indicator "#002b36"
+set_from_resource $urgent.color.child_border i3-wm.client.urgent.color.child_border
+
+
+# Window Border color
+# class                 border                             background                         text                               indicator                          child_border
+client.focused          $focused.color.border              $focused.color.background          $focused.color.text                $focused.color.indicator           $focused.color.child_border
+client.focused_inactive $focused_inactive.color.border     $focused_inactive.color.background $focused_inactive.color.text       $focused_inactive.color.indicator  $focused_inactive.color.child_border
+client.unfocused        $unfocused.color.border            $unfocused.color.background        $unfocused.color.text              $unfocused.color.indicator         $unfocused.color.child_border
+client.urgent           $urgent.color.border               $urgent.color.background           $urgent.color.text                 $urgent.color.indicator            $urgent.color.child_border
+
+# Create variables from Xresources for i3bars's look.
+set_from_resource $i3-wm.bar.background.color i3-wm.bar.background.color "#002b36"
+set_from_resource $i3-wm.bar.statusline.color i3-wm.bar.statusline.color "#93a1a1"
+set_from_resource $i3-wm.bar.separator.color i3-wm.bar.separator.color "#268bd2"
+
+set_from_resource $i3-wm.bar.workspace.focused.border.color i3-wm.bar.workspace.focused.border.color "#073642"
+set_from_resource $i3-wm.bar.workspace.focused.background.color i3-wm.bar.workspace.focused.background.color "#073642"
+set_from_resource $i3-wm.bar.workspace.focused.text.color i3-wm.bar.workspace.focused.text.color "#eee8d5"
+
+set_from_resource $i3-wm.bar.workspace.active.border.color i3-wm.bar.workspace.active.border.color "#073642"
+set_from_resource $i3-wm.bar.workspace.active.background.color i3-wm.bar.workspace.active.background.color "#073642"
+set_from_resource $i3-wm.bar.workspace.active.text.color i3-wm.bar.workspace.active.text.color "#586e75"
+
+set_from_resource $i3-wm.bar.workspace.inactive.border.color i3-wm.bar.workspace.inactive.border.color "#002b36"
+set_from_resource $i3-wm.bar.workspace.inactive.background.color i3-wm.bar.workspace.inactive.background.color "#002b36"
+set_from_resource $i3-wm.bar.workspace.inactive.text.color i3-wm.bar.workspace.inactive.text.color "#586e75"
+
+set_from_resource $i3-wm.bar.workspace.urgent.border.color i3-wm.bar.workspace.urgent.border.color "#dc322f"
+set_from_resource $i3-wm.bar.workspace.urgent.background.color i3-wm.bar.workspace.urgent.background.color "#dc322f"
+set_from_resource $i3-wm.bar.workspace.urgent.text.color i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
+
+# Sets i3 font for dialogs
+set_from_resource $i3-wm.font i3-wm.font pango:Source Code Pro Medium 13
+font $i3-wm.font
+
+###############################################################################
+# i3 Bar
+###############################################################################
+
+set_from_resource $i3-wm.bar.position i3-wm.bar.position bottom
+set_from_resource $i3-wm.bar.font i3-wm.bar.font pango:Source Code Pro Medium 13, Material Design Icons 13
+set_from_resource $i3-wm.bar.separator i3-wm.bar.separator " "
+set_from_resource $i3-wm.bar.trayoutput i3-wm.bar.trayoutput none
+set_from_resource $i3-wm.bar.stripworkspacenumbers i3-wm.bar.stripworkspacenumbers yes
+
+# i3xrocks config file. Override this for custom status indicators on the bar.
+set_from_resource $i3-wm.bar.status_command i3-wm.bar.status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d -d /etc/regolith/i3xrocks/conf.d
+
+# The bar configuration
+bar {
+  position $i3-wm.bar.position
+  font $i3-wm.bar.font
+  separator_symbol $i3-wm.bar.separator
+  status_command $i3-wm.bar.status_command
+  tray_output $i3-wm.bar.trayoutput
+  strip_workspace_numbers $i3-wm.bar.stripworkspacenumbers
+
+  colors {
+      background $i3-wm.bar.background.color
+      statusline $i3-wm.bar.statusline.color
+      separator  $i3-wm.bar.separator.color
+
+#                        BORDER  BACKGROUND TEXT
+      focused_workspace  $i3-wm.bar.workspace.focused.border.color      $i3-wm.bar.workspace.focused.background.color   $i3-wm.bar.workspace.focused.text.color
+      active_workspace   $i3-wm.bar.workspace.active.border.color       $i3-wm.bar.workspace.active.background.color    $i3-wm.bar.workspace.active.text.color
+      inactive_workspace $i3-wm.bar.workspace.inactive.border.color     $i3-wm.bar.workspace.inactive.background.color  $i3-wm.bar.workspace.inactive.text.color
+      urgent_workspace   $i3-wm.bar.workspace.urgent.border.color       $i3-wm.bar.workspace.urgent.background.color    $i3-wm.bar.workspace.urgent.text.color
+  }
+}
+
+###############################################################################
+# External programs launched with i3
+###############################################################################
+
+# Start the installed regolith-compositor
+set_from_resource $i3-wm.program.compositor i3-wm.program.compositor /usr/share/regolith-compositor/init
+exec --no-startup-id $i3-wm.program.compositor
+
+# Start Rofication for notifications
+set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
+exec --no-startup-id $i3-wm.program.notifications
+
+# Hide the mouse pointer if unused for a duration
+set_from_resource $i3-wm.program.unclutter i3-wm.program.unclutter /usr/bin/regolith-ftue /usr/bin/unclutter -b
+exec --no-startup-id $i3-wm.program.unclutter
+
+# User programs from Xresources
+# To use, define an Xresource key i3-wm.program.[1-3] with the value of the program to launch.
+# See https://regolith-linux.org/docs/howto/override-xres/ for details.
+set_from_resource $i3-wm.program.1 i3-wm.program.1 :
+exec --no-startup-id $i3-wm.program.1
+set_from_resource $i3-wm.program.2 i3-wm.program.2 :
+exec --no-startup-id $i3-wm.program.2
+set_from_resource $i3-wm.program.3 i3-wm.program.3 :
+exec --no-startup-id $i3-wm.program.3
