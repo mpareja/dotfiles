@@ -1,0 +1,7 @@
+#!/bin/sh
+
+DISABLED_FILE=/tmp/play-success-failure-disabled
+
+if [ ! -f $DISABLED_FILE ]; then
+  aplay -q "$DOTFILES/sounds/fail-quiet.wav"
+fi

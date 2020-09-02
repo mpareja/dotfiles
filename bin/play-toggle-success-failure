@@ -1,0 +1,9 @@
+#!/bin/sh
+
+DISABLED_FILE=/tmp/play-success-failure-disabled
+
+if [ -f $DISABLED_FILE ]; then
+  rm $DISABLED_FILE
+else
+  touch $DISABLED_FILE
+fi

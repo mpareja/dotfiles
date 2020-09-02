@@ -414,3 +414,16 @@
 #    set_stack_tag = "volume"
 #
 # vim: ft=cfg
+[jest-passed]
+	appname = notify-send
+	iconname = jest_logo.png
+	body = *test* passed*
+	script = play-success-sound
+	timeout = 3
+
+[jest-failed]
+	appname = notify-send
+	iconname = jest_logo.png
+	body = *test* failed*
+	script = play-fail-sound
+	timeout = 3
