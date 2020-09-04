@@ -22,6 +22,9 @@ git config --global diff.renames copies
 git config --global push.default upstream
 git config --global branch.autoSetupRebase always
 
+git config --global pull.rebase true
+git config --global rebase.autoStash true
+
 git config --global alias.ca "commit --amend -C HEAD"
 
 # Borrowed from: http://www.jukie.net/bart/blog/pimping-out-git-log
