@@ -8,6 +8,8 @@ hash dircolors 2>&- && {
 	alias ls='ls --color=auto'
 }
 
+alias less='less -R' # enable colours in less
+
 function mkcd() {
 	mkdir "$1"
 	cd "$1"
