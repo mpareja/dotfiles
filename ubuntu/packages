@@ -29,8 +29,7 @@ synapse
 tmux
 traceroute
 tree
-vim
-vim-gnome
+vim-gtk
 wireshark
 wmctrl
 x11vnc
