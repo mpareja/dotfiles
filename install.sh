@@ -95,6 +95,8 @@ linux_install() {
 	config_tmux
 	config_i3
 
+	replace Xresources ~/.Xresources
+
 	echo Adding apt-install to /bin
 	APT_INSTALL="/bin/apt-install"
 	[ -e $APT_INSTALL ] || sudo ln -s $DOTFILES/bin/apt-install $APT_INSTALL
