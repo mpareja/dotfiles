@@ -38,6 +38,19 @@ config_i3() {
 	cd ..
 }
 
+config_dunst() {
+	mkdir -p ~/.config/dunst
+	replace dunst/dunstrc ~/.config/dunst/dunstrc
+
+	# dunst is started by systemd, need to play these in
+	# ~/bin since it's one of the few directories in path
+	cp bin/play-success-sound ~/bin/play-success-sound
+	sed -i "s|\\\$DOTFILES|$DOTFILES|g" ~/bin/play-success-sound
+
+	cp ~/bin/play-fail-sound bin/play-fail-sound
+	sed -i "s|\\\$DOTFILES|$DOTFILES|g" ~/bin/play-fail-sound
+}
+
 add_bashrc_source() {
 	fileToPointTo=$1
 	fileToEdit=$2
@@ -82,9 +95,6 @@ mac_install() {
 linux_install() {
 	add_bashrc_source bashrc ~/.bashrc
 
-	mkdir -p ~/.config/dunst
-	replace dunst/dunstrc ~/.config/dunst/dunstrc
-
 	if [ -d /etc/regolith ]; then
 		echo Regolith detected: skipping colour configuration
 	else
@@ -94,6 +104,7 @@ linux_install() {
 
 	config_tmux
 	config_i3
+	config_dunst
 
 	replace Xresources ~/.Xresources
 
