@@ -25,6 +25,7 @@ echo
 
 read -n 1 -p 'Do you want to install Dropbox (y/N)? ' INST_DROPBOX
 read -n 1 -p 'Do you want to install VirtualBox (y/N)? ' INST_VBOX
+read -n 1 -p 'Do you want to configure GitHub (y/N)? ' INST_GITHUB
 read -n 1 -p 'Do you want to install dbeaver SQL client (y/N)? ' INST_DBEAVER
 
 echo
@@ -34,7 +35,7 @@ header Installing and configuring machine...
 sudo ./install_packages.sh
 
 chrome
-github
+[ "$INST_GITHUB" == 'y' ] && echo && github
 dotfiles
 defaultapps
 docker
