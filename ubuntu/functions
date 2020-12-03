@@ -28,8 +28,11 @@ github() {
 	mkdir -p ~/.ssh
 	cd ~/.ssh
 	ssh-keygen -t rsa -C "$GIT_EMAIL" -f ./id_rsa
-	echo Adding key to GitHub account
-	curl -u $GIT_USERNAME https://api.github.com/user/keys -H 'Content-Type: application/json' -d "{\"title\": \"$(hostname)\",\"key\": \"$(cat id_rsa.pub)\"}"
+	cat ./id_rsa.pub
+	echo
+	echo Add the above public key to your GitHub account: https://github.com/settings/ssh/new
+	echo
+	read -p "Once complete, press any key to continue..."
 }
 
 dotfiles() {
