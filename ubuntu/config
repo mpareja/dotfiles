@@ -1,6 +1,2 @@
-if [ -z "$GIT_EMAIL" ]; then
-  export GIT_EMAIL=pareja.mario@gmail.com
-fi
-if [ -z "$GIT_USERNAME" ]; then
-  export GIT_USERNAME=mpareja
-fi
+export GIT_EMAIL=${GIT_EMAIL:-pareja.mario@gmail.com}
+export GIT_USERNAME=${GIT_USERNAME:-mpareja}
