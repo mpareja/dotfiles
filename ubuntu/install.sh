@@ -1,7 +1,27 @@
 #!/bin/bash
 
-. ./functions
+set -euo pipefail
+
+finish() {
+	local code=$?
+
+	echo
+	if [ $code -eq 0 ]; then
+		echo Setup completed successfully.
+	else
+		echo ERROR: setup failed.
+		exit $code
+	fi
+}
+
+trap finish EXIT
+
 . ./config
+. ./functions
+
+echo "GIT_EMAIL:    $GIT_EMAIL"
+echo "GIT_USERNAME: $GIT_USERNAME"
+echo
 
 read -n 1 -p 'Do you want to install Dropbox (y/N)? ' INST_DROPBOX
 read -n 1 -p 'Do you want to install VirtualBox (y/N)? ' INST_VBOX
