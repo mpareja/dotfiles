@@ -47,7 +47,7 @@ config_dunst() {
 	cp bin/play-success-sound ~/bin/play-success-sound
 	sed -i "s|\\\$DOTFILES|$DOTFILES|g" ~/bin/play-success-sound
 
-	cp ~/bin/play-fail-sound bin/play-fail-sound
+	cp bin/play-fail-sound ~/bin/play-fail-sound
 	sed -i "s|\\\$DOTFILES|$DOTFILES|g" ~/bin/play-fail-sound
 }
 
