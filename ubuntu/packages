@@ -1,3 +1,5 @@
+autoconf
+autogen
 apt-listchanges
 compizconfig-settings-manager
 compton
