@@ -2,7 +2,6 @@ autoconf
 autogen
 apt-listchanges
 compizconfig-settings-manager
-compton
 curl
 dos2unix
 dunst
@@ -28,7 +27,6 @@ playerctl
 regolith-desktop-standard
 samba
 silversearcher-ag
-synapse
 tmux
 traceroute
 tree
