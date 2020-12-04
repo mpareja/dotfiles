@@ -1,12 +1,13 @@
+apt-listchanges
 autoconf
 autogen
-apt-listchanges
 compizconfig-settings-manager
 curl
 dos2unix
 dunst
 exo-utils
 filezilla
+fonts-noto-color-emoji
 g++
 gconf2
 git-gui
