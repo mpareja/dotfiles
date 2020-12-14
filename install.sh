@@ -107,6 +107,7 @@ linux_install() {
 	config_dunst
 
 	replace Xresources ~/.Xresources
+	replace alacritty.yml
 
 	echo Adding apt-install to /bin
 	APT_INSTALL="/bin/apt-install"
