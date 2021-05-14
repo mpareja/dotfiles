@@ -1,7 +1,3 @@
 #!/bin/bash
 
-flash() {
-	notify-send -t 1500 -i $1 "$2"
-}
-
 $@ && flash user-available "PASS: $*"|| flash user-busy "FAIL: $*"

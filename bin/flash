@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if which notify-send; then
+	notify-send -t 1500 -i $1 "$2"
+elif which terminal-notifier; then
+  terminal-notifier -message "$2"
+fi
