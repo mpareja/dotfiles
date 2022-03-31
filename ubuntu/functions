@@ -4,18 +4,18 @@ header() {
 	echo ======= $*
 }
 
-chrome() {
+install_chrome() {
 	header Installing Google Chrome...
 	wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
 	sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 }
 
-dbeaver() {
+install_dbeaver() {
 	sudo add-apt-repository -u -y ppa:serge-rider/dbeaver-ce # dbeaver (optional dependency)
 	sudo apt install -y dbeaver-ce
 }
 
-dropbox() {
+install_dropbox() {
 	sudo add-apt-repository -u -y "deb http://linux.dropbox.com/ubuntu $(lsb_release -sc) main" # DROPBOX
 	# add dropbox GPG key
 	sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
@@ -23,7 +23,7 @@ dropbox() {
 	sudo apt install -y dropbox
 }
 
-github() {
+configure_github() {
 	header Configure GitHub SSH key...
 	mkdir -p ~/.ssh
 	cd ~/.ssh
@@ -35,9 +35,10 @@ github() {
 	read -p "Once complete, press any key to continue..."
 }
 
-dotfiles() {
+install_dotfiles() {
 	header Configure dotfiles...
 	mkdir -p ~/projects
+	mkdir -p ~/bin
 
 	if [ ! -d ~/projects/dotfiles ]; then
 		git clone git@github.com:$GIT_USERNAME/dotfiles.git ~/projects/dotfiles ||
@@ -48,23 +49,19 @@ dotfiles() {
 	./install.sh
 }
 
-vim() {
+configure_vim() {
 	header About to recreate ~/.vim directory...
 	[ -d ~/.vim ] && rm -rI ~/.vim
 	git clone git@github.com:$GIT_USERNAME/vim-settings.git ~/.vim ||
 	  git clone git@github.com:mpareja/vim-settings.git ~/.vim
 	cd ~/.vim
 
-	# install node required to rebuild vim stuff
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-	nvm install stable
+	# NOTE: node is required
 
 	./install.sh
 }
 
-virtualbox() {
+install_virtualbox() {
 	# add VirtualBox GPG key
 	wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
 	sudo add-apt-repository -u -y "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" # VIRTUALBOX
@@ -74,22 +71,28 @@ virtualbox() {
 	sudo apt-get install -y $APP
 }
 
-plank() {
+install_plank() {
 	header Configuring plank...
 	rm ~/.config/plank/dock1/launchers/plank.dockitem
 	cp -R plank ~/.config
 }
 
-defaultapps() {
-	header Configure default applications like pcmanfm...
-	exo-preferred-applications
-}
-
-docker() {
+install_docker() {
 	curl -sSL https://get.docker.com/ | sudo sh
 }
 
-install_node() {
+install_n() {
+	header Installing n the node version manager...
+	git clone git@github.com:tj/n ~/projects/n
+
+	cd ~/projects/n
+
+	sudo make install
+
+	cd -
+}
+
+install_nvm() {
 	header Installing nvm the node version manager...
 	wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 }
