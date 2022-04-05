@@ -1,0 +1,5 @@
+## Installation
+
+```
+sudo make install
+```

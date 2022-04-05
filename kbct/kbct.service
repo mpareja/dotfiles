@@ -1,0 +1,11 @@
+[Unit]
+Description=key remapping daemon
+Requires=local-fs.target
+After=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/kbct remap --config /etc/kbct.yaml
+
+[Install]
+WantedBy=sysinit.target
