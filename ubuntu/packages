@@ -20,6 +20,7 @@ make
 meld
 mesa-utils
 mitmproxy
+libnotify-bin
 openssh-server
 p7zip-full
 pcmanfm
