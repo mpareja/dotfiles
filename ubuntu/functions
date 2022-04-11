@@ -16,7 +16,14 @@ install_dbeaver() {
 }
 
 install_dropbox() {
-	sudo add-apt-repository -u -y "deb http://linux.dropbox.com/ubuntu $(lsb_release -sc) main" # DROPBOX
+	local RELEASE=$(lsb_release -sc)
+
+	if ! wget -q https://linux.dropboxstatic.com/ubuntu/dists/$RELEASE/ -O /dev/null; then
+		echo "NOTE: dropbox hasn't updated their APT repository for $RELEASE, falling back to bionic!"
+		RELEASE=bionic
+	fi
+
+	sudo add-apt-repository -u -y "deb http://linux.dropbox.com/ubuntu $RELEASE main" # DROPBOX
 	# add dropbox GPG key
 	sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
 	sudo apt update
