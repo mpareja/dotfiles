@@ -1,4 +1,4 @@
-- keyboards: [ "Lenovo TrackPoint Keyboard II", "AT Translated Set 2 keyboard"]
+- keyboards: [ "daskeyboard", "AT Translated Set 2 keyboard"]
 
   keymap:
     capslock: backspace
