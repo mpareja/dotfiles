@@ -193,15 +193,15 @@ exec --no-startup-id update-notifier
 
 # WORKSPACE & APP CONFIGURATION
 
-workspace "1: teams" output DP-1
-workspace "2: email" output DP-1
-workspace "3: todo-work" output DP-1
-workspace "5: slack" output DP-1
+workspace "1: comms" output DP-1
+workspace "2: calendar" output DP-1
+workspace "3: todo" output DP-1
 workspace "8: to-read" output DP-1
 
-for_window [title=".* \| Microsoft Teams$"] move workspace 1: teams; move workspace to output DP1
-for_window [title="Mail - Mario Pareja - Outlook"] move workspace 2: email; move workspace to output DP1
-for_window [title="^Slack \| .*"] move workspace 5: slack; move workspace to output DP1
+for_window [title="Mail - Mario Pareja - Outlook"] move workspace 1: comms; move workspace to output DP1
+for_window [title="Inbox .* - [a-zA-Z0-9 .]* Mail"] move workspace 1: comms; move workspace to output DP1
+for_window [title="Inbox .* - Gmail"] move workspace 1: comms; move workspace to output DP1
+for_window [title="^Slack \| .*"] move workspace 1: comms; move workspace to output DP1
 
 # VMWARE
 #exec vmware-user-suid-wrapper --no-startup-id
