@@ -103,11 +103,14 @@ install_docker() {
 
 install_n() {
 	header Installing n the node version manager...
-	git clone git@github.com:tj/n ~/projects/n
 
-	cd ~/projects/n
+	cd $(mktemp -d)
+
+	git clone git@github.com:tj/n .
 
 	sudo make install
+
+	n latest
 
 	cd -
 }
