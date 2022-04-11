@@ -7,6 +7,8 @@ dos2unix
 dunst
 exo-utils
 filezilla
+flatpak
+gnome-software-plugin-flatpak
 fonts-noto-color-emoji
 g++
 gconf2

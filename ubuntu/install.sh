@@ -29,7 +29,15 @@ read -n 1 -p 'Do you want to install Docker (y/N)? ' INST_DOCKER
 read -n 1 -p 'Do you want to install N node version manager (y/N)? ' INST_N
 read -n 1 -p 'Do you want to install VirtualBox (y/N)? ' INST_VBOX
 read -n 1 -p 'Do you want to configure GitHub (y/N)? ' INST_GITHUB
-read -n 1 -p 'Do you want to install dbeaver SQL client (y/N)? ' INST_DBEAVER
+
+INST_PAKS_FILE=$(mktemp)
+cat flatpaks | grep -v '^#' | grep -v '^$' | while read pak; do
+  read -n 1 -p "Do you want to install the above $pak (y/N)? " INST_PAK < /dev/tty
+  if [ "$INST_PAK" == 'y' ]; then
+    echo $pak >> $INST_PAKS_FILE
+    echo
+  fi
+done;
 
 echo
 
@@ -49,4 +57,4 @@ configure_vim # must be after installing node
 
 [ "$INST_DROPBOX" == 'y' ] && echo && install_dropbox
 [ "$INST_VBOX" == 'y' ] && echo && install_virtualbox
-[ "$INST_DBEAVER" = 'y' ] && echo && install_dbeaver
+[ -s "$INST_PAKS_FILE" ] && echo && install_flatpaks $(cat $INST_PAKS_FILE)

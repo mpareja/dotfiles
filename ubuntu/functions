@@ -10,11 +10,6 @@ install_chrome() {
 	sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
 }
 
-install_dbeaver() {
-	sudo add-apt-repository -u -y ppa:serge-rider/dbeaver-ce # dbeaver (optional dependency)
-	sudo apt install -y dbeaver-ce
-}
-
 install_dropbox() {
 	local RELEASE=$(lsb_release -sc)
 
@@ -28,6 +23,24 @@ install_dropbox() {
 	sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
 	sudo apt update
 	sudo apt install -y dropbox
+}
+
+install_flatpak() {
+  if which flatpak > /dev/null; then
+    header Flatpak already installed
+    return
+  fi
+
+  # gnome-software-plugin-flatpak inclusion gains us convenience and automatic updates
+  header Installing flatpak...
+  sudo apt install flatpak gnome-software-plugin-flatpak
+  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+
+install_flatpaks() {
+  install_flatpak
+  header Installing selected flatpaks
+  sudo flatpak install -y flathub $@
 }
 
 configure_github() {
