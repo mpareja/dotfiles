@@ -1,5 +1,0 @@
-## Installation
-
-```
-sudo make install
-```

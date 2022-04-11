@@ -35,11 +35,6 @@ configure_github() {
 	read -p "Once complete, press any key to continue..."
 }
 
-install_kbct() {
-  cd ~/projects/dotfiles/kbct
-  sudo make install
-}
-
 install_dotfiles() {
 	header Configure dotfiles...
 	mkdir -p ~/projects
