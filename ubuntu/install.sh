@@ -23,6 +23,7 @@ echo "GIT_EMAIL:    $GIT_EMAIL"
 echo "GIT_USERNAME: $GIT_USERNAME"
 echo
 
+read -n 1 -p 'Do you want to recreate Vim folder (y/N)? ' INST_VIM
 read -n 1 -p 'Do you want to install Chrome (y/N)? ' INST_CHROME
 read -n 1 -p 'Do you want to install Dropbox (y/N)? ' INST_DROPBOX
 read -n 1 -p 'Do you want to install Docker (y/N)? ' INST_DOCKER
@@ -53,8 +54,13 @@ install_dotfiles
 
 [ "$INST_DOCKER" == 'y' ] && echo && install_docker
 [ "$INST_N" == 'y' ] && echo && install_n # I suspect needs to be after `dotfiles` due to bash profile updates
-configure_vim # must be after installing node
+
+[ "$INST_VIM" == 'y' ] && echo && configure_vim # must be after installing node
 
 [ "$INST_DROPBOX" == 'y' ] && echo && install_dropbox
 [ "$INST_VBOX" == 'y' ] && echo && install_virtualbox
 [ -s "$INST_PAKS_FILE" ] && echo && install_flatpaks $(cat $INST_PAKS_FILE)
+
+# need a final command since above conditional can have valid non-zero exit code
+# which would inadvertantly trigger the "setup failed" message
+echo
