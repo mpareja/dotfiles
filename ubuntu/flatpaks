@@ -4,6 +4,7 @@ com.github.tchx84.Flatseal
 # comms tools
 md.obsidian.Obsidian
 com.slack.Slack
+us.zoom.Zoom
 
 # dev tools
 io.dbeaver.DBeaverCommunity
