@@ -103,39 +103,6 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        bindsym h resize shrink width 6 px or 6 ppt
-        bindsym j resize grow height 6 px or 6 ppt
-        bindsym k resize shrink height 6 px or 6 ppt
-        bindsym l resize grow width 6 px or 6 ppt
-
-        bindsym Shift+h resize shrink width 12 px or 12 ppt
-        bindsym Shift+j resize grow height 12 px or 12 ppt
-        bindsym Shift+k resize shrink height 12 px or 12 ppt
-        bindsym Shift+l resize grow width 12 px or 12 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 6 px or 6 ppt
-        bindsym Down resize grow height 6 px or 6 ppt
-        bindsym Up resize shrink height 6 px or 6 ppt
-        bindsym Right resize grow width 6 px or 6 ppt
-
-        bindsym Shift+Left resize shrink width 12 px or 12 ppt
-        bindsym Shift+Down resize grow height 12 px or 12 ppt
-        bindsym Shift+Up resize shrink height 12 px or 12 ppt
-        bindsym Shift+Right resize grow width 12 px or 12 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mor+r mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
 ##### Additional Stuff Mario Added ######
 focus_follows_mouse no
 
@@ -229,21 +196,25 @@ hide_edge_borders smart
 # Session Management
 ###############################################################################
 
-## Session // Logout // <><Shift> e ##
+## Session // Logout // <\uf17a><Shift> e ##
+set_from_resource $i3-wm.binding.logout i3-wm.binding.logout Shift+e
 set_from_resource $i3-wm.program.logout i3-wm.program.logout /usr/bin/gnome-session-quit --logout
-bindsym $mod+Shift+e exec $i3-wm.program.logout
+bindsym $mod+$i3-wm.binding.logout exec $i3-wm.program.logout
 
-## Session // Reboot // <><Shift> b ##
+## Session // Reboot // <\uf17a><Shift> b ##
+set_from_resource $i3-wm.binding.reboot i3-wm.binding.reboot Shift+b
 set_from_resource $i3-wm.program.reboot i3-wm.program.reboot /usr/bin/gnome-session-quit --reboot
-bindsym $mod+Shift+b exec $i3-wm.program.reboot
+bindsym $mod+$i3-wm.binding.reboot exec $i3-wm.program.reboot
 
-## Session // Power Down // <><Shift> p ##
+## Session // Power Down // <\uf17a><Shift> p ##
+set_from_resource $i3-wm.binding.shutdown i3-wm.binding.shutdown Shift+p
 set_from_resource $i3-wm.program.shutdown i3-wm.program.shutdown /usr/bin/gnome-session-quit --power-off
-bindsym $mod+Shift+p exec $i3-wm.program.shutdown
+bindsym $mod+$i3-wm.binding.shutdown exec $i3-wm.program.shutdown
 
-## Session // Lock Screen // <> Escape ##
+## Session // Lock Screen // <\uf17a> Escape ##
+set_from_resource $i3-wm.binding.lock i3-wm.binding.lock Escape
 set_from_resource $i3-wm.program.lock i3-wm.program.lock dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
-bindsym $mod+Escape exec $i3-wm.program.lock
+bindsym $mod+$i3-wm.binding.lock exec $i3-wm.program.lock
 
 ## MARIO: for fingerprint unlock, use xss-lock + i3lock instead:
 # 1. sudo apt install i3lock xss-lock
@@ -252,41 +223,101 @@ bindsym $mod+Escape exec $i3-wm.program.lock
 # bindsym $mod+Escape exec /usr/bin/i3lock
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork # using i3 for fingerprint unlock
 
-## Session // Sleep // <><Shift> s ##
+## Session // Sleep // <\uf17a><Shift> s ##
+set_from_resource $i3-wm.binding.sleep i3-wm.binding.sleep Shift+s
 set_from_resource $i3-wm.program.sleep i3-wm.program.sleep systemctl suspend
-bindsym $mod+Shift+s exec $i3-wm.program.sleep
+bindsym $mod+$i3-wm.binding.sleep exec $i3-wm.program.sleep
 
 ###############################################################################
 # System Management
 ###############################################################################
 
-## Modify // Settings // <> c ##
-set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center
-bindsym $mod+c exec $i3-wm.program.settings
+# ## Modify // Settings // <\uf17a> c ##
+# set_from_resource $i3-wm.binding.settings i3-wm.binding.settings c
+# set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center --class=floating_window
+# bindsym $mod+$i3-wm.binding.settings exec $i3-wm.program.settings
+# 
+# ## Modify // Display Settings // <\uf17a> d ##
+# set_from_resource $i3-wm.binding.display i3-wm.binding.display d
+# set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center --class=floating_window display
+# bindsym $mod+$i3-wm.binding.display exec $i3-wm.program.display
+# 
+# ## Modify // Wifi Settings // <\uf17a> w ##
+# set_from_resource $i3-wm.binding.wifi i3-wm.binding.wifi w
+# set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center --class=floating_window wifi
+# bindsym $mod+$i3-wm.binding.wifi exec $i3-wm.program.wifi
+# 
+# ## Modify // Bluetooth Settings // <\uf17a> b ##
+# set_from_resource $i3-wm.binding.bluetooth i3-wm.binding.bluetooth b
+# set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center --class=floating_window bluetooth
+# bindsym $mod+$i3-wm.binding.bluetooth exec $i3-wm.program.bluetooth
+# 
+# ## Modify // Sound Settings // <\uf17a> s ##
+# set_from_resource $i3-wm.binding.sound i3-wm.binding.sound s
+# set_from_resource $i3-wm.program.sound i3-wm.program.sound gnome-control-center --class=floating_window sound
+# bindsym $mod+$i3-wm.binding.sound exec $i3-wm.program.sound
 
-## Modify // Display Settings // <> d ##
-set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center display
-bindsym $mod+d exec $i3-wm.program.display
-
-## Modify // Wifi Settings // <> w ##
-set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center wifi
-bindsym $mod+Shift+w exec $i3-wm.program.wifi
-
-## Modify // Bluetooth Settings // <> b ##
-set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center bluetooth
-bindsym $mod+b exec $i3-wm.program.bluetooth
-
-## Launch // File Browser // <><Shift> n ##
+## Launch // File Browser // <\uf17a><Shift> n ##
+set_from_resource $i3-wm.binding.files i3-wm.binding.files Shift+n
 set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
-bindsym $mod+Shift+n exec $i3-wm.program.files
+bindsym $mod+$i3-wm.binding.files exec $i3-wm.program.files
 
-## Launch // Notification Viewer // <> n ##
+## Launch // Notification Viewer // <\uf17a> n ##
+set_from_resource $i3-wm.binding.notification_ui i3-wm.binding.notification_ui n
 set_from_resource $i3-wm.program.notification_ui i3-wm.program.notification_ui /usr/bin/rofication-gui
-bindsym $mod+n exec $i3-wm.program.notification_ui
+bindsym $mod+$i3-wm.binding.notification_ui exec $i3-wm.program.notification_ui
 
 # Cause Settings app to float above tiled windows
 floating_maximum_size -1 x -1
-for_window [class="Gnome-control-center"] floating enable
+for_window [class="floating_window"] floating enable
+
+###############################################################################
+# Window Resize and Gaps
+###############################################################################
+
+set_from_resource $i3-wm.binding.inc_gaps i3-wm.binding.inc_gaps plus
+set_from_resource $i3-wm.binding.dec_gaps i3-wm.binding.dec_gaps minus
+
+set_from_resource $i3-wm.binding.inc_gaps_big i3-wm.binding.inc_gaps_big Shift+plus
+set_from_resource $i3-wm.binding.dec_gaps_big i3-wm.binding.dec_gaps_big Shift+minus
+
+## Resize // Enter Resize Mode // <\uf17a> r ##
+mode "Resize Mode" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        ## Resize // Resize Window // \u2191 \u2193 \u2190 \u2192 ##
+        bindsym Left resize shrink width 6 px or 6 ppt
+        bindsym Down resize grow height 6 px or 6 ppt
+        bindsym Up resize shrink height 6 px or 6 ppt
+        bindsym Right resize grow width 6 px or 6 ppt
+
+        bindsym Shift+Left resize shrink width 12 px or 12 ppt
+        bindsym Shift+Down resize grow height 12 px or 12 ppt
+        bindsym Shift+Up resize shrink height 12 px or 12 ppt
+        bindsym Shift+Right resize grow width 12 px or 12 ppt
+
+        bindsym h resize shrink width 6 px or 6 ppt
+        bindsym j resize grow height 6 px or 6 ppt
+        bindsym k resize shrink height 6 px or 6 ppt
+        bindsym l resize grow width 6 px or 6 ppt
+
+        bindsym Shift+h resize shrink width 12 px or 12 ppt
+        bindsym Shift+j resize grow height 12 px or 12 ppt
+        bindsym Shift+k resize shrink height 12 px or 12 ppt
+        bindsym Shift+l resize grow width 12 px or 12 ppt
+
+        ## Resize // Window Gaps // + - ##
+        bindsym $i3-wm.binding.dec_gaps gaps inner current minus 6
+        bindsym $i3-wm.binding.inc_gaps gaps inner current plus 6
+        bindsym $i3-wm.binding.dec_gaps_big gaps inner current minus 12
+        bindsym $i3-wm.binding.inc_gaps_big gaps inner current plus 12
+
+        ## Resize // Exit Resize Mode // Escape or Enter ##
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "Resize Mode"
 
 ###############################################################################
 # i3 Appearance and Behavior
@@ -385,8 +416,9 @@ font $i3-wm.font
 set_from_resource $i3-wm.bar.position i3-wm.bar.position bottom
 set_from_resource $i3-wm.bar.font i3-wm.bar.font pango:Source Code Pro Medium 13, Material Design Icons 13
 set_from_resource $i3-wm.bar.separator i3-wm.bar.separator " "
-set_from_resource $i3-wm.bar.trayoutput i3-wm.bar.trayoutput none
+set_from_resource $i3-wm.bar.trayoutput i3-wm.bar.trayoutput primary
 set_from_resource $i3-wm.bar.stripworkspacenumbers i3-wm.bar.stripworkspacenumbers no
+set_from_resource $i3-wm.bar.mode i3-wm.bar.mode dock
 
 # i3xrocks config file. Override this for custom status indicators on the bar.
 set_from_resource $i3-wm.bar.status_command i3-wm.bar.status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d -d /etc/regolith/i3xrocks/conf.d
@@ -394,6 +426,7 @@ set_from_resource $i3-wm.bar.status_command i3-wm.bar.status_command i3xrocks -u
 # The bar configuration
 bar {
   position $i3-wm.bar.position
+  mode $i3-wm.bar.mode
   font $i3-wm.bar.font
   separator_symbol $i3-wm.bar.separator
   status_command $i3-wm.bar.status_command
@@ -419,22 +452,16 @@ bar {
 
 # Start the installed regolith-compositor
 set_from_resource $i3-wm.program.compositor i3-wm.program.compositor /usr/share/regolith-compositor/init
-exec --no-startup-id $i3-wm.program.compositor
+exec_always --no-startup-id $i3-wm.program.compositor
 
 # Start Rofication for notifications
-set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
-exec --no-startup-id $i3-wm.program.notifications
+# set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
+# exec --no-startup-id $i3-wm.program.notifications
 
 # Hide the mouse pointer if unused for a duration
-set_from_resource $i3-wm.program.unclutter i3-wm.program.unclutter /usr/bin/regolith-ftue /usr/bin/unclutter -b
-exec --no-startup-id $i3-wm.program.unclutter
+# set_from_resource $i3-wm.program.unclutter i3-wm.program.unclutter /usr/bin/unclutter -b
+# exec --no-startup-id $i3-wm.program.unclutter
 
-# User programs from Xresources
-# To use, define an Xresource key i3-wm.program.[1-3] with the value of the program to launch.
-# See https://regolith-linux.org/docs/howto/override-xres/ for details.
-set_from_resource $i3-wm.program.1 i3-wm.program.1 :
-exec --no-startup-id $i3-wm.program.1
-set_from_resource $i3-wm.program.2 i3-wm.program.2 :
-exec --no-startup-id $i3-wm.program.2
-set_from_resource $i3-wm.program.3 i3-wm.program.3 :
-exec --no-startup-id $i3-wm.program.3
+# Load nm-applet to provide auth dialogs for network access
+# set_from_resource $i3-wm.program.nm-applet i3-wm.program.nm-applet /usr/bin/nm-applet
+# exec --no-startup-id $i3-wm.program.nm-applet
