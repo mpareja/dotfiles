@@ -232,10 +232,10 @@ bindsym $mod+$i3-wm.binding.sleep exec $i3-wm.program.sleep
 # System Management
 ###############################################################################
 
-# ## Modify // Settings // <\uf17a> c ##
-# set_from_resource $i3-wm.binding.settings i3-wm.binding.settings c
-# set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center --class=floating_window
-# bindsym $mod+$i3-wm.binding.settings exec $i3-wm.program.settings
+## Modify // Settings // <\uf17a> c ##
+set_from_resource $i3-wm.binding.settings i3-wm.binding.settings c
+set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center --class=floating_window
+bindsym $mod+$i3-wm.binding.settings exec $i3-wm.program.settings
 # 
 # ## Modify // Display Settings // <\uf17a> d ##
 # set_from_resource $i3-wm.binding.display i3-wm.binding.display d
