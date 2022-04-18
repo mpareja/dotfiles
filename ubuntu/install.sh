@@ -48,11 +48,11 @@ sudo ./install_packages.sh
 
 [ "$INST_CHROME" == 'y' ] && echo && install_chrome
 [ "$INST_GITHUB" == 'y' ] && echo && configure_github
+[ "$INST_DOCKER" == 'y' ] && echo && install_docker # required by dotfiles for kmonad install
 
 install_dotfiles
 . ~/.bashrc # Apply bash profile updates
 
-[ "$INST_DOCKER" == 'y' ] && echo && install_docker
 [ "$INST_N" == 'y' ] && echo && install_n # I suspect needs to be after `dotfiles` due to bash profile updates
 
 [ "$INST_VIM" == 'y' ] && echo && configure_vim # must be after installing node

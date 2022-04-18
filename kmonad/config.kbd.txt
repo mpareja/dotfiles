@@ -1,0 +1,45 @@
+;; Spacebar enables navigation with right hand home row
+
+(defcfg
+  ;; Linux
+  input  (device-file "REPLACE_DEVICE")
+  output (uinput-sink "KMonad output")
+
+  fallthrough true
+)
+
+
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt
+)
+
+
+
+(defalias
+  nav  (tap-hold 180 space (layer-toggle navigation))
+)
+
+
+(deflayer qwerty
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           @nav           ralt
+)
+
+
+(deflayer navigation
+  _    _    _    _    _    _    _    _    _    _     _    _    _    _
+  _    _    _    _    _    _    ins  home pgup end   bspc _    _    _
+  _    _    _    _    _    _    left down up   right _    _    _
+  _    _    _    _    _    _    pgdn del  _    _     _    _
+  _    _    _              _              _
+)
+
+
