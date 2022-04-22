@@ -1,0 +1,6 @@
+# find by name *-kbd should match install.sh and uninstall.sh
+SUBSYSTEM=="input", ACTION=="add", \
+  SYMLINK=="input/by-path/*-kbd", \
+  PROGRAM="/usr/bin/systemd-escape -p --template=kmonad@.service $env{DEVNAME}",\
+  TAG+="systemd", \
+  ENV{SYSTEMD_WANTS}+="%c"

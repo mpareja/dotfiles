@@ -1,0 +1,86 @@
+#!/bin/bash
+
+set -eou pipefail
+# set -x trace
+
+invalid_syntax() {
+  echo "SYNTAX: installer <install | uninstall>"
+  exit 1
+}
+
+main() {
+  if [ $# -ne 1 ]; then
+    invalid_syntax
+  elif [ "$1" == "install" ]; then
+    kmonad_install
+  elif [ "$1" == "uninstall" ]; then
+    kmonad_uninstall
+  else
+    invalid_syntax
+  fi
+}
+
+kmonad_install() {
+  if [ -f kmonad ]; then
+    echo "kmonad: found binary, skipping compilation"
+    echo
+  else
+    echo "kmonad: building from scratch!"
+    echo
+    docker build -t kmonad-builder github.com/kmonad/kmonad.git
+
+    docker run --rm -it -v ${PWD}:/host/ kmonad-builder bash -c 'cp -vp /root/.local/bin/kmonad /host/'
+
+    docker rmi kmonad-builder
+  fi
+
+  sudo install -m755 kmonad /usr/bin/
+  sudo install -m755 kmonad-autoconfig /usr/bin/
+  sudo install -m644 99-kmonad.rules /etc/udev/rules.d/
+  sudo install -m644 kmonad@.service /usr/lib/systemd/system/
+
+  sudo systemctl daemon-reload
+
+  restart_active_keyboards
+}
+
+kmonad_uninstall() {
+  # make script idempotent by using safe_grep to ignore errors
+  # when we don't find a systemd kmonad service
+  list_running_kmonad_units | while read service; do
+    echo "Stopping kmonad service '$service'..."
+
+    sudo systemctl stop $service
+  done
+
+  sudo rm -f /usr/bin/kmonad
+  sudo rm -f /usr/bin/kmonad-autoconfig
+  sudo rm -f /etc/udev/rules.d/99-kmonad.rules
+  sudo rm -f /usr/lib/systemd/system/kmonad@.service
+
+  sudo systemctl daemon-reload
+
+  restart_active_keyboards
+}
+
+list_running_kmonad_units() {
+  systemctl list-units | sed 's/●/ /' | safe_grep kmonad@ | awk '{ print $1 }'
+}
+
+restart_active_keyboards() {
+  echo "Restarting active keyboards"
+  sudo udevadm control --reload # ensure rules have reloaded
+
+  find /dev/input/by-path -name '*-kbd' | while read dev; do
+    local realdev=$(readlink -f $dev)
+    echo "  $realdev"
+    sudo udevadm trigger --action remove $realdev
+    sudo udevadm trigger --action add $realdev
+  done
+}
+
+safe_grep() {
+  grep "$@" || true
+}
+
+main "$@"

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -eou pipefail
+
+DEV_PATH=$1
+CONFIG_SRC="/home/mpareja/projects/dotfiles/kmonad/config.kbd.txt"
+
+exec /usr/bin/kmonad <(cat $CONFIG_SRC | sed "s|REPLACE_DEVICE|$DEV_PATH|")

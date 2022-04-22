@@ -1,0 +1,7 @@
+[Unit]
+BindTo=%i.device
+After=%i.device
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/kmonad-autoconfig "/%I"
