@@ -136,7 +136,8 @@ bindsym $mod+grave scratchpad show
 bindsym $mod+mod1+grave [title="^tiddlers - Obsidian"] scratchpad show
 bindsym $mod+mod1+1 [title="^Meet - .* - Google Chrome"] scratchpad show
 
-# ZOOM
+# floating setup
+for_window [title="^Calculator$"] floating enable
 for_window [title="synapse"] floating enable
 for_window [title="^Zoom Meeting ID: "] floating enable, sticky enable
 for_window [title="- Shutter"] floating enable
