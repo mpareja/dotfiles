@@ -131,8 +131,10 @@ bindsym $mod+comma exec ~/projects/dotfiles/i3/i3-rename-workspace
 bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 
 # scratchpad
-bindsym $mod+grave scratchpad show
 bindsym $mod+Shift+grave move scratchpad
+bindsym $mod+grave scratchpad show
+bindsym $mod+mod1+grave [title="^tiddlers - Obsidian"] scratchpad show
+bindsym $mod+mod1+1 [title="^Meet - .* - Google Chrome"] scratchpad show
 
 # ZOOM
 for_window [title="synapse"] floating enable
