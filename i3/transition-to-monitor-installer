@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -eou pipefail
+# set -x trace
+
+invalid_syntax() {
+  echo "SYNTAX: installer <install | uninstall>"
+  exit 1
+}
+
+main() {
+  if [ $# -ne 1 ]; then
+    invalid_syntax
+  elif [ "$1" == "install" ]; then
+    do_install
+  elif [ "$1" == "uninstall" ]; then
+    do_uninstall
+  else
+    invalid_syntax
+  fi
+}
+
+do_install() {
+  sudo install -m644 99-transition-to-monitor.rules /etc/udev/rules.d/
+}
+
+do_uninstall() {
+  sudo rm -f /etc/udev/rules.d/99-transition-to-monitor.rules
+}
+
+main "$@"

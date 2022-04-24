@@ -1,0 +1,4 @@
+# external screen
+SUBSYSTEM=="drm", ACTION=="change", \
+  DEVPATH=="/devices/pci0000:00/0000:00:01.0/0000:01:00.0/drm/card1" \
+  PROGRAM="/home/mpareja/projects/dotfiles/i3/i3-transition-to-monitor"
