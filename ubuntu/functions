@@ -55,6 +55,11 @@ configure_github() {
 	read -p "Once complete, press any key to continue..."
 }
 
+configure_inotify() {
+  header Configuring inotify max file watchers
+  sudo cp 99-inotify.conf /etc/sysctl.d/
+}
+
 install_dotfiles() {
 	header Configure dotfiles...
 	mkdir -p ~/projects
