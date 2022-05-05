@@ -200,17 +200,17 @@ hide_edge_borders smart
 # Session Management
 ###############################################################################
 
-## Session // Logout // <\uf17a><Shift> e ##
+## Session // Logout // <><Shift> e ##
 set_from_resource $i3-wm.binding.logout i3-wm.binding.logout Shift+e
 set_from_resource $i3-wm.program.logout i3-wm.program.logout /usr/bin/gnome-session-quit --logout
 bindsym $mod+$i3-wm.binding.logout exec $i3-wm.program.logout
 
-## Session // Reboot // <\uf17a><Shift> b ##
+## Session // Reboot // <><Shift> b ##
 set_from_resource $i3-wm.binding.reboot i3-wm.binding.reboot Shift+b
 set_from_resource $i3-wm.program.reboot i3-wm.program.reboot /usr/bin/gnome-session-quit --reboot
 bindsym $mod+$i3-wm.binding.reboot exec $i3-wm.program.reboot
 
-## Session // Power Down // <\uf17a><Shift> p ##
+## Session // Power Down // <><Shift> p ##
 set_from_resource $i3-wm.binding.shutdown i3-wm.binding.shutdown Shift+p
 set_from_resource $i3-wm.program.shutdown i3-wm.program.shutdown /usr/bin/gnome-session-quit --power-off
 bindsym $mod+$i3-wm.binding.shutdown exec $i3-wm.program.shutdown
@@ -227,7 +227,7 @@ bindsym $mod+$i3-wm.binding.lock exec $i3-wm.program.lock
 # bindsym $mod+Escape exec /usr/bin/i3lock
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork # using i3 for fingerprint unlock
 
-## Session // Sleep // <\uf17a><Shift> s ##
+## Session // Sleep // <><Shift> s ##
 set_from_resource $i3-wm.binding.sleep i3-wm.binding.sleep Shift+s
 set_from_resource $i3-wm.program.sleep i3-wm.program.sleep systemctl suspend
 bindsym $mod+$i3-wm.binding.sleep exec $i3-wm.program.sleep
@@ -261,12 +261,12 @@ bindsym $mod+$i3-wm.binding.settings exec $i3-wm.program.settings
 # set_from_resource $i3-wm.program.sound i3-wm.program.sound gnome-control-center --class=floating_window sound
 # bindsym $mod+$i3-wm.binding.sound exec $i3-wm.program.sound
 
-## Launch // File Browser // <\uf17a><Shift> n ##
+## Launch // File Browser // <><Shift> n ##
 set_from_resource $i3-wm.binding.files i3-wm.binding.files Shift+n
 set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
 bindsym $mod+$i3-wm.binding.files exec $i3-wm.program.files
 
-## Launch // Notification Viewer // <\uf17a> n ##
+## Launch // Notification Viewer // <> n ##
 set_from_resource $i3-wm.binding.notification_ui i3-wm.binding.notification_ui n
 set_from_resource $i3-wm.program.notification_ui i3-wm.program.notification_ui /usr/bin/rofication-gui
 bindsym $mod+$i3-wm.binding.notification_ui exec $i3-wm.program.notification_ui
@@ -285,11 +285,11 @@ set_from_resource $i3-wm.binding.dec_gaps i3-wm.binding.dec_gaps minus
 set_from_resource $i3-wm.binding.inc_gaps_big i3-wm.binding.inc_gaps_big Shift+plus
 set_from_resource $i3-wm.binding.dec_gaps_big i3-wm.binding.dec_gaps_big Shift+minus
 
-## Resize // Enter Resize Mode // <\uf17a> r ##
+## Resize // Enter Resize Mode // <> r ##
 mode "Resize Mode" {
         # These bindings trigger as soon as you enter the resize mode
 
-        ## Resize // Resize Window // \u2191 \u2193 \u2190 \u2192 ##
+        ## Resize // Resize Window // ↑ ↓ ← → ##
         bindsym Left resize shrink width 6 px or 6 ppt
         bindsym Down resize grow height 6 px or 6 ppt
         bindsym Up resize shrink height 6 px or 6 ppt
