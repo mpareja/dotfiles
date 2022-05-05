@@ -10,6 +10,7 @@
 #
 
 set $mod Mod4
+set $alt Mod1
 
 # Media Control
 bindsym $mod+period exec --no-startup-id playerctl play-pause
@@ -19,10 +20,10 @@ bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
-bindsym mod1+F4 kill
+bindsym $alt+F4 kill
 
 # kill -9 focused window
-bindsym mod1+Shift+F4 [con_id="__focused__"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)
+bindsym $alt+Shift+F4 [con_id="__focused__"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)
 
 # change focus
 bindsym $mod+h focus left
@@ -74,7 +75,7 @@ bindsym $mod+x move workspace to output right
 for_window [urgent=latest] focus
 
 # Application Shortcuts
-bindsym Ctrl+mod1+Shift+f exec google-chrome
+bindsym Ctrl+$alt+Shift+f exec google-chrome
 
 # disable i3 shortcuts
 mode "passthrough" {
@@ -91,9 +92,9 @@ bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 # scratchpad
 bindsym $mod+Shift+grave move scratchpad
 bindsym $mod+grave scratchpad show
-bindsym $mod+mod1+grave [title="^tiddlers - Obsidian"] scratchpad show
-bindsym $mod+mod1+1 [title="^Meet - .* - Google Chrome"] scratchpad show
-bindsym $mod+mod1+2 [class="Spotify"] scratchpad show
+bindsym $mod+$alt+grave [title="^tiddlers - Obsidian"] scratchpad show
+bindsym $mod+$alt+1 [title="^Meet - .* - Google Chrome"] scratchpad show
+bindsym $mod+$alt+2 [class="Spotify"] scratchpad show
 
 # floating setup
 for_window [title="^Calculator$"] floating enable
