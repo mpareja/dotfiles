@@ -135,6 +135,7 @@ bindsym $mod+Shift+grave move scratchpad
 bindsym $mod+grave scratchpad show
 bindsym $mod+mod1+grave [title="^tiddlers - Obsidian"] scratchpad show
 bindsym $mod+mod1+1 [title="^Meet - .* - Google Chrome"] scratchpad show
+bindsym $mod+mod1+2 [class="Spotify"] scratchpad show
 
 # floating setup
 for_window [title="^Calculator$"] floating enable
