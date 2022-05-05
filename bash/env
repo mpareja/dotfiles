@@ -2,6 +2,7 @@
 export RUBYMINE_JDK=/usr/lib/jvm/java-6-sun
 export EDITOR=vim
 
+export N_PRESERVE_NPM=1
 export N_PREFIX=$HOME/.n
 export PATH=$N_PREFIX/bin:$PATH
 
