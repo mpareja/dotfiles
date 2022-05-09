@@ -29,6 +29,8 @@ config_i3() {
 		mkdir -p ~/.config/regolith/i3
 
 		replace config ~/.config/regolith/i3/config
+		replace Xresources ~/.config/regolith2/Xresources
+		xrdb merge ~/.config/regolith2/Xresources
 	else
 		mkdir -p ~/.config/i3
 
@@ -106,7 +108,6 @@ linux_install() {
 	config_i3
 	config_dunst
 
-	replace Xresources ~/.Xresources
 	replace alacritty.yml
 
 	echo Adding apt-install to /bin
