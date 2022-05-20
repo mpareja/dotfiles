@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -euo pipefail
+
+syntax() {
+  echo "SYNTAX: $(basename $0) <squashed branch>"
+  echo
+  echo "Use this to rebase a feature branch on top of main"
+  echo "after squash-merging a parent feature branch."
+}
+
+main() {
+  squashed=$1
+  current=$(git branch --show-current)
+  main=$(git rev-parse --verify main 2>/dev/null || git rev-parse --verify master)
+
+  common=$(git merge-base $squashed HEAD)
+
+  echo "Current: $current ($(git rev-parse HEAD))"
+  echo "Squashed: $squashed"
+  echo "Main: $main"
+  echo "Common Ancestor: $common"
+  echo
+
+  git rebase --onto $main $common $current
+}
+
+if [ $# -lt 1 ]; then
+  syntax
+  exit 1
+fi
+
+main "$@"
