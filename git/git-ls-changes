@@ -1,0 +1,39 @@
+#!/bin/bash
+
+VERBOSE=false
+
+syntax() {
+  echo "SYNTAX: $(basename $0) [-v|-h|--help]"
+  echo
+  echo "List status on sub-directories"
+}
+
+main() {
+  ls | while read proj; do
+    cd $proj
+
+    if [ ! -z "$(git status --porcelain 2>/dev/null)" ]; then
+      if [ $VERBOSE = "true" ]; then
+        echo
+        echo "######## $proj"
+        echo
+        git status
+      else
+        echo $proj
+      fi
+    fi
+
+    cd ..
+  done
+}
+
+case "$1" in
+  -v)
+    VERBOSE=true
+    ;;
+  --help | -h)
+    syntax
+    exit
+esac
+
+main
