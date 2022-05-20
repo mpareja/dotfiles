@@ -1,10 +1,11 @@
 #!/bin/bash
 
 set -eou pipefail
-# set -x
+#set -x
 
 main() {
   TARGET=${1:-HDMI-0}
+  ATTEMPTS=10 # about 5 seconds
 
   S="-s $(detect_socket)"
 
@@ -12,10 +13,18 @@ main() {
 
   i3-msg $S -t get_workspaces | jq -r .[].name | grep -v calendar | while read w; do
     i3-msg $S workspace "$w" >/dev/null
-    i3-msg $S move workspace to output "$TARGET" >/dev/null
+    with_retry move_workspace "$TARGET" || {
+      # in case of failure, cleanup
+      i3-msg $S workspace "$CUR" >/dev/null
+      false
+    }
   done
 
   i3-msg $S workspace "$CUR" >/dev/null
+}
+
+move_workspace() {
+  i3-msg -s $(detect_socket) move workspace to output "$1" >/dev/null
 }
 
 # required when invoked by udev
@@ -24,4 +33,24 @@ detect_socket() {
   ls /run/user/$THE_USER/i3/ipc-socket* | head -1
 }
 
-main "$@"
+with_retry() {
+  local ATTEMPTS=10 # 5 seconds
+  local ERRORFILE=$(mktemp)
+
+  for (( i=1; i <= $ATTEMPTS; i++ )); do
+    if "$@"; then
+      break
+    fi
+
+    if [ $i -ge $ATTEMPTS ]; then
+      echo "ERROR: exceeded $ATTEMPTS attempts, aborting."
+      return 1
+    fi
+
+    echo "WARN: error encountered, retrying the following command:"
+    echo "  $@"
+    sleep 0.5
+  done
+}
+
+main "$@" # 2>&1 | tee /tmp/transition-to-monitor.log
