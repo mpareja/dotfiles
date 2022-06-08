@@ -2,7 +2,7 @@
     ### Display ###
 
     # Which monitor should the notifications be displayed on.
-    monitor = 1
+    monitor = 2
 
     # Display notification on focused monitor.  Possible modes are:
     #   mouse: follow mouse pointer
@@ -423,5 +423,15 @@
 [test-failed]
 	appname = notify-send
 	body = *test* failed*
+	script = play-fail-sound
+	timeout = 3
+
+[ustatus-passed]
+	summary = *PASS*
+	script = play-success-sound
+	timeout = 3
+
+[ustatus-failed]
+	summary = *FAIL*
 	script = play-fail-sound
 	timeout = 3
