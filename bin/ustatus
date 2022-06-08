@@ -1,3 +1,3 @@
 #!/bin/bash
 
-$@ && flash user-available "PASS: $*"|| flash user-busy "FAIL: $*"
+eval "$@" && flash user-available "PASS: $*"|| flash user-busy "FAIL: $*"
