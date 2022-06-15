@@ -12,7 +12,7 @@ syntax() {
 main() {
   squashed=$1
   current=$(git branch --show-current)
-  main=$(git rev-parse --verify main 2>/dev/null || git rev-parse --verify master)
+  main=$(git rev-parse --verify origin/main 2>/dev/null || git rev-parse --verify origin/master)
 
   common=$(git merge-base $squashed HEAD)
 
