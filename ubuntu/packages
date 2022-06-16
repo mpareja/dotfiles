@@ -28,7 +28,8 @@ p7zip-full
 pcmanfm
 pinta
 playerctl
-regolith-desktop-standard
+regolith-desktop
+regolith-look-solarized-dark
 samba
 silversearcher-ag
 tmux
