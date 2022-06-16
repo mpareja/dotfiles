@@ -1,0 +1,18 @@
+#!/bin/bash
+
+log() {
+  echo "==== $@"
+  echo
+}
+
+git fetch
+
+log "BEGIN REMOVING LOCAL BRANCHES"
+
+git branch | grep -v '[ *] master$' | grep -V '[ *] main$' | while read branch; do
+  git branch -d $branch 2>/dev/null true
+done
+
+log "FINISHED REMOVING LOCAL BRANCHES"
+
+git fetch --prune
