@@ -1,1 +1,36 @@
 i3-wm.binding.wifi: Shift+w
+i3-wm.binding.scratchpad: grave
+i3-wm.binding.move_scratchpad: Shift+grave
+
+i3-wm.program.lock: /usr/bin/i3lock
+
+! prevent regolith from resetting the terminal profile to Regolith
+gnome.terminal.update: false
+
+! undo workspace naming the default regolith-look applies
+i3-wm.bar.stripworkspacenumbers: false
+i3-wm.workspace.01.name: 1
+i3-wm.workspace.02.name: 2
+i3-wm.workspace.03.name: 3
+i3-wm.workspace.04.name: 4
+i3-wm.workspace.05.name: 5
+i3-wm.workspace.06.name: 6
+i3-wm.workspace.07.name: 7
+i3-wm.workspace.08.name: 8
+i3-wm.workspace.09.name: 9
+i3-wm.workspace.10.name: 10
+i3-wm.workspace.11.name: 11
+i3-wm.workspace.12.name: 12
+i3-wm.workspace.13.name: 13
+i3-wm.workspace.14.name: 14
+i3-wm.workspace.15.name: 15
+i3-wm.workspace.16.name: 16
+i3-wm.workspace.17.name: 17
+i3-wm.workspace.18.name: 18
+i3-wm.workspace.19.name: 19
+
+! rebind unused keys (Next is PgUp)
+i3-wm.binding.next_free: Next
+i3-wm.binding.move_next_free: Shift+Next
+i3-wm.binding.take_next_free: Next
+i3-wm.binding.ws_next: Ctrl+Shift+}
