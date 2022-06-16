@@ -20,17 +20,24 @@ config_tmux() {
 	cd ..
 }
 
+is_regolith_1() {
+  grep '=1' /etc/regolith/version 2>&1 >/dev/null
+}
+
 config_i3() {
 	echo Replacing i3 window manager configuration
 
 	cd i3
 
 	if [ -d /etc/regolith ]; then
-		mkdir -p ~/.config/regolith/i3
+    if is_regolith_1; then
+      mkdir -p ~/.config/regolith/i3
 
-		replace config ~/.config/regolith/i3/config
-		replace Xresources ~/.config/regolith2/Xresources
-		xrdb merge ~/.config/regolith2/Xresources
+      replace config ~/.config/regolith/i3/config
+    else
+      replace Xresources ~/.config/regolith2/Xresources
+      xrdb merge ~/.config/regolith2/Xresources
+    fi
 	else
 		mkdir -p ~/.config/i3
 
