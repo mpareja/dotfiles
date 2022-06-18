@@ -1,0 +1,9 @@
+- name: Install sysctl.d configuration
+  become: true
+  copy:
+    src: sysctl.d/
+    dest: /etc/sysctl.d/
+    mode: 0644
+    owner: root
+    group: root
+  notify: reload sysctl
