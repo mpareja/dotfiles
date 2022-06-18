@@ -1,0 +1,20 @@
+#!/bin/bash
+
+npm_script=$(npm run | grep '^  \w' | egrep '(watch.*test|test.*watch)' | head -1)
+
+if [ ! -z "$npm_script" ]; then
+  exec npm run $npm_script
+else
+  # may have been run from a nested directory
+  cd $(npm prefix)
+
+  framework=$(npm pkg get devDependencies | jq -r 'keys[]' | egrep '^(mocha|jest)$')
+  case "$framework" in
+    jest)
+      exec npx jest --no-coverage --watch --notify --notifyMode always -- "$@"
+      ;;
+    mocha)
+      exec npx mocha --watch "$@"
+      ;;
+  esac
+fi
