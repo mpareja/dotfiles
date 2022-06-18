@@ -44,11 +44,13 @@ bindsym $mod+comma exec ~/projects/dotfiles/i3/i3-rename-workspace
 # Move to new named workspace
 bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 
-# scratchpad
+# scratchpad and jump shortcuts
 bindsym $mod+$alt+grave [title="^tiddlers - Obsidian"] scratchpad show
 bindsym $mod+Ctrl+z [title="^tiddlers - Obsidian"] scratchpad show
 bindsym $mod+Ctrl+x [title="(^Meet - .* - Google Chrome|^Zoom Meeting)"] scratchpad show
 bindsym $mod+Ctrl+c [class="Spotify"] scratchpad show
+bindsym $mod+Ctrl+s [title="^Slack \| .*"] focus
+bindsym $mod+Ctrl+e [title="Inbox .* - [a-zA-Z0-9 .]*[ Gm]*ail"] focus
 
 # floating setup
 for_window [title="^Calculator$"] floating enable
@@ -77,8 +79,7 @@ workspace "3: todo" output DP-1
 workspace "8: to-read" output DP-1
 
 for_window [title="Mail - Mario Pareja - Outlook"] move workspace 1: comms; move workspace to output DP1
-for_window [title="Inbox .* - [a-zA-Z0-9 .]* Mail"] move workspace 1: comms; move workspace to output DP1
-for_window [title="Inbox .* - Gmail"] move workspace 1: comms; move workspace to output DP1
+for_window [title="Inbox .*- [a-zA-Z0-9 .]*[ Gm]*ail"] move workspace 1: comms; move workspace to output DP1
 for_window [title="^Slack \| .*"] move workspace 1: comms; move workspace to output DP1
 
 ## MARIO: for fingerprint unlock, use xss-lock + i3lock instead:
