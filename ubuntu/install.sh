@@ -50,7 +50,6 @@ sudo ./install_packages.sh
 [ "$INST_GITHUB" == 'y' ] && echo && configure_github
 [ "$INST_DOCKER" == 'y' ] && echo && install_docker # required by dotfiles for kmonad install
 
-configure_inotify
 install_dotfiles
 . ~/.bashrc # Apply bash profile updates
 
