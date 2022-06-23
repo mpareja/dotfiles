@@ -28,12 +28,12 @@ install_dropbox() {
 install_flatpak() {
   if which flatpak > /dev/null; then
     header Flatpak already installed
-    return
+  else
+    # gnome-software-plugin-flatpak inclusion gains us convenience and automatic updates
+    header Installing flatpak...
+    sudo apt install flatpak gnome-software-plugin-flatpak
   fi
 
-  # gnome-software-plugin-flatpak inclusion gains us convenience and automatic updates
-  header Installing flatpak...
-  sudo apt install flatpak gnome-software-plugin-flatpak
   sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
