@@ -23,13 +23,13 @@ echo "GIT_EMAIL:    $GIT_EMAIL"
 echo "GIT_USERNAME: $GIT_USERNAME"
 echo
 
-read -n 1 -p 'Do you want to recreate Vim folder (y/N)? ' INST_VIM
 read -n 1 -p 'Do you want to install Chrome (y/N)? ' INST_CHROME
-read -n 1 -p 'Do you want to install Dropbox (y/N)? ' INST_DROPBOX
+read -n 1 -p 'Do you want to configure GitHub (y/N)? ' INST_GITHUB
 read -n 1 -p 'Do you want to install Docker (y/N)? ' INST_DOCKER
 read -n 1 -p 'Do you want to install N node version manager (y/N)? ' INST_N
+read -n 1 -p 'Do you want to recreate Vim folder (y/N)? ' INST_VIM
+read -n 1 -p 'Do you want to install Dropbox (y/N)? ' INST_DROPBOX
 read -n 1 -p 'Do you want to install VirtualBox (y/N)? ' INST_VBOX
-read -n 1 -p 'Do you want to configure GitHub (y/N)? ' INST_GITHUB
 
 INST_PAKS_FILE=$(mktemp)
 cat flatpaks | grep -v '^#' | grep -v '^$' | while read pak; do
