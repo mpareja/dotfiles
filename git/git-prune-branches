@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# search for branches that point to remote branches that are "gone",
+# i.e. the remote GitHub branch has been merged and deleted
+gone_branches() {
+  git branch -vv | egrep 'origin/.*: gone]'
+}
+
+git fetch
+
+echo
+echo ==== Branches to prune ====
+gone_branches
+echo ===========================
+echo
+
+if [ "$1" == "-f" ]; then
+  gone_branches | awk '{ print $1 }' | xargs git branch -D
+else
+  echo "Run 'git-prune-branches -f' to remove the branches"
+fi
+
