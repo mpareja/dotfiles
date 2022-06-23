@@ -7,6 +7,7 @@ wget -q https://raw.github.com/mpareja/dotfiles/master/ubuntu/functions
 wget -q https://raw.github.com/mpareja/dotfiles/master/ubuntu/install.sh
 wget -q https://raw.github.com/mpareja/dotfiles/master/ubuntu/install_packages.sh
 wget -q https://raw.github.com/mpareja/dotfiles/master/ubuntu/packages
+wget -q https://raw.github.com/mpareja/dotfiles/master/ubuntu/flatpaks
 
 chmod +x *.sh
 
