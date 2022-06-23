@@ -25,6 +25,7 @@ mitmproxy
 libnotify-bin
 openssh-server
 p7zip-full
+pkgconf
 pcmanfm
 pinta
 playerctl
