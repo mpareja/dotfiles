@@ -112,9 +112,7 @@ install_n() {
 
 	sudo make install
 
-	if hash npm 2> /dev/null; then
-		n install latest
-	else
+	if ! hash npm 2> /dev/null; then
 		# ensure npm is installed the first time
 		N_PRESERVE_NPM= n install latest
 	fi

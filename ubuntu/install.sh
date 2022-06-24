@@ -51,10 +51,15 @@ sudo ./install_packages.sh
 [ "$INST_DOCKER" == 'y' ] && echo && install_docker # required by dotfiles for kmonad install
 
 install_dotfiles
-. ~/.bashrc # Apply bash profile updates
 
-[ "$INST_N" == 'y' ] && echo && install_n # I suspect needs to be after `dotfiles` due to bash profile updates
+# ubuntu .bashrc will not run when non-interactive, so we need
+# to ensure these vars are configured so:
+# 1. n is configured correctly
+# 2. vim install can leverage `npm` which is needs
+export N_PREFIX=$HOME/.n
+export PATH=$N_PREFIX/bin:$PATH
 
+[ "$INST_N" == 'y' ] && echo && install_n
 [ "$INST_VIM" == 'y' ] && echo && configure_vim # must be after installing node
 
 [ "$INST_DROPBOX" == 'y' ] && echo && install_dropbox
