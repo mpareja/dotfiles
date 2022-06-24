@@ -7,3 +7,67 @@
     owner: root
     group: root
   notify: reload sysctl
+
+- name: '.profile: include global node and dotfiles bins'
+  blockinfile:
+    dest: /home/{{ ansible_user_id }}/.profile
+    marker: '# {mark} ANSIBLE: include global node and dotfiles bins'
+    content: 'PATH="$PATH:$HOME/n/bin:$HOME/projects/dotfiles/bin"'
+
+- name: '.bashrc: configure GITHUB_TOKEN'
+  blockinfile:
+    dest: /home/{{ ansible_user_id }}/.bashrc
+    marker: '# {mark} ANSIBLE: derive GitHub token'
+    content: "export GITHUB_TOKEN=$(cat ~/.npmrc | grep '^//npm.pkg.github.com' | sed 's/^.*=\"\\(.*\\)\"/\\1/')"
+
+- name: Install common packages
+  become: true
+  apt:
+    state: present
+    name:
+      - apt-listchanges
+      - autoconf
+      - autogen
+      - compizconfig-settings-manager
+      - curl
+      - dos2unix
+      - dunst
+      - filezilla
+      - flatpak
+      - gnome-software-plugin-flatpak
+      - fonts-noto-color-emoji
+      - g++
+      - gconf2
+      - git-gui
+      - gparted
+      - hexchat
+      - hub
+      - i3xrocks-volume
+      - inotify-tools
+      - iotop
+      - jq
+      - make
+      - meld
+      - mesa-utils
+      - mitmproxy
+      - libnotify-bin
+      - openssh-server
+      - p7zip-full
+      - pkgconf
+      - pcmanfm
+      - pinta
+      - playerctl
+      - regolith-desktop
+      - regolith-look-solarized-dark
+      - samba
+      - silversearcher-ag
+      - tmux
+      - traceroute
+      - tree
+      - vim-gtk
+      - wireshark
+      - wmctrl
+      - x11vnc
+      - xclip
+      - xdotool
+      - xfonts-terminus
