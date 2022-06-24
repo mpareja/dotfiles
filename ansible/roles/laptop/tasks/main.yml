@@ -1,0 +1,6 @@
+- name: Install laptop packages
+  become: true
+  apt:
+    state: present
+    name:
+      - i3xrocks-battery
