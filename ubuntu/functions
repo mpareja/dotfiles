@@ -99,6 +99,8 @@ install_plank() {
 
 install_docker() {
 	curl -sSL https://get.docker.com/ | sudo sh
+
+	sudo usermod -aG docker $USER
 }
 
 install_n() {
