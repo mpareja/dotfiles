@@ -12,13 +12,20 @@
   blockinfile:
     dest: /home/{{ ansible_user_id }}/.profile
     marker: '# {mark} ANSIBLE: include global node and dotfiles bins'
-    content: 'PATH="$PATH:$HOME/n/bin:$HOME/projects/dotfiles/bin"'
+    block: 'PATH="$PATH:$HOME/n/bin:$HOME/projects/dotfiles/bin"'
 
 - name: '.bashrc: configure GITHUB_TOKEN'
   blockinfile:
     dest: /home/{{ ansible_user_id }}/.bashrc
     marker: '# {mark} ANSIBLE: derive GitHub token'
-    content: "export GITHUB_TOKEN=$(cat ~/.npmrc | grep '^//npm.pkg.github.com' | sed 's/^.*=\"\\(.*\\)\"/\\1/')"
+    block: "export GITHUB_TOKEN=$(cat ~/.npmrc | grep '^//npm.pkg.github.com' | sed 's/^.*=\"\\(.*\\)\"/\\1/')"
+
+- name: 'hosts: enable FQDN to enable sending via gmail'
+  become: true
+  blockinfile:
+    dest: /etc/hosts
+    marker: "# {mark} ANSIBLE: enable FQDN to enable sending via gmail"
+    block: "127.0.0.1	localhost.localdomain localhost {{ inventory_hostname }}"
 
 - name: Install common packages
   become: true
