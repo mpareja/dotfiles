@@ -41,11 +41,11 @@
       - dunst
       - filezilla
       - flatpak
-      - gnome-software-plugin-flatpak
       - fonts-noto-color-emoji
       - g++
       - gconf2
       - git-gui
+      - gnome-software-plugin-flatpak
       - gparted
       - hexchat
       - hub
@@ -53,17 +53,17 @@
       - inotify-tools
       - iotop
       - jq
+      - libnotify-bin
       - maim
       - make
       - meld
       - mesa-utils
       - mitmproxy
-      - libnotify-bin
       - openssh-server
       - p7zip-full
-      - pkgconf
       - pcmanfm
       - pinta
+      - pkgconf
       - playerctl
       - regolith-desktop
       - regolith-look-solarized-dark
