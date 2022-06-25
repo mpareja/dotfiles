@@ -53,6 +53,7 @@
       - inotify-tools
       - iotop
       - jq
+      - maim
       - make
       - meld
       - mesa-utils
