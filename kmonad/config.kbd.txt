@@ -34,9 +34,9 @@
   lctl lmet lalt           @nav           ralt
 )
 
-
+;; https://github.com/kmonad/kmonad/blob/2f9707b6e4ec16319dbccfcceaf741b7d9876cfa/src/KMonad/Keyboard/Keycode.hs
 (deflayer navigation
-  _    mute vold volu _    brdn brup _    _    calc  _    _    _
+  _    mute vold volu pp   _    brdn brup _    calc  _    _    _
   _    _    _    _    _    _    _    _    _    _     _    _    _    _
   _    _    _    _    _    _    ins  home pgup end   bspc _    _    _
   caps _    _    _    _    _    left down up   right _    _    _
