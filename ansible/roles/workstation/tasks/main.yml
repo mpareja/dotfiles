@@ -27,6 +27,14 @@
     marker: "# {mark} ANSIBLE: enable FQDN to enable sending via gmail"
     block: "127.0.0.1	localhost.localdomain localhost {{ inventory_hostname }}"
 
+- name: 'perf: disable kernel mitigations'
+  become: true
+  lineinfile:
+    path: /etc/default/grub
+    regexp: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"'
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mitigations=off"'
+  notify: update grub
+
 - name: Install common packages
   become: true
   apt:
