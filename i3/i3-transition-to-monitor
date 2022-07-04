@@ -4,7 +4,7 @@ set -eou pipefail
 #set -x
 
 main() {
-  TARGET=${1:-HDMI-0}
+  TARGET=${1:-$(i3-msg -t GET_OUTPUTS | jq '.[] | select(.rect.width == 3440) | .name' -r)}
   ATTEMPTS=10 # about 5 seconds
 
   S="-s $(detect_socket)"
@@ -35,7 +35,6 @@ detect_socket() {
 
 with_retry() {
   local ATTEMPTS=10 # 5 seconds
-  local ERRORFILE=$(mktemp)
 
   for (( i=1; i <= $ATTEMPTS; i++ )); do
     if "$@"; then
