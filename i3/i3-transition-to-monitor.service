@@ -1,0 +1,6 @@
+# The leading "-" tells systemd to ignore exit code. This is important because we
+# don't want a failed attempt to place the job into "failed" mode requiring
+# "reset-failed" manual intervention.
+[Service]
+Type=oneshot
+ExecStart=-/home/mpareja/projects/dotfiles/i3/i3-transition-to-monitor

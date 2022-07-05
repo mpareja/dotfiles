@@ -22,10 +22,21 @@ main() {
 
 do_install() {
   sudo install -m644 99-transition-to-monitor.rules /etc/udev/rules.d/
+  sudo install -m644 i3-transition-to-monitor.service /usr/lib/systemd/system/
+
+  reload_daemons
 }
 
 do_uninstall() {
   sudo rm -f /etc/udev/rules.d/99-transition-to-monitor.rules
+  sudo rm -f /usr/lib/systemd/system/i3-transition-to-monitor.service
+
+  reload_daemons
+}
+
+reload_daemons() {
+  sudo systemctl daemon-reload
+  sudo udevadm control --reload
 }
 
 main "$@"

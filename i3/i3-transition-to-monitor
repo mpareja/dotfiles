@@ -12,6 +12,7 @@ main() {
   CUR=$(i3-msg $S -t get_workspaces | jq '.[] | select(.focused) | .name' -r)
 
   workspaces_to_move "$TARGET" | while read w; do
+    echo Workspace: $w
     i3-msg $S workspace "$w" >/dev/null
     with_retry move_workspace "$TARGET" || {
       # in case of failure, cleanup

@@ -1,4 +1,17 @@
 # external screen
+#
+# - Find the DEVPATH by running `udevadm monitor` and unplugging the display
+# - Using a systemd job because i3-transition-to-monitor doesn't work well
+#   when run within the udev hook, there is a race condition for the monitor
+#   being ready. The following allows the udev hooks to complete quickly and
+#   the systemd job will run asyncronously with retries which will allow it
+#   to ultimately complete once the display is ready.
+# - Other great reasons for leaning on systemd from a udev rule:
+#   - log visiblity (udev swallowed output)
+#   - trivially test the script in the same posture it will run (via systemd)
+# - Tried using SYSTEMD_WANTS device triggering, but systemd only seems to
+#   start the service the first time the "change" event is raised, instead,
+#   manually starting the systemd job
 SUBSYSTEM=="drm", ACTION=="change", \
-  DEVPATH=="/devices/pci0000:00/0000:00:01.0/0000:01:00.0/drm/card1" \
-  PROGRAM="/home/mpareja/projects/dotfiles/i3/i3-transition-to-monitor"
+  DEVPATH=="/devices/pci0000:00/0000:00:02.0/drm/card0" \
+  RUN+="/usr/bin/systemctl start --no-block i3-transition-to-monitor"
