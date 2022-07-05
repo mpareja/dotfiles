@@ -4,14 +4,14 @@ set -eou pipefail
 #set -x
 
 main() {
-  TARGET=${1:-$(i3-msg -t GET_OUTPUTS | jq '.[] | select(.rect.width == 3440) | .name' -r)}
-  ATTEMPTS=10 # about 5 seconds
-
   S="-s $(detect_socket)"
+
+  TARGET=${1:-$(i3-msg $S -t GET_OUTPUTS | jq '.[] | select(.rect.width == 3440) | .name' -r)}
+  ATTEMPTS=10 # about 5 seconds
 
   CUR=$(i3-msg $S -t get_workspaces | jq '.[] | select(.focused) | .name' -r)
 
-  i3-msg $S -t get_workspaces | jq -r .[].name | grep -v calendar | while read w; do
+  workspaces_to_move "$TARGET" | while read w; do
     i3-msg $S workspace "$w" >/dev/null
     with_retry move_workspace "$TARGET" || {
       # in case of failure, cleanup
@@ -21,6 +21,10 @@ main() {
   done
 
   i3-msg $S workspace "$CUR" >/dev/null
+}
+
+workspaces_to_move() {
+  i3-msg -s $(detect_socket) -t get_workspaces | jq ".[] | select(.output != \"$1\") | .name" -r | grep -v calendar
 }
 
 move_workspace() {
@@ -52,4 +56,4 @@ with_retry() {
   done
 }
 
-main "$@" # 2>&1 | tee /tmp/transition-to-monitor.log
+main "$@" # 2>&1 | tee -a /tmp/transition-to-monitor.log
