@@ -6,7 +6,8 @@ gone_branches() {
   git branch -vv | egrep 'origin/.*: gone]'
 }
 
-git fetch
+# fetch and prune any remote branches that have been deleted
+git fetch --prune
 
 echo
 echo ==== Branches to prune ====
