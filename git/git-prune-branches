@@ -15,9 +15,9 @@ gone_branches
 echo ===========================
 echo
 
-if [ "$1" == "-f" ]; then
+read -n 1 -p "Prune branches (y/N)? " PRUNE
+if [ "$PRUNE" == "y" -o "$PRUNE" == "Y" ]; then
+  echo
+  echo
   gone_branches | awk '{ print $1 }' | xargs git branch -D
-else
-  echo "Run 'git-prune-branches -f' to remove the branches"
 fi
-
