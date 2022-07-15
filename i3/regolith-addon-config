@@ -83,11 +83,7 @@ for_window [title="Inbox .*- [a-zA-Z0-9 .]*[ Gm]*ail"] move workspace 1: comms; 
 for_window [title="^Slack \| .*"] move workspace 1: comms; move workspace to output DP1
 
 ## MARIO: for fingerprint unlock, use xss-lock + i3lock instead:
-# 1. install i3lock: `sudo apt install i3lock xss-lock`
-# 2. allow fingerprint auth by adding: `auth sufficient pam_fprintd.so` to `/etc/pam.d/i3lock` before the `auth include login` line
-# 3. comment the above lines and uncomment the lines below:
-# bindsym $mod+Escape exec /usr/bin/i3lock
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork # using i3 for fingerprint unlock
+exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/projects/dotfiles/i3/i3-lock-screen
 
 # # Load nm-applet to provide auth dialogs for network access
 # set_from_resource $i3-wm.program.nm-applet i3-wm.program.nm-applet /usr/bin/nm-applet
