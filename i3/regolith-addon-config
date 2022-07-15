@@ -45,8 +45,8 @@ bindsym $mod+comma exec ~/projects/dotfiles/i3/i3-rename-workspace
 bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 
 # scratchpad and jump shortcuts
-bindsym $mod+$alt+grave [title="^tiddlers - Obsidian"] scratchpad show
-bindsym $mod+Ctrl+z [title="^tiddlers - Obsidian"] scratchpad show
+bindsym $mod+$alt+grave [title="tiddlers - Obsidian"] scratchpad show
+bindsym $mod+Ctrl+z [title="tiddlers - Obsidian"] scratchpad show
 bindsym $mod+Ctrl+x [title="(^Meet - .* - Google Chrome|^Zoom Meeting)"] scratchpad show
 bindsym $mod+Ctrl+c [class="Spotify"] scratchpad show
 bindsym $mod+Ctrl+s [title="^Slack \| .*"] focus
