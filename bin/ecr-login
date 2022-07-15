@@ -5,7 +5,13 @@ set -eou pipefail
 function ecr_login() {
   PROFILE=${1:-default}
   REGION=${AWS_DEFAULT_REGION:-us-east-1}
+  echo "Using:"
+  echo "  PROFILE: $PROFILE"
+  echo "  REGION: $REGION"
+
   AWS_ACCOUNT_ID=$(aws --profile ${PROFILE} sts get-caller-identity --query 'Account' --output text)
+
+  echo "  AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID"
 
   aws --profile ${PROFILE} --region ${REGION} ecr get-login-password \
     | docker login \
