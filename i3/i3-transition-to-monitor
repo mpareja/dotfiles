@@ -7,7 +7,7 @@ main() {
   S="-s $(detect_socket)"
 
   TARGET=${1:-$(i3-msg $S -t GET_OUTPUTS | jq '.[] | select(.rect.width == 3440) | .name' -r)}
-  ATTEMPTS=10 # about 5 seconds
+  ATTEMPTS=20 # about 10 seconds
 
   CUR=$(i3-msg $S -t get_workspaces | jq '.[] | select(.focused) | .name' -r)
 
