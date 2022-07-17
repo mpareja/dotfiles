@@ -4,3 +4,14 @@
     state: present
     name:
       - i3xrocks-battery
+      - i3lock
+      - xss-lock
+      - xserver-xorg-input-synaptics
+
+- name: Configure synaptic touchpad
+  become: true
+  copy:
+    src: xorg.conf.d/70-synaptics.conf
+    dest: /etc/X11/xorg.conf.d/
+    owner: root
+    group: root
