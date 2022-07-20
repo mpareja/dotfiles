@@ -46,6 +46,8 @@
       - compizconfig-settings-manager
       - curl
       - dos2unix
+      # dmenu is required by dunst actions
+      - dmenu
       - dunst
       - filezilla
       - flatpak
