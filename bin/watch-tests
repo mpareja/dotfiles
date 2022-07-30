@@ -3,7 +3,7 @@
 npm_script=$(npm run | grep '^  \w' | egrep '(watch.*test|test.*watch)' | head -1)
 
 if [ ! -z "$npm_script" ]; then
-  exec npm run $npm_script
+  exec npm run $npm_script -- "$@"
 else
   # may have been run from a nested directory
   cd $(npm prefix)
