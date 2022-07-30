@@ -67,15 +67,20 @@ list_running_kmonad_units() {
   systemctl list-units | sed 's/●/ /' | safe_grep kmonad@ | awk '{ print $1 }'
 }
 
+list_udev_keyboards() {
+  # DUPLICATION: must match 99-kmonad.rules
+  # match ID_INPUT_KEYBOARD sitting under /devices/platform or /devices/pci
+  udevadm trigger -n -v --property-match=ID_INPUT_KEYBOARD=1 | egrep '/sys/devices/(pci|platform).*event'
+}
+
 restart_active_keyboards() {
   echo "Restarting active keyboards"
   sudo udevadm control --reload # ensure rules have reloaded
 
-  find /dev/input/by-path -name '*-kbd' | while read dev; do
-    local realdev=$(readlink -f $dev)
-    echo "  $realdev"
-    sudo udevadm trigger --action remove $realdev
-    sudo udevadm trigger --action add $realdev
+  list_udev_keyboards | while read dev; do
+    echo "  $dev"
+    sudo udevadm trigger --action remove $dev
+    sudo udevadm trigger --action add $dev
   done
 }
 

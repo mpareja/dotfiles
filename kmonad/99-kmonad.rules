@@ -1,6 +1,8 @@
-# find by name *-kbd should match install.sh and uninstall.sh
+# DUPLICATION: must match installer list_udev_keyboards
+# match ID_INPUT_KEYBOARD sitting under /devices/platform or /devices/pci
 SUBSYSTEM=="input", ACTION=="add", \
-  SYMLINK=="input/by-path/*-kbd", \
+  DEVPATH=="/devices/p*/event*", \
+  ENV{ID_INPUT_KEYBOARD}=="1", \
   PROGRAM="/usr/bin/systemd-escape -p --template=kmonad@.service $env{DEVNAME}",\
   TAG+="systemd", \
   ENV{SYSTEMD_WANTS}+="%c"
