@@ -11,6 +11,11 @@ else
   framework=$(npm pkg get devDependencies | jq -r 'keys[]' | egrep '^(mocha|jest)$')
   case "$framework" in
     jest)
+      # not perfect but faster than `npm ls node-notifier`
+      if [ ! -d "$(npm prefix)/node_modules/node-notifier" ]; then
+        echo node-notifier not found, installing temporarily
+        npm i --no-save node-notifier
+      fi
       exec npx jest --no-coverage --watch --notify --notifyMode always -- "$@"
       ;;
     mocha)
