@@ -4,7 +4,7 @@
 ustatus $@
 
 if hash inotifywait 2> /dev/null; then
-	while inotifywait -qr -e modify -e move -e create -e delete --exclude '\.git/' .; do
+	while inotifywait -qr -e modify -e move -e create -e delete --exclude '\.git/' --format $'\n%:e %f\n--------------------' .; do
 		ustatus $@
 	done
 elif hash fswatch 2> /dev/null; then
