@@ -3,43 +3,75 @@
 set -eou pipefail
 #set -x
 
-main() {
-  S="-s $(detect_socket)"
-
-  TARGET=${1:-$(i3-msg $S -t GET_OUTPUTS | jq '.[] | select(.rect.width == 3440) | .name' -r)}
-  ATTEMPTS=20 # about 10 seconds
-
-  CUR=$(i3-msg $S -t get_workspaces | jq '.[] | select(.focused) | .name' -r)
-
-  workspaces_to_move "$TARGET" | while read w; do
-    echo Workspace: $w
-    i3-msg $S workspace "$w" >/dev/null
-    with_retry move_workspace "$TARGET" || {
-      # in case of failure, cleanup
-      i3-msg $S workspace "$CUR" >/dev/null
-      false
-    }
-  done
-
-  i3-msg $S workspace "$CUR" >/dev/null
-}
-
-workspaces_to_move() {
-  i3-msg -s $(detect_socket) -t get_workspaces | jq ".[] | select(.output != \"$1\") | .name" -r | grep -v calendar
-}
-
-move_workspace() {
-  i3-msg -s $(detect_socket) move workspace to output "$1" >/dev/null
-}
-
 # required when invoked by udev
 detect_socket() {
   local THE_USER=$(ps ax -o comm,uid | grep "^i3\s" | awk '{ print $2 }')
   ls /run/user/$THE_USER/i3/ipc-socket* | head -1
 }
 
+S="-s $(detect_socket)"
+
+main() {
+  ATTEMPTS=20 # about 10 seconds
+  CUR=$(i3-msg $S -t get_workspaces | jq '.[] | select(.focused) | .name' -r)
+
+  with_retry $ATTEMPTS move_all_workspaces "$@" || {
+    # in case of failure, cleanup
+    echo Aborted. Returning to original workspace \"$CUR\".
+    i3-msg $S workspace "$CUR" >/dev/null
+    false
+  }
+
+  echo Finished. Returning to original workspace \"$CUR\".
+  i3-msg $S workspace "$CUR" >/dev/null
+}
+
+move_all_workspaces() {
+  # match active display that is not the monitor
+  TARGET=${1:-$(find_widest_output)}
+  if [ -z "$TARGET" ]; then
+    echo no output target detected
+    return 1
+  fi
+
+  echo Moving workspaces to output \"$TARGET\"
+  echo
+
+  workspaces_to_move "$TARGET" | while read w; do
+    echo Workspace: $w
+    move_workspace "$w" "$TARGET"
+  done
+}
+
+find_widest_output() {
+  # sort by widest, exclude laptop output and non-active outputs
+  i3-msg $S -t GET_OUTPUTS | jq -r '.
+    | sort_by(.rect.width, .name) | reverse | .[]
+    | select(.active == true and .name != "eDP-1")
+    | .name' \
+    | head -1
+}
+
+workspaces_to_move() {
+  i3-msg $S -t get_workspaces | jq ".[] | select(.output != \"$1\") | .name" -r | grep -v calendar
+}
+
+move_workspace() {
+  WORKSPACE="$1"
+  TARGET="$2"
+  CURRENT="$(i3-msg $S -t get_workspaces | jq ".[] | select(.name == \"$WORKSPACE\") | .output" -r)"
+
+  if [ "$CURRENT" != "$TARGET" ]; then
+    i3-msg $S workspace "$WORKSPACE" >/dev/null
+    i3-msg $S move workspace to output "$TARGET" >/dev/null
+  else
+    echo $WORKSPACE is already on output $CURRENT
+  fi
+}
+
 with_retry() {
-  local ATTEMPTS=10 # 5 seconds
+  local ATTEMPTS=$1
+  shift
 
   for (( i=1; i <= $ATTEMPTS; i++ )); do
     if "$@"; then
