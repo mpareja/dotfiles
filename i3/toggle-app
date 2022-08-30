@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# SYNTAX: <criteria> <...exec commands...>
+
+CRITERIA="$1"
+shift
+
+is_focused() {
+  i3-msg "[$CRITERIA con_id=__focused__] focus" &>/dev/null
+}
+
+scratchpad() {
+  i3-msg "move to scratchpad" &>/dev/null
+}
+
+if is_focused; then
+  scratchpad
+else
+  i3-msg "[$CRITERIA] focus" &>/dev/null || "$@"
+fi
