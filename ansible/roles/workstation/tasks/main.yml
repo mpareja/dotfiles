@@ -12,7 +12,7 @@
   blockinfile:
     dest: /home/{{ ansible_user_id }}/.profile
     marker: '# {mark} ANSIBLE: include global node and dotfiles bins'
-    block: 'PATH="$PATH:$HOME/n/bin:$HOME/projects/dotfiles/bin"'
+    block: 'PATH="$PATH:$HOME/.n/bin:$HOME/projects/dotfiles/bin"'
 
 - name: '.bashrc: configure GITHUB_TOKEN'
   blockinfile:
