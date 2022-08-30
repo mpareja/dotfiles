@@ -29,11 +29,11 @@ i3-wm.workspace.17.name: 17
 i3-wm.workspace.18.name: 18
 i3-wm.workspace.19.name: 19
 
-! rebind unused keys (Next is PgUp)
+! rebind unused keys to free up ` and Tab (Next is PgUp)
 i3-wm.binding.next_free: Next
 i3-wm.binding.move_next_free: Shift+Next
 i3-wm.binding.take_next_free: Next
-i3-wm.binding.ws_next: Ctrl+Shift+}
+i3-wm.binding.ws_next: Ctrl+Shift+Next
 
 i3xrocks.action.volume.scrollup: volume_down
 i3xrocks.action.volume.scrolldn: volume_up
