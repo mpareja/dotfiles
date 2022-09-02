@@ -36,8 +36,10 @@ config_i3() {
       replace config ~/.config/regolith/i3/config
     else
       mkdir -p ~/.config/regolith2/i3/config.d
+      mkdir -p ~/.config/regolith2/picom
 
       replace regolith-addon-config ~/.config/regolith2/i3/config.d/regolith-addon-config
+      replace picom.conf ~/.config/regolith2/picom/config
       replace Xresources ~/.config/regolith2/Xresources
       xrdb merge ~/.config/regolith2/Xresources
     fi
