@@ -19,7 +19,15 @@ else
       exec npx jest --no-coverage --watch --notify --notifyMode always -- "$@"
       ;;
     mocha)
-      exec npx mocha --watch "$@"
+      type=$(npm pkg get type)
+
+      # mocha does not support watch mode for ESM modules
+      # https://github.com/mochajs/mocha/issues/4374
+      if [ "$type" == '"module"' ]; then
+        exec uwatch npx mocha "$@"
+      else
+        exec npx mocha --watch "$@"
+      fi
       ;;
   esac
 fi
