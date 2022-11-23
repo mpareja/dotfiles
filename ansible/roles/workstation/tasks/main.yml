@@ -31,7 +31,7 @@
   become: true
   lineinfile:
     path: /etc/default/grub
-    regexp: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"'
+    regexp: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet.*"'
     line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mitigations=off"'
   notify: update grub
 
