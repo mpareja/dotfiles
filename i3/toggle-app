@@ -5,16 +5,54 @@
 CRITERIA="$1"
 shift
 
+# BUG: is_focused returns true when run in an empty workspace
 is_focused() {
   i3-msg "[$CRITERIA con_id=__focused__] focus" &>/dev/null
 }
 
-scratchpad() {
+scratchpad_hide() {
   i3-msg "move to scratchpad" &>/dev/null
 }
 
+scratchpad_show() {
+  i3-msg "[$CRITERIA] scratchpad show" &>/dev/null
+}
+
+focus_within_workspace() {
+  i3-msg "[$CRITERIA workspace=__focused__] focus" &>/dev/null
+}
+
+focus_and_carry() {
+  CURWS=$(get_current_ws_num)
+  PREVWS=$(back_and_forth; get_current_ws_num)
+
+  i3-msg "[$CRITERIA] focus" &>/dev/null && \
+    i3-msg move container to workspace number "$CURWS"
+
+  RESULT=$?
+
+  i3-msg workspace number "$PREVWS"
+  i3-msg workspace number "$CURWS"
+
+  return $RESULT
+}
+
+get_current_ws_num() {
+  i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true) | .num'
+}
+
+back_and_forth() {
+  i3-msg workspace back_and_forth &>/dev/null
+}
+
 if is_focused; then
-  scratchpad
+  scratchpad_hide
 else
-  i3-msg "[$CRITERIA] focus" &>/dev/null || "$@"
+  focus_within_workspace || scratchpad_show || focus_and_carry || exec "$@"
 fi
+
+## Test Scenarios:
+# 1. other workspace: floating, floating scratchpad, tiling, hidden in scratchpad
+# 2. same workspace: floating, floating scratchpad, tiling, hidden in scratchpad
+# 3. confirm back_and_forth is preserved
+# 4. app is not running
