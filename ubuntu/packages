@@ -6,8 +6,6 @@ curl
 dos2unix
 dunst
 filezilla
-flatpak
-gnome-software-plugin-flatpak
 fonts-noto-color-emoji
 g++
 gconf2
