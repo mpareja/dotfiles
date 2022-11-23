@@ -13,6 +13,11 @@ sleep 1
 
 ustatus echo working
 
+# test duplicates (no stacking to enable sounds)
+sleep 0.3 && ustatus echo working
+sleep 0.3 && ustatus echo working
+sleep 0.3 && ustatus echo working
+
 sleep 1
 
 ustatus invalidcommandthatweran
