@@ -11,9 +11,10 @@ install_chrome() {
 }
 
 install_dropbox() {
+	local DISTRO=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
 	local RELEASE=$(lsb_release -sc)
 
-	if ! wget -q https://linux.dropboxstatic.com/ubuntu/dists/$RELEASE/ -O /dev/null; then
+	if ! wget -q https://linux.dropboxstatic.com/$DISTRO/dists/$RELEASE/ -O /dev/null; then
 		echo "NOTE: dropbox hasn't updated their APT repository for $RELEASE, falling back to bionic!"
 		RELEASE=bionic
 	fi
