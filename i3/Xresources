@@ -37,3 +37,7 @@ i3-wm.binding.ws_next: Ctrl+Shift+Next
 
 i3xrocks.action.volume.scrollup: volume_down
 i3xrocks.action.volume.scrolldn: volume_up
+
+! gaps
+i3-wm.gaps.inner.size: 10
+i3-wm.gaps.outer.size: 0
