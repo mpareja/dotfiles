@@ -3,8 +3,23 @@
   apt:
     state: present
     name:
+      - fprintd
+      - libpam-fprintd
+
       - i3xrocks-battery
       - xserver-xorg-input-synaptics
+
+- name: Enable fingerprint on lock screen
+  become: true
+  copy:
+    dest: /etc/pam.d/gnome-flashback
+    owner: root
+    group: root
+    content: |
+      auth     requisite pam_nologin.so
+      auth     required  pam_fprintd.so
+      auth     optional  pam_gnome_keyring.so
+      password required  pam_fprintd.so
 
 - name: Configure synaptic touchpad
   become: true
