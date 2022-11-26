@@ -2,8 +2,6 @@ i3-wm.binding.wifi: Shift+w
 i3-wm.binding.scratchpad: grave
 i3-wm.binding.move_scratchpad: Shift+grave
 
-i3-wm.program.lock: /usr/bin/i3lock
-
 ! prevent regolith from resetting the terminal profile to Regolith
 gnome.terminal.update: false
 

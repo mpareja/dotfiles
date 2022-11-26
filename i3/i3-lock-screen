@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# prevent picom from revealing the desktop upon wakeup
-pkill -xu $EUID picom
-
-/usr/share/doc/xss-lock/transfer-sleep-lock-i3lock.sh
-
-/usr/share/regolith-compositor/init &

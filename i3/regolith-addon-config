@@ -74,9 +74,6 @@ for_window [title="Mail - Mario Pareja - Outlook"] move workspace 1: comms; move
 for_window [title="Inbox .*- [a-zA-Z0-9 .]*[ Gm]*ail"] move workspace 1: comms; move workspace to output DP1
 for_window [title="^Slack \| .*"] move workspace 1: comms; move workspace to output DP1
 
-## MARIO: for fingerprint unlock, use xss-lock + i3lock instead:
-exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/projects/dotfiles/i3/i3-lock-screen
-
 # # Load nm-applet to provide auth dialogs for network access
 # set_from_resource $i3-wm.program.nm-applet i3-wm.program.nm-applet /usr/bin/nm-applet
 # exec --no-startup-id $i3-wm.program.nm-applet

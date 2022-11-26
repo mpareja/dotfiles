@@ -4,8 +4,6 @@
     state: present
     name:
       - i3xrocks-battery
-      - i3lock
-      - xss-lock
       - xserver-xorg-input-synaptics
 
 - name: Configure synaptic touchpad
