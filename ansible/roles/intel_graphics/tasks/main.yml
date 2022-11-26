@@ -4,3 +4,10 @@
     state: present
     name:
       - regolith-compositor-picom-glx
+
+- name: Install non-free intel media drivers
+  become: true
+  apt:
+    state: present
+    name:
+      - intel-media-va-driver-non-free
