@@ -15,12 +15,14 @@ main() {
     kmonad_install
   elif [ "$1" == "uninstall" ]; then
     kmonad_uninstall
+  elif [ "$1" == "build" ]; then
+    kmonad_build
   else
     invalid_syntax
   fi
 }
 
-kmonad_install() {
+kmonad_build() {
   if [ -f kmonad ]; then
     echo "kmonad: found binary, skipping compilation"
     echo
@@ -33,6 +35,10 @@ kmonad_install() {
 
     docker rmi kmonad-builder
   fi
+}
+
+kmonad_install() {
+  kmonad_build
 
   sudo install -m755 kmonad /usr/bin/
   sudo install -m755 kmonad-autoconfig /usr/bin/
