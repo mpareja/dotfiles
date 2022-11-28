@@ -50,7 +50,7 @@ bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 bindsym $mod+Ctrl+z exec toggle-app 'title="tiddlers - Obsidian"' obsidian
 bindsym $mod+Ctrl+c exec toggle-app 'class="Spotify"' spotify
 bindsym $mod+Ctrl+x exec toggle-app 'title="(^Meet - .* - Google Chrome|^Meet - .* — Mozilla Firefox|^Zoom Meeting)"'
-bindsym $mod+Ctrl+s [title="^Slack \| .*"] focus
+bindsym $mod+Ctrl+s [title=" - Slack$"] focus
 bindsym $mod+Ctrl+e [title="Inbox .* - [a-zA-Z0-9 .]*[ Gm]*ail"] focus
 
 # floating setup
@@ -70,9 +70,7 @@ workspace "2: calendar" output DP-1
 workspace "3: todo" output DP-1
 workspace "8: to-read" output DP-1
 
-for_window [title="Mail - Mario Pareja - Outlook"] move workspace 1: comms; move workspace to output DP1
-for_window [title="Inbox .*- [a-zA-Z0-9 .]*[ Gm]*ail"] move workspace 1: comms; move workspace to output DP1
-for_window [title="^Slack \| .*"] move workspace 1: comms; move workspace to output DP1
+for_window [title=" - Slack$"] move workspace 1: comms; move workspace to output DP1
 
 # # Load nm-applet to provide auth dialogs for network access
 # set_from_resource $i3-wm.program.nm-applet i3-wm.program.nm-applet /usr/bin/nm-applet
