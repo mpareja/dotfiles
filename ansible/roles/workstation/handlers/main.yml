@@ -5,3 +5,7 @@
 - name: update grub
   become: true
   command: update-grub
+
+- name: update apt
+  become: true
+  command: /usr/bin/apt update

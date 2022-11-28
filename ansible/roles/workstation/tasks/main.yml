@@ -37,55 +37,71 @@
 
 - name: Install common packages
   become: true
-  apt:
-    state: present
-    name:
-      - apt-listchanges
-      - autoconf
-      - autogen
-      - compizconfig-settings-manager
-      - curl
-      - dos2unix
-      # dmenu is required by dunst actions
-      - dmenu
-      - dunst
-      - filezilla
-      - flatpak
-      - fonts-noto-color-emoji
-      - g++
-      - gconf2
-      - git-gui
-      - gnome-software-plugin-flatpak
-      - gparted
-      - hexchat
-      - hub
-      - i3xrocks-volume
-      - inotify-tools
-      - iotop
-      - jq
-      - libnotify-bin
-      - maim
-      - make
-      - meld
-      - mesa-utils
-      - mitmproxy
-      - openssh-server
-      - p7zip-full
-      - pcmanfm
-      - pinta
-      - pkgconf
-      - playerctl
-      - regolith-desktop
-      - regolith-look-solarized-dark
-      - samba
-      - silversearcher-ag
-      - tmux
-      - traceroute
-      - tree
-      - vim-gtk3
-      - wireshark
-      - wmctrl
-      - x11vnc
-      - xclip
-      - xdotool
-      - xfonts-terminus
+  block:
+
+  - name: Add non-free apt repositories
+    become: true
+    copy:
+      src: apt
+      dest: /etc
+      mode: 0644
+      owner: root
+      group: root
+    notify: update apt
+
+  # by default, handlers are run after all tasks to avoid duplication, we need it now
+  - name: Ensure update apt has run, if necessary
+    meta: flush_handlers
+
+  - name: apt install
+    apt:
+      state: present
+      name:
+        - apt-listchanges
+        - autoconf
+        - autogen
+        - compizconfig-settings-manager
+        - curl
+        - dos2unix
+        # dmenu is required by dunst actions
+        - dmenu
+        - dunst
+        - filezilla
+        - flatpak
+        - fonts-noto-color-emoji
+        - g++
+        - gconf2
+        - git-gui
+        - gnome-software-plugin-flatpak
+        - gparted
+        - hexchat
+        - hub
+        - i3xrocks-volume
+        - inotify-tools
+        - iotop
+        - jq
+        - libnotify-bin
+        - maim
+        - make
+        - meld
+        - mesa-utils
+        - mitmproxy
+        - openssh-server
+        - p7zip-full
+        - pcmanfm
+        - pkgconf
+        - playerctl
+        - regolith-desktop
+        - samba
+        - silversearcher-ag
+        - spotify-client
+        - tmux
+        - traceroute
+        - tree
+        - vim-gtk3
+        - wireshark
+        - wmctrl
+        - x11vnc
+        - xclip
+        - xdotool
+        - xfonts-terminus
