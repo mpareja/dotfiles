@@ -47,9 +47,9 @@ bindsym $mod+comma exec ~/projects/dotfiles/i3/i3-rename-workspace
 bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 
 #### scratchpad and jump shortcuts ####
-bindsym $mod+Ctrl+z exec toggle-app 'title="tiddlers - Obsidian"' flatpak run md.obsidian.Obsidian
-bindsym $mod+Ctrl+c exec toggle-app 'class="Spotify"' flatpak run com.spotify.Client
-bindsym $mod+Ctrl+x [title="(^Meet - .* - Google Chrome|^Meet - .* — Mozilla Firefox|^Zoom Meeting)"] focus
+bindsym $mod+Ctrl+z exec toggle-app 'title="tiddlers - Obsidian"' obsidian
+bindsym $mod+Ctrl+c exec toggle-app 'class="Spotify"' spotify
+bindsym $mod+Ctrl+x exec toggle-app 'title="(^Meet - .* - Google Chrome|^Meet - .* — Mozilla Firefox|^Zoom Meeting)"'
 bindsym $mod+Ctrl+s [title="^Slack \| .*"] focus
 bindsym $mod+Ctrl+e [title="Inbox .* - [a-zA-Z0-9 .]*[ Gm]*ail"] focus
 
