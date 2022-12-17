@@ -435,6 +435,10 @@
 #    set_stack_tag = "volume"
 #
 # vim: ft=cfg
+[ci-passed]
+   body = Yay, your tests passed!
+   script = play-success-sound
+
 [test-passed]
 	appname = notify-send
 	body = *test* passed*
