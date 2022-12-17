@@ -1,0 +1,53 @@
+#!/bin/bash
+
+DRY_RUN=false
+QUITE=false
+
+syntax() {
+  echo "SYNTAX: $(basename $0) [-d|-q|-h|--help] [COMMAND]"
+  echo
+  echo "Execute a command on all sub-directories that are git repositories"
+  echo
+  echo -d dry-run
+  echo -q quiet
+}
+
+main() {
+  ls | while read proj; do
+    [ -d "$proj/.git" ] || continue
+
+    [ "$QUITE" == "false" ] && echo --- $proj ---
+
+    cd $proj
+
+    if [ "$DRY_RUN" == "false" ]; then
+      "$@"
+    else
+      echo "$@"
+    fi
+
+    cd ..
+  done
+}
+
+while true; do
+  case "$1" in
+    -d)
+      DRY_RUN=true
+      shift
+      ;;
+    -q)
+      QUITE=true
+      shift
+      ;;
+    --help | -h)
+      syntax
+      exit
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+main "$@"
