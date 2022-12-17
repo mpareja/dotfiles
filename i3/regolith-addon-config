@@ -9,9 +9,6 @@
 # layout, use the i3-config-wizard
 #
 
-# Media Control
-bindsym $mod+period exec --no-startup-id playerctl play-pause
-
 # kill and force kill (-9) focused window
 bindsym $alt+F4 kill
 bindsym $alt+Shift+F4 [con_id="__focused__"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)
