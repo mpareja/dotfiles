@@ -4,7 +4,7 @@ DRY_RUN=false
 QUITE=false
 
 syntax() {
-  echo "SYNTAX: $(basename $0) [-d|-q|-h|--help] [COMMAND]"
+  echo "SYNTAX: $(basename $0) [-d|-q|-h|--help] <COMMAND>"
   echo
   echo "Execute a command on all sub-directories that are git repositories"
   echo
@@ -30,7 +30,7 @@ main() {
   done
 }
 
-while true; do
+[ $# -gt 0 ] && while true; do
   case "$1" in
     -d)
       DRY_RUN=true
