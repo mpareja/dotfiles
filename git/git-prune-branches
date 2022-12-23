@@ -3,7 +3,7 @@
 # search for branches that point to remote branches that are "gone",
 # i.e. the remote GitHub branch has been merged and deleted
 gone_branches() {
-  git branch -vv | egrep 'origin/.*: gone]'
+  git branch -vv | sed 's/^\*/ /' | egrep 'origin/.*: gone]'
 }
 
 # fetch and prune any remote branches that have been deleted
