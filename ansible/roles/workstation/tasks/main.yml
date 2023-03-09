@@ -20,6 +20,12 @@
     marker: '# {mark} ANSIBLE: derive GitHub token'
     block: "export GITHUB_TOKEN=$(cat ~/.npmrc | grep '^//npm.pkg.github.com' | sed 's/^.*=\"\\(.*\\)\"/\\1/')"
 
+- name: 'direnv: load in .bashrc'
+  blockinfile:
+    dest: /home/{{ ansible_user_id }}/.bashrc
+    marker: '# {mark} ANSIBLE: load direnv'
+    block: 'source <(direnv hook bash)'
+
 - name: 'hosts: enable FQDN to enable sending via gmail'
   become: true
   blockinfile:
@@ -62,6 +68,7 @@
         - autogen
         - compizconfig-settings-manager
         - curl
+        - direnv
         - dos2unix
         # dmenu is required by dunst actions
         - dmenu
