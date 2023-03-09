@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# hold on to original input / stderr so we can prompt later
+exec 3>&0
+exec 4>&2
+
+syntax() {
+  echo "SYNTAX: $(basename $0) [-d|-h|--help]"
+  echo
+  echo "Find, diff, and optionally delete Dropbox sync conflicts"
+  echo
+  echo -d dry-run
+}
+
+main() {
+  find_conflicts | while read f; do
+    meld "$f" "$(echo "$f" | sed "s/ (.*'s conflicted copy .*)//" | sed 's/ (conflict .*)//')"
+
+    read -p "Delete '$f' (y/N): " REMOVE 0>&3 2>&4
+
+    if [ "$REMOVE" == "y" ]; then
+      rm "$f"
+      echo removed
+    else
+      echo skipped
+    fi
+  done
+}
+
+find_conflicts() {
+  find -name '*(conflict *)*'
+  find -name "*(*'s conflicted copy *)*"
+}
+
+[ $# -gt 0 ] && while true; do
+  case "$1" in
+    -d)
+      find_conflicts | sort
+      exit
+      ;;
+    --help | -h)
+      syntax
+      exit
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+main "$@"
