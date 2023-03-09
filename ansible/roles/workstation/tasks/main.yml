@@ -96,6 +96,7 @@
         - tmux
         - traceroute
         - tree
+        - vifm
         - vim-gtk3
         - wireshark
         - wmctrl

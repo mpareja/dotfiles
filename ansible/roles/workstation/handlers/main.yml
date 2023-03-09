@@ -8,4 +8,4 @@
 
 - name: update apt
   become: true
-  command: /usr/bin/apt update
+  command: /usr/bin/apt-get update
