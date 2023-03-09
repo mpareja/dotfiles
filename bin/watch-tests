@@ -29,5 +29,9 @@ else
         exec npx mocha --watch "$@"
       fi
       ;;
+    *)
+      echo ERROR: unknown testing framework used
+      exit 1
+      ;;
   esac
 fi
