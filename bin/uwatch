@@ -2,14 +2,17 @@
 
 # consider using cross-platform fswatch (https://emcrisostomo.github.io/fswatch/)
 ustatus $@
+echo done.
 
 if hash inotifywait 2> /dev/null; then
 	while inotifywait -qr -e modify -e move -e create -e delete --exclude '\.git/' --format $'\n%:e %f\n--------------------' .; do
 		ustatus $@
+		echo done.
 	done
 elif hash fswatch 2> /dev/null; then
 	while fswatch -1 -r --exclude '\.git/' .; do
 		ustatus $@
+		echo done.
 	done
 else
 	echo ERROR: no file monitoring tool found, install inotifywait or fswatch
