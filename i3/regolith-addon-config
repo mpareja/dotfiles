@@ -79,9 +79,9 @@ for_window [title=" - Slack$"] move workspace 1: comms; move workspace to output
 # exec --no-startup-id $i3-wm.program.nm-applet
 
 # Screenshots (desktop, active window, selection)
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date).png"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date).png"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).png"
 
 ## Clipboard Screenshots (desktop, active window, selection)
 bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
