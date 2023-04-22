@@ -1,10 +1,20 @@
 #!/bin/bash
 
-if [ $# -ne 4 ]; then
-  echo "SYNTAX: <CONTEXT> <LOCAL_PORT> <TARGET_HOST> <TARGET_PORT>"
+if [ $# -ne 4 -a $# -ne 5 ]; then
+  echo "SYNTAX: [--all-hosts] <CONTEXT> <LOCAL_PORT> <TARGET_HOST> <TARGET_PORT>"
   echo
   echo "aws-vault exec some-context -- kubectl-proxy some-context 7777 asdf.rds.com 5432"
   exit 1
+fi
+
+address=""
+
+if [ "$1" == "--all-hosts" ]; then
+  echo "WARNING: allowing any machine to connect to forwarded port"
+  address="--address 0.0.0.0"
+  shift
+else
+  echo "Only allowing localhost to connect to forwarded port"
 fi
 
 context=$1
@@ -55,7 +65,7 @@ echo Waiting for pod to be running...
 if kc wait pod/${name} --for condition=Ready --timeout=90s; then
   trap cleanup INT
   echo Proxy pod is running, port-forwarding
-  kc port-forward ${name} ${local_port}
+  kc port-forward ${address} ${name} ${local_port}
 else
   echo Gave up waiting for pod
   cleanup
