@@ -22,7 +22,8 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle splith splitv
 
 # resize window
-bindsym $mod+bracketleft resize set 1024
+bindsym $mod+bracketleft resize set 806
+bindsym $mod+bracketright resize set 51 ppt
 bindsym $mod+Tab workspace back_and_forth
 # bindsym $mod+Shift+Tab workspace prev
 # bindsym $mod+Ctrl+Tab workspace back_and_forth
