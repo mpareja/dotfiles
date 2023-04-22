@@ -75,6 +75,7 @@
         - dunst
         - filezilla
         - fonts-noto-color-emoji
+        - fonts-liberation
         - g++
         - gconf2
         - git-gui
