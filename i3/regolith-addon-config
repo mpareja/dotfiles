@@ -57,6 +57,10 @@ for_window [title="^Zoom Meeting ID: "] floating enable, sticky enable
 for_window [title="- Shutter"] floating enable
 for_window [title="Microsoft Teams Notification"] floating enable
 
+# Alt Tab - stolen from /usr/share/regolith/i3/config.d/40_i3-swap-focus
+# in order to use Alt instaed of Super
+bindsym $alt+Tab exec --no-startup-id pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
+
 # STARTUP APPLICATIONS
 exec --no-startup-id dropbox start
 
