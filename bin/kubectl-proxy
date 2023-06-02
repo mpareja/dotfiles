@@ -55,7 +55,10 @@ function kc() {
 
 function cleanup() {
   echo "Tearing down ${name}"
-  kc delete pod/${name} --wait=false
+  kc delete pod/${name} --wait=false || {
+  	echo "Unable to teardown proxy prod. Delete pod manually by running:"
+	echo "kubectl --context ${context} delete pod/${name}"
+  }
   exit 0
 }
 
