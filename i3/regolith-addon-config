@@ -47,9 +47,10 @@ bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 #### scratchpad and jump shortcuts ####
 bindsym $mod+Ctrl+z exec toggle-app 'title="tiddlers - Obsidian"' obsidian
 bindsym $mod+Ctrl+c exec toggle-app 'class="Spotify"' spotify
+bindsym $mod+Ctrl+e exec toggle-app 'title="(Mozilla Thunderbird)"' thunderbird
 bindsym $mod+Ctrl+x exec toggle-app 'title="(^Meet - .* - Google Chrome|^Meet - .* — Mozilla Firefox|^Zoom Meeting)"'
 bindsym $mod+Ctrl+s [title=" - Slack$"] focus
-bindsym $mod+Ctrl+e [title="Inbox .* - [a-zA-Z0-9 .]*[ Gm]*ail"] focus
+# bindsym $mod+Ctrl+e [title="Inbox .* - [a-zA-Z0-9 .]*[ Gm]*ail"] focus
 
 # floating setup
 for_window [title="^Calculator$"] floating enable
