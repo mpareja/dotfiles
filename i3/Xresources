@@ -32,6 +32,7 @@ i3-wm.binding.next_free: Next
 i3-wm.binding.move_next_free: Shift+Next
 i3-wm.binding.take_next_free: Next
 i3-wm.binding.ws_next: Ctrl+Shift+Next
+i3-wm.binding.swap_focus: Ctrl+Shift+Mod1+BackSpace
 
 i3xrocks.action.volume.scrollup: volume_down
 i3xrocks.action.volume.scrolldn: volume_up
