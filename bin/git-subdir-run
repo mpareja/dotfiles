@@ -13,7 +13,7 @@ syntax() {
 }
 
 main() {
-  ls | while read proj; do
+  ls -d */ | while read proj; do
     [ -d "$proj/.git" ] || continue
 
     [ "$QUITE" == "false" ] && echo --- $proj ---
@@ -21,7 +21,7 @@ main() {
     cd $proj
 
     if [ "$DRY_RUN" == "false" ]; then
-      "$@"
+      eval "$@"
     else
       echo "$@"
     fi

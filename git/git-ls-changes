@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 VERBOSE=false
 
 syntax() {
@@ -9,7 +11,7 @@ syntax() {
 }
 
 main() {
-  ls | while read proj; do
+  ls -d */ | while read proj; do
     cd $proj
 
     if [ ! -z "$(git status --porcelain 2>/dev/null)" ]; then
@@ -27,7 +29,7 @@ main() {
   done
 }
 
-case "$1" in
+case "${1:-}" in
   -v)
     VERBOSE=true
     ;;
