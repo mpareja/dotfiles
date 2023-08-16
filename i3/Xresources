@@ -39,3 +39,8 @@ i3xrocks.action.volume.scrolldn: volume_up
 ! gaps
 i3-wm.gaps.inner.size: 10
 i3-wm.gaps.outer.size: 0
+
+gtk.document_font_name: Open Sans 11
+gtk.font_name: Open Sans 12
+gtk.monospace_font_name: Ubuntu Mono 13
+gnome.terminal.font: Ubuntu Mono 13
