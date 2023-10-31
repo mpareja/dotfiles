@@ -2,17 +2,4 @@
 export RUBYMINE_JDK=/usr/lib/jvm/java-6-sun
 export EDITOR=vim
 
-export N_PRESERVE_NPM=1
 export N_PREFIX=$HOME/.n
-export PATH=$N_PREFIX/bin:$PATH
-
-if [ "${DOTFILES:1:1}" = ":" ]; then
-	export PATH=$PATH:~/bin:/${DOTFILES/:/}/bin
-else
-	export PATH=$PATH:~/bin:$DOTFILES/bin
-fi
-
-if [ -d ~/.local/bin ]; then
-	export PATH=~/.local/bin:$PATH
-fi
-
