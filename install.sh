@@ -24,30 +24,36 @@ is_regolith_1() {
   grep '=1' /etc/regolith/version 2>&1 >/dev/null
 }
 
+is_regolith_2() {
+  grep '=2' /etc/regolith/version 2>&1 >/dev/null
+}
+
 config_i3() {
 	echo Replacing i3 window manager configuration
 
 	cd i3
 
-	if [ -d /etc/regolith ]; then
-    if is_regolith_1; then
-      mkdir -p ~/.config/regolith/i3
+  if is_regolith_1; then
+    mkdir -p ~/.config/regolith/i3
 
-      replace config ~/.config/regolith/i3/config
-    else
-      mkdir -p ~/.config/regolith2/i3/config.d
-      mkdir -p ~/.config/regolith2/picom
+    replace config ~/.config/regolith/i3/config
+  elif is_regolith_2; then
+    mkdir -p ~/.config/regolith2/i3/config.d
+    mkdir -p ~/.config/regolith2/picom
 
-      replace regolith-addon-config ~/.config/regolith2/i3/config.d/regolith-addon-config
-      replace picom.conf ~/.config/regolith2/picom/config
-      replace Xresources ~/.config/regolith2/Xresources
-      xrdb merge ~/.config/regolith2/Xresources
-    fi
-	else
-		mkdir -p ~/.config/i3
+    replace regolith-addon-config ~/.config/regolith2/i3/config.d/regolith-addon-config
+    replace picom.conf ~/.config/regolith2/picom/config
+    replace Xresources ~/.config/regolith2/Xresources
+    xrdb merge ~/.config/regolith2/Xresources
+  else
+    mkdir -p ~/.config/regolith3/common-wm/config.d
+    mkdir -p ~/.config/regolith3/picom
 
-		replace config ~/.config/i3/config
-	fi
+    replace regolith-addon-config ~/.config/regolith3/common-wm/config.d/regolith-addon-config
+    replace picom.conf ~/.config/regolith3/picom/config
+    replace Xresources ~/.config/regolith3/Xresources
+    xrdb merge ~/.config/regolith3/Xresources
+  fi
 
 	cd ..
 }

@@ -17,6 +17,7 @@ bindsym $alt+Shift+F4 [con_id="__focused__"] exec --no-startup-id kill -9 $(xdot
 
 # Application Shortcuts
 bindsym Ctrl+$alt+Shift+f exec firefox
+bindsym XF86Calculator exec gnome-calculator
 
 # # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking

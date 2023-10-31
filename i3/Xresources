@@ -1,45 +1,45 @@
-i3-wm.binding.wifi: Shift+w
-i3-wm.binding.scratchpad: grave
-i3-wm.binding.move_scratchpad: Shift+grave
+wm.binding.wifi: Shift+w
+wm.binding.scratchpad: grave
+wm.binding.move_scratchpad: Shift+grave
 
 ! prevent regolith from resetting the terminal profile to Regolith
 gnome.terminal.update: false
 
 ! undo workspace naming the default regolith-look applies
-i3-wm.bar.stripworkspacenumbers: false
-i3-wm.workspace.01.name: 1
-i3-wm.workspace.02.name: 2
-i3-wm.workspace.03.name: 3
-i3-wm.workspace.04.name: 4
-i3-wm.workspace.05.name: 5
-i3-wm.workspace.06.name: 6
-i3-wm.workspace.07.name: 7
-i3-wm.workspace.08.name: 8
-i3-wm.workspace.09.name: 9
-i3-wm.workspace.10.name: 10
-i3-wm.workspace.11.name: 11
-i3-wm.workspace.12.name: 12
-i3-wm.workspace.13.name: 13
-i3-wm.workspace.14.name: 14
-i3-wm.workspace.15.name: 15
-i3-wm.workspace.16.name: 16
-i3-wm.workspace.17.name: 17
-i3-wm.workspace.18.name: 18
-i3-wm.workspace.19.name: 19
+wm.bar.stripworkspacenumbers: false
+wm.workspace.01.name: 1
+wm.workspace.02.name: 2
+wm.workspace.03.name: 3
+wm.workspace.04.name: 4
+wm.workspace.05.name: 5
+wm.workspace.06.name: 6
+wm.workspace.07.name: 7
+wm.workspace.08.name: 8
+wm.workspace.09.name: 9
+wm.workspace.10.name: 10
+wm.workspace.11.name: 11
+wm.workspace.12.name: 12
+wm.workspace.13.name: 13
+wm.workspace.14.name: 14
+wm.workspace.15.name: 15
+wm.workspace.16.name: 16
+wm.workspace.17.name: 17
+wm.workspace.18.name: 18
+wm.workspace.19.name: 19
 
 ! rebind unused keys to free up ` and Tab (Next is PgUp)
-i3-wm.binding.next_free: Next
-i3-wm.binding.move_next_free: Shift+Next
-i3-wm.binding.take_next_free: Next
-i3-wm.binding.ws_next: Ctrl+Shift+Next
-i3-wm.binding.swap_focus: Ctrl+Shift+Mod1+BackSpace
+wm.binding.next_free: Next
+wm.binding.move_next_free: Shift+Next
+wm.binding.take_next_free: Next
+wm.binding.ws_next: Ctrl+Shift+Next
+wm.binding.swap_focus: Ctrl+Shift+Mod1+BackSpace
 
 i3xrocks.action.volume.scrollup: volume_down
 i3xrocks.action.volume.scrolldn: volume_up
 
 ! gaps
-i3-wm.gaps.inner.size: 10
-i3-wm.gaps.outer.size: 0
+wm.gaps.inner.size: 10
+wm.gaps.outer.size: 0
 
 gtk.document_font_name: Open Sans 11
 gtk.font_name: Open Sans 12
