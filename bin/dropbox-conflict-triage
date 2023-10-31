@@ -16,7 +16,10 @@ syntax() {
 
 main() {
   find_conflicts | while read f; do
-    meld "$f" "$(echo "$f" | sed "s/ (.*'s conflicted copy .*)//" | sed 's/ (conflict .*)//')"
+    actual="$(echo "$f" | sed "s/ (.*'s conflicted copy .*)//" | sed 's/ (conflict .*)//')"
+    if ! is_ignored_conflict "$actual"; then
+      meld "$f" "$actual"
+    fi
 
     read -p "Delete '$f' (y/N): " REMOVE 0>&3 2>&4
 
@@ -32,6 +35,10 @@ main() {
 find_conflicts() {
   find -name '*(conflict *)*'
   find -name "*(*'s conflicted copy *)*"
+}
+
+is_ignored_conflict() {
+  [[ "`realpath "$1"`" == *"/.obsidian/workspace.json" ]]
 }
 
 [ $# -gt 0 ] && while true; do
