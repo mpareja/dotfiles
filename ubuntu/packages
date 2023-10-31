@@ -8,6 +8,7 @@ dmenu
 dos2unix
 dunst
 filezilla
+flameshot
 fonts-liberation
 fonts-noto-color-emoji
 fonts-open-sans
@@ -22,7 +23,6 @@ inotify-tools
 iotop
 jq
 libnotify-bin
-maim
 make
 meld
 mesa-utils
