@@ -1,3 +1,6 @@
+HISTSIZE=10000 # up from default of 1000
+HISTFILESIZE=20000 # up from default of 2000
+
 # bash completion (including git)
 if [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
