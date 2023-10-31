@@ -16,10 +16,13 @@
     owner: root
     group: root
     content: |
-      auth     requisite pam_nologin.so
-      auth     required  pam_fprintd.so
-      auth     optional  pam_gnome_keyring.so
-      password required  pam_fprintd.so
+      # If we used https://gitlab.com/mishakmak/pam-fprint-grosshack.git, we'd
+      # be able to use either finger or password without striking enter
+      auth     requisite   pam_nologin.so
+      auth     sufficient  pam_unix.so try_first_pass likeauth nullok
+      auth     sufficient  pam_fprintd.so
+      auth     optional    pam_gnome_keyring.so
+      password required    pam_fprintd.so
 
 - name: Configure synaptic touchpad
   become: true
