@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -euo pipefail
+
+syntax() {
+  echo "SYNTAX: $(basename $0) [-h|--help] <ORG>"
+  echo
+  echo "Clone the repositories in a GitHub organization"
+}
+
+main() {
+  local org="$1"
+  gh-ls-org-repos "$org" | while read repo; do
+    if [ -d "$repo" ]; then
+      echo "$repo - already exists"
+    else
+      echo "$repo - cloning"
+      git clone git@github.com:$org/$repo.git
+    fi
+  done
+}
+
+case "${1:-}" in
+  "" | --help | -h)
+    syntax
+    exit 1
+esac
+
+main "$@"

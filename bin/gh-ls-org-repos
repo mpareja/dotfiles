@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -euo pipefail
+
+syntax() {
+  echo "SYNTAX: $(basename $0) [-h|--help] <ORG>"
+  echo
+  echo "List the repositories in a GitHub organization"
+}
+
+main() {
+  gh search repos --owner="$1" -L 100 --json name -q .[].name
+}
+
+case "${1:-}" in
+  "" | --help | -h)
+    syntax
+    exit 1
+esac
+
+main "$@"
