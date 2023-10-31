@@ -5,9 +5,16 @@
 CRITERIA="$1"
 shift
 
-# BUG: is_focused returns true when run in an empty workspace
 is_focused() {
   i3-msg "[$CRITERIA con_id=__focused__] focus" &>/dev/null
+}
+
+is_empty_workspace() {
+  [ $(get_focused_type) == "workspace" ]
+}
+
+get_focused_type() {
+  i3-msg -t get_tree | jq -r 'recurse(.nodes[]) | select(.focused == true) | .type'
 }
 
 scratchpad_hide() {
@@ -45,7 +52,8 @@ back_and_forth() {
   i3-msg workspace back_and_forth &>/dev/null
 }
 
-if is_focused; then
+# BUG: i3 __focused__ returns true when run in an empty workspace
+if is_focused && ! is_empty_workspace; then
   scratchpad_hide
 else
   focus_within_workspace || scratchpad_show || focus_and_carry || exec "$@"
