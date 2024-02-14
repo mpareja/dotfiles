@@ -9,7 +9,6 @@ fonts-noto-color-emoji
 fprintd
 libpam-fprintd
 g++
-gconf2
 git-gui
 inotify-tools
 iotop
