@@ -1,0 +1,76 @@
+#!/bin/bash
+
+if [ $# -ne 4 -a $# -ne 5 ]; then
+  echo "SYNTAX: [--all-hosts] <CONTEXT> <LOCAL_PORT> <TARGET_HOST> <TARGET_PORT>"
+  echo
+  echo "aws-vault exec some-context -- kubectl-proxy some-context 7777 asdf.rds.com 5432"
+  exit 1
+fi
+
+address=""
+
+if [ "$1" == "--all-hosts" ]; then
+  echo "WARNING: allowing any machine to connect to forwarded port"
+  address="--address 0.0.0.0"
+  shift
+else
+  echo "Only allowing localhost to connect to forwarded port"
+fi
+
+context=$1
+shift
+local_port=$1
+shift
+target_host=$1
+shift
+target_port=$1
+shift
+
+name="$(uuid | sed 's/-//g')-local-proxy"
+
+get_config() {
+	echo "
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ${name}
+  labels:
+    app: ${name}
+spec:
+  containers:
+  - name: ${name}
+    image: node:18-bullseye-slim
+    command: ['/bin/bash']
+    args: [
+      '-c',
+      'apt-get update && apt-get install simpleproxy && simpleproxy -L ${local_port} -R ${target_host}:${target_port}'
+    ]
+    ports:
+      - containerPort: ${local_port}"
+}
+
+function kc() {
+  kubectl --context ${context} "$@"
+}
+
+function cleanup() {
+  echo "Tearing down ${name}"
+  kc delete pod/${name} --wait=false || {
+  	echo "Unable to teardown proxy prod. Delete pod manually by running:"
+	echo "kubectl --context ${context} delete pod/${name}"
+  }
+  exit 0
+}
+
+get_config | kc apply -f -
+
+echo Waiting for pod to be running...
+if kc wait pod/${name} --for condition=Ready --timeout=90s; then
+  trap cleanup INT
+  echo Proxy pod is running, port-forwarding
+  kc port-forward ${address} ${name} ${local_port}
+else
+  echo Gave up waiting for pod
+  cleanup
+  exit 1
+fi
