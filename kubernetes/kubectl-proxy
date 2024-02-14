@@ -26,7 +26,8 @@ shift
 target_port=$1
 shift
 
-name="$(uuid | sed 's/-//g')-local-proxy"
+clean_user=$(echo $USER | sed 's/[^-0-9a-zA-Z]/-/g')
+name="${clean_user}-$(uuid | sed 's/-//g')-local-proxy"
 
 get_config() {
 	echo "
