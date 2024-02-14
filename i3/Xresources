@@ -2,9 +2,6 @@ wm.binding.wifi: Shift+w
 wm.binding.scratchpad: grave
 wm.binding.move_scratchpad: Shift+grave
 
-! prevent regolith from resetting the terminal profile to Regolith
-gnome.terminal.update: false
-
 ! undo workspace naming the default regolith-look applies
 wm.bar.stripworkspacenumbers: false
 wm.workspace.01.name: 1
