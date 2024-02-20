@@ -69,7 +69,7 @@ echo Waiting for pod to be running...
 if kc wait pod/${name} --for condition=Ready --timeout=90s; then
   trap cleanup INT
   echo Proxy pod is running, port-forwarding
-  kc port-forward ${address} ${name} ${local_port}
+  kc port-forward ${address} ${name} ${local_port} || cleanup
 else
   echo Gave up waiting for pod
   cleanup
