@@ -10,7 +10,7 @@ is_focused() {
 }
 
 is_empty_workspace() {
-  [ $(get_focused_type) == "workspace" ]
+  [ "$(get_focused_type)" == "workspace" ]
 }
 
 get_focused_type() {
