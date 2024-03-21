@@ -17,11 +17,6 @@ else
       exec npx jest --no-coverage --watch --notify --notifyMode always -- "$@"
       ;;
     mocha)
-      # may have been run from a nested directory
-      # NOTE: unsure if we need this still. I don't seem to need it for jest, so
-      # leaving here until I test this with a mocha project
-      cd $(npm prefix)
-
       type=$(npm pkg get type)
 
       # mocha does not support watch mode for ESM modules
