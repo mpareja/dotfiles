@@ -1,14 +1,1 @@
-#!/bin/bash
-
-# diffs the files in the latest package with
-# the files in the current directory's package
-
-build_filelist() {
-  FILELIST=$(mktemp)
-  TGZ=$(npm pack $1)
-  tar tzf "$TGZ" > $FILELIST
-  rm $TGZ > /dev/null
-  echo $FILELIST
-}
-
-meld $(build_filelist $(npm show . name)) $(build_filelist)
+../node/npm-diff-filelist

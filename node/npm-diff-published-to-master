@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# diffs the SHA of the latest published package against origin/master
+
+PUBLISHED_COMMIT=$(npm show . gitHead)
+
+if [ "$1" == "--git" ]; then
+  shift
+  git fetch
+  git log $PUBLISHED_COMMIT...origin/master "$@"
+else
+  hub compare $PUBLISHED_COMMIT...master
+fi

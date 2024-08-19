@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ ! -f "$N_PREFIX/bin/ncu" ]; then
+  echo Global npm-check-updates not found, installing
+  npm install -g npm-check-updates
+fi
+
+exec $N_PREFIX/bin/ncu "$@"

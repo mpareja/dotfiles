@@ -3,10 +3,9 @@
 set -euo pipefail
 
 main() {
-  validate_script=$(npm run | grep '^  \w' | egrep '(validate|test)' | sort -r | head -1)
   current=$(git branch --show-current)
 
-  ustatus "npm run $validate_script && git push -u origin $current"
+  ustatus "nval && git push -u origin $current"
 }
 
 main
