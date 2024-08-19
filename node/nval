@@ -1,0 +1,22 @@
+#!/bin/bash
+# Node.js validation
+
+set -euo pipefail
+
+git_root() {
+  git rev-parse --show-toplevel
+}
+
+is_nx() {
+  [ -f "$(git_root)/nx.json" ]
+}
+
+validate_pkg_script() {
+  npm run | grep '^  \w' | egrep '  (validate|test)$' | sort -r | head -1
+}
+
+if is_nx; then
+  npx nx run-many -t validate "$@"
+else
+  npm run $(validate_pkg_script) "$@"
+fi
