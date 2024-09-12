@@ -23,28 +23,18 @@ echo "GIT_EMAIL:    $GIT_EMAIL"
 echo "GIT_USERNAME: $GIT_USERNAME"
 echo
 
-read -n 1 -p 'Do you want to install Chrome (y/N)? ' INST_CHROME
 read -n 1 -p 'Do you want to configure GitHub (y/N)? ' INST_GITHUB
 read -n 1 -p 'Do you want to install Docker (y/N)? ' INST_DOCKER
 read -n 1 -p 'Do you want to install N node version manager (y/N)? ' INST_N
 read -n 1 -p 'Do you want to recreate Vim folder (y/N)? ' INST_VIM
 read -n 1 -p 'Do you want to install Dropbox (y/N)? ' INST_DROPBOX
-read -n 1 -p 'Do you want to install VirtualBox (y/N)? ' INST_VBOX
-
-INST_PAKS_FILE=$(mktemp)
-cat flatpaks | grep -v '^#' | grep -v '^$' | while read pak; do
-  read -n 1 -p "Do you want to install the above $pak (y/N)? " INST_PAK < /dev/tty
-  if [ "$INST_PAK" == 'y' ]; then
-    echo $pak >> $INST_PAKS_FILE
-    echo
-  fi
-done;
 
 echo
 
 header Installing and configuring machine...
 
-sudo ./install_packages.sh
+# packages require by installer
+sudo apt install -y curl wget git
 
 [ "$INST_CHROME" == 'y' ] && echo && install_chrome
 [ "$INST_GITHUB" == 'y' ] && echo && configure_github
@@ -55,7 +45,7 @@ install_dotfiles
 # ubuntu .bashrc will not run when non-interactive, so we need
 # to ensure these vars are configured so:
 # 1. n is configured correctly
-# 2. vim install can leverage `npm` which is needs
+# 2. vim install can leverage `npm` which it needs
 export N_PREFIX=$HOME/.n
 export PATH=$N_PREFIX/bin:$PATH
 
@@ -63,8 +53,6 @@ export PATH=$N_PREFIX/bin:$PATH
 [ "$INST_VIM" == 'y' ] && echo && configure_vim # must be after installing node
 
 [ "$INST_DROPBOX" == 'y' ] && echo && install_dropbox
-[ "$INST_VBOX" == 'y' ] && echo && install_virtualbox
-[ -s "$INST_PAKS_FILE" ] && echo && install_flatpaks $(cat $INST_PAKS_FILE)
 
 # need a final command since above conditional can have valid non-zero exit code
 # which would inadvertantly trigger the "setup failed" message

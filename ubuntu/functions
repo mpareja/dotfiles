@@ -4,12 +4,6 @@ header() {
 	echo ======= $*
 }
 
-install_chrome() {
-	header Installing Google Chrome...
-	wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome-stable_current_amd64.deb
-	sudo dpkg -i /tmp/google-chrome-stable_current_amd64.deb
-}
-
 install_dropbox() {
 	local DISTRO=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
 	local RELEASE=$(lsb_release -sc)
@@ -24,24 +18,6 @@ install_dropbox() {
 	sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
 	sudo apt update
 	sudo apt install -y dropbox
-}
-
-install_flatpak() {
-  if which flatpak > /dev/null; then
-    header Flatpak already installed
-  else
-    # gnome-software-plugin-flatpak inclusion gains us convenience and automatic updates
-    header Installing flatpak...
-    sudo apt install flatpak gnome-software-plugin-flatpak
-  fi
-
-  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-}
-
-install_flatpaks() {
-  install_flatpak
-  header Installing selected flatpaks
-  sudo flatpak install -y flathub $@
 }
 
 configure_github() {
@@ -82,22 +58,6 @@ configure_vim() {
 	./install.sh
 }
 
-install_virtualbox() {
-	# add VirtualBox GPG key
-	wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
-	sudo add-apt-repository -u -y "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" # VIRTUALBOX
-
-	header Installing latest VirtualBox...
-	local APP=$(apt-cache search virtualbox-[0-9] | sort -r | head -1 | cut -d ' ' -f 1)
-	sudo apt-get install -y $APP
-}
-
-install_plank() {
-	header Configuring plank...
-	rm ~/.config/plank/dock1/launchers/plank.dockitem
-	cp -R plank ~/.config
-}
-
 install_docker() {
 	curl -sSL https://get.docker.com/ | sudo sh
 
@@ -119,9 +79,4 @@ install_n() {
 	fi
 
 	cd -
-}
-
-install_nvm() {
-	header Installing nvm the node version manager...
-	wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 }
