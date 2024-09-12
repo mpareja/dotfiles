@@ -103,6 +103,8 @@
         - pkgconf
         - playerctl
         - regolith-desktop
+        - regolith-session-flashback
+        - regolith-look-nord
         - samba
         - silversearcher-ag
         - spotify-client
@@ -117,3 +119,9 @@
         - xclip
         - xdotool
         - xfonts-terminus
+
+  # we use dunst and don't know how to prevent installation above
+  - name: apt remove regolith-rofication
+    apt:
+      state: absent
+      name: regolith-rofication
