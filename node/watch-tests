@@ -1,11 +1,53 @@
 #!/bin/bash
 
-npm_script=$(npm run | grep '^  \w' | egrep '(watch.*test|test.*watch)' | head -1)
+main() {
+  npm_script=$(cat_package_json | jq -r '.scripts // [] | keys[]' | egrep '(watch.*test)')
 
-if [ ! -z "$npm_script" ]; then
-  exec npm run $npm_script -- "$@"
-else
-  framework=$(npm pkg get devDependencies | jq -r 'keys[]' | egrep '^(mocha|jest)$')
+  if [ ! -z "$npm_script" ]; then
+    exec npm run $npm_script -- "$@"
+  else
+    framework=$(detect_framework)
+    echo "Detected Framework: '$framework'"
+    run_tests "$(detect_framework)" "$@"
+  fi
+}
+
+detect_framework() {
+  list_package_jsons | while read pkg; do
+    framework=$(get_framework_from_json "$pkg")
+    if [ "$framework" != "" ]; then
+      echo "$framework"
+      return
+    fi
+  done
+}
+
+get_framework_from_json() {
+  cat "$1" | jq -r '.devDependencies // [] | keys[]' | egrep '^(mocha|jest)$'
+}
+
+cat_package_json() {
+  pkg=$(list_package_jsons | head -1)
+  cat "$pkg"
+}
+
+list_package_jsons() {
+  current_dir=$(pwd)
+
+  # Traverse up the directory tree
+  while [ "$current_dir" != "/" ]; do
+    if [ -f "$current_dir/package.json" ]; then
+      echo "$current_dir/package.json"
+    fi
+
+    # Move up one directory
+    current_dir=$(dirname "$current_dir")
+  done
+}
+
+run_tests() {
+  framework=$1
+  shift
 
   case "$framework" in
     jest)
@@ -17,19 +59,13 @@ else
       exec npx jest --no-coverage --watch --notify --notifyMode always -- "$@"
       ;;
     mocha)
-      type=$(npm pkg get type)
-
-      # mocha does not support watch mode for ESM modules
-      # https://github.com/mochajs/mocha/issues/4374
-      if [ "$type" == '"module"' ]; then
-        exec uwatch npx mocha "$@"
-      else
-        exec npx mocha --watch "$@"
-      fi
+      exec uwatch npx mocha "$@"
       ;;
     *)
       echo ERROR: unknown testing framework used
       exit 1
       ;;
   esac
-fi
+}
+
+main "$@"
