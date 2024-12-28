@@ -14,7 +14,7 @@
     marker: '# {mark} ANSIBLE: include global node and dotfiles bins'
     block: |
       if echo ":$PATH:" | grep -qv ":$HOME/projects/dotfiles/bin:" ; then
-          PATH="$HOME/projects/dotfiles/bin:$HOME/.n/bin:$PATH"
+          PATH="$PATH:$HOME/projects/dotfiles/bin:$HOME/.n/bin"
       fi
 
 - name: '.bashrc: configure GITHUB_TOKEN'
