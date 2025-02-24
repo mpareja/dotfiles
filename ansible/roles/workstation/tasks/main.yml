@@ -82,6 +82,7 @@
         - fonts-noto-color-emoji
         - fonts-open-sans
         - g++
+        - git-delta
         - git-gui
         - gparted
         - hexchat

@@ -15,7 +15,7 @@ git config --global user.name "$FullName"
 git config --global user.email "$Email"
 git config --global core.autocrlf false
 git config --global core.editor vim
-git config --global core.pager "less -q -x4"
+git config --global core.pager "delta"
 git config --global color.ui auto
 git config --global log.date relative
 git config --global diff.renames copies
@@ -49,6 +49,8 @@ git config --global guitool."Fix Trailing Whitespace on Staged File".cmd "$(pwd)
 git config --global guitool."Fix Trailing Whitespace on Staged File".noconsole yes
 
 git config --global merge.conflictStyle diff3
+
+git config --global delta.navigate true
 
 if [ -e /c ]; then
   echo "Using Windows Credential Store"
