@@ -17,6 +17,18 @@
           PATH="$PATH:$HOME/projects/dotfiles/bin:$HOME/.n/bin"
       fi
 
+- name: '.bashrc: HISTSIZE'
+  lineinfile:
+    path: /home/{{ ansible_user_id }}/.bashrc
+    regexp: '^HISTSIZE=.*'
+    line: 'HISTSIZE=10000'
+
+- name: '.bashrc: HISTFILESIZE'
+  lineinfile:
+    path: /home/{{ ansible_user_id }}/.bashrc
+    regexp: '^HISTFILESIZE=.*'
+    line: 'HISTFILESIZE=20000'
+
 - name: '.bashrc: configure GITHUB_TOKEN'
   blockinfile:
     dest: /home/{{ ansible_user_id }}/.bashrc
