@@ -82,9 +82,8 @@ for_window [title=" - Slack$"] move workspace 1: comms; move workspace to output
 
 # Screenshots (desktop, active window, selection)
 bindsym Print exec --no-startup-id flameshot gui
+bindsym $mod+Print exec --no-startup-id "flash info 'Taking screenshot in 4 seconds'; sleep 4; flameshot gui"
 
-## Clipboard Screenshots w/ 5s Delay (desktop, active window, selection)
-bindsym Ctrl+Shift+Scroll_Lock exec --no-startup-id maim --select --delay 5 | xclip -selection clipboard -t image/png
 
 # disable touchpad while typing: -k ensures we can win+drag
 exec --no-startup-id syndaemon -i 1.5 -t -k
