@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -euo pipefail
+
+NAME="$1"
+
+if [ -z "$NAME" ]; then
+  echo "Usage: $0 <container_or_service_name>"
+  exit 1
+fi
+
+get_ips() {
+  docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$1" 2>/dev/null
+}
+
+IP=$(get_ips "$NAME") && echo $IP || (
+  ID=$(docker compose ps -q "$NAME" 2>/dev/null) || (
+    echo "ERROR: '$NAME' container nor docker-compose service found" 
+    exit 1
+  )
+
+  get_ips $ID
+)
