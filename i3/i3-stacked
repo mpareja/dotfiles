@@ -1,0 +1,113 @@
+#!/bin/bash
+
+# Todo
+# - [ ] move stacks to far left and right
+
+i3q() {
+  # avoid "success" output
+  i3-msg "$@" 1>/dev/null
+}
+
+move_windows() {
+  i3q unmark stack_left
+  i3q unmark stack_centre
+  i3q unmark stack_right
+
+  list_windows | while read info; do
+    id=$(echo "$info" | jq -r '.id')
+    class=$(echo "$info" | jq -r '.window_properties.class')
+    title=$(echo "$info" | jq -r '.window_properties.title')
+
+    if [ "$class" == "Slack" ]; then
+      move_window $id stack_left $title
+    elif [ "$class" == "Gnome-terminal" -o "$class" == "obsidian" ]; then
+      move_window $id stack_right $title
+    else
+      move_window $id stack_centre $title
+    fi
+  done
+
+  resize
+}
+
+list_containers() {
+  get_focused_workspace | jq -r '
+    recurse(.nodes[])
+    | select(.marks | index("stack_left") or index("stack_centre") or index("stack_right"))
+  '
+}
+
+list_windows() {
+  get_focused_workspace | jq -c '
+    recurse(.nodes[]) 
+    | select(.type=="con" and .window_type == "normal" and .window) 
+  '
+}
+
+get_focused_workspace() {
+  workspace_id=$(i3-msg -t get_workspaces | jq -c '.[] | select(.focused == true) | .id')
+
+  i3-msg -t get_tree | jq '
+    recurse(.nodes[])
+    | select(.type=="workspace" and .id=='$workspace_id')
+  '
+}
+
+move_window() {
+  window_id=$1
+  stack=$2
+  title=$3
+
+  initial_focus=$(get_focused_window_id)
+
+  echo "Moving $window_id to $stack ($title)"
+  container=$(get_container_id $stack)
+
+  if [ -z "$container" ]; then
+    echo "Creating $stack stack"
+    focus_window $window_id
+    i3q split vertical
+    i3q layout stacking
+    i3q focus parent
+    i3q mark $stack
+  else
+    i3q "[con_id=$window_id] move window to mark $stack"
+  fi
+
+  focus_window $initial_focus
+}
+
+get_container_id() {
+  get_focused_workspace | jq -r '
+    recurse(.nodes[])
+    | select(.marks | index("'$1'"))
+    | .id
+  '
+}
+
+get_focused_window_id() {
+  get_focused_workspace | jq -r '
+    recurse(.nodes[])
+    | select(.focused == true)
+    | .id
+  '
+}
+
+focus_window() {
+  i3q "[con_id=$1] focus"
+}
+
+resize() {
+  # we need to do this at least 3 times for it to work. I suspect
+  # it's because each time we size one stack, the others change, so it
+  # takes a few iterations to get the other sizes to stabilize
+  for i in {1..5}; do
+    i3q "[con_mark=stack_right] resize set width 100px"
+    i3q "[con_mark=stack_left] resize set width 100px"
+  done
+
+  i3q "[con_mark=stack_centre] resize set width 53 ppt"
+}
+
+[ $# -eq 0 ] && move_windows || "$@"
+
