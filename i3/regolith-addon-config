@@ -84,6 +84,10 @@ for_window [title=" - Slack$"] move workspace 1: comms; move workspace to output
 bindsym Print exec --no-startup-id flameshot gui
 bindsym $mod+Print exec --no-startup-id "flash info 'Taking screenshot in 4 seconds'; sleep 4; flameshot gui"
 
+# STARTUP Policy Kit so apps that prompt for root access work
+# It's possible this won't be required once this issue is resolved:
+# https://github.com/regolith-linux/regolith-desktop/issues/1070
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 
 # disable touchpad while typing: -k ensures we can win+drag
 exec --no-startup-id syndaemon -i 1.5 -t -k
