@@ -98,4 +98,6 @@ exec --no-startup-id redshift -l 43.5093168364607:-80.5057045409518
 # workaround: allow Night Light to kick in
 exec --no-startup-id pkill gsd-color
 
+exec --no-startup-id ulauncher --hide-window --no-window-shadow
+
 focus_on_window_activation focus

@@ -42,3 +42,6 @@ gtk.document_font_name: Open Sans 11
 gtk.font_name: Open Sans 12
 gtk.monospace_font_name: Ubuntu Mono 13
 gnome.terminal.font: Ubuntu Mono 13
+
+! launcher
+wm.program.launcher.app: ulauncher-toggle
