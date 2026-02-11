@@ -19,11 +19,11 @@ move_windows() {
     title=$(echo "$info" | jq -r '.window_properties.title')
 
     if [ "$class" == "Slack" ]; then
-      move_window $id stack_left $title
-    elif [ "$class" == "Gnome-terminal" -o "$class" == "obsidian" ]; then
-      move_window $id stack_right $title
+      move_window $id stack_left "$title"
+    elif [ "$class" == "Gnome-terminal" -o "$class" == "obsidian" -o "$class" == "com.mitchellh.ghostty" ]; then
+      move_window $id stack_right "$title"
     else
-      move_window $id stack_centre $title
+      move_window $id stack_centre "$title"
     fi
   done
 
