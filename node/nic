@@ -3,5 +3,5 @@
 
 set -euo pipefail
 
-gr npm run infra:create
+gr npm run --if-present infra:create
 
