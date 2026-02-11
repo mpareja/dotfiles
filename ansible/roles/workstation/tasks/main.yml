@@ -56,6 +56,18 @@
     line: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mitigations=off"'
   notify: update grub
 
+- name: 'https: use Firefox except for Google Meets'
+  block:
+  - name: 'add browser-router as desktop application'
+    copy:
+      src: applications
+      dest: /home/{{ ansible_user_id }}/.local/share/applications/
+      mode: 0644
+  - name: 'register browser-router as https mime handler'
+    community.general.gio_mime:
+      mime_type: x-scheme-handler/https
+      handler: browser-router.desktop
+
 - name: Install common packages
   become: true
   block:

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+URL="$1"
+
+is_meeting() {
+  [[ "$URL" =~ "https://meet.google.com" || "$URL" =~ "https://teams.microsoft.com" ]]
+}
+
+is_youtube() {
+  [[ "$URL" =~ "https://youtu.be/" || "$URL" =~ "https://www.youtube.com/" ]]
+}
+
+is_slack() {
+  [[ "$URL" =~ "https://bluejlegal.slack.com/archives" ]]
+}
+
+if is_meeting; then
+  nohup google-chrome "$URL" >/dev/null 2>/dev/null &
+elif is_youtube; then
+  nohup freetube "$URL" >/dev/null 2>/dev/null &
+elif is_slack; then
+  # https://bluejlegal.slack.com/archives/CQWC3BUE5/p1766421406282659
+  # needs to become
+  # slack://channel?team=bluejlegal&id=CQWC3BUE5&message=1766421406.282659
+  TEAM="T053A53J6"
+  CHANNEL_ID=$(echo "$URL" | sed -E 's#.*/archives/([^/]+)/p.*#\1#')
+  TS_RAW=$(echo "$URL" | sed -E 's#.*/p([0-9]+)#\1#')
+  MESSAGE_TS="${TS_RAW:0:10}.${TS_RAW:10}"
+
+  SLACK_URL="slack://channel?team=$TEAM&id=$CHANNEL_ID&message=$MESSAGE_TS"
+
+  echo $SLACK_URL
+  nohup slack "$SLACK_URL" >/dev/null 2>/dev/null &
+else
+  nohup firefox "$URL" >/dev/null 2>/dev/null &
+fi

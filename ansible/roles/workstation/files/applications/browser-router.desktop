@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+NoDisplay=true
+Exec=browser-router %u
+Name=Firefox
+Comment=Firefox, unless Google Meet and then Chrome
