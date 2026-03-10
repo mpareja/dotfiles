@@ -23,6 +23,8 @@ scratchpad_hide() {
 
 scratchpad_show() {
   i3-msg "[$CRITERIA] scratchpad show" &>/dev/null
+  # sway always reports success above, so need to double-check
+  is_focused
 }
 
 focus_within_workspace() {
