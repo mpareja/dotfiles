@@ -93,7 +93,6 @@
         - apt-listchanges
         - autoconf
         - autogen
-        - compizconfig-settings-manager
         - curl
         - direnv
         - dos2unix
@@ -101,7 +100,6 @@
         - dmenu
         - dunst
         - filezilla
-        - flameshot
         - fonts-liberation
         - fonts-noto-color-emoji
         - fonts-open-sans
@@ -110,17 +108,12 @@
         - git-gui
         - gparted
         - hexchat
-        - hub
-        - i3xrocks-memory
-        - i3xrocks-time
-        - i3xrocks-volume
         - inotify-tools
         - iotop
         - jq
         - libnotify-bin
         - make
         - meld
-        - mesa-utils
         - mitmproxy
         - openssh-server
         - p7zip-full
@@ -128,7 +121,7 @@
         - pkgconf
         - playerctl
         - regolith-desktop
-        - regolith-session-flashback
+        - regolith-look-ayu
         - regolith-look-nord
         - samba
         - silversearcher-ag
@@ -150,3 +143,21 @@
     apt:
       state: absent
       name: regolith-rofication
+
+  - name: apt install - xorg
+    when: display_server == "xorg"
+    apt:
+      state: present
+      name:
+        - flameshot
+        - i3xrocks-memory
+        - i3xrocks-time
+        - i3xrocks-volume
+        - regolith-session-flashback
+
+  - name: apt install - wayland
+    when: display_server == "wayland"
+    apt:
+      state: present
+      name:
+        - regolith-session-sway

@@ -1,5 +1,6 @@
 - name: Install compositor to prevent Intel graphics tearing
   become: true
+  when: display_server == "xorg"
   apt:
     state: present
     name:

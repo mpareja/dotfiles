@@ -6,11 +6,18 @@
       - fprintd
       - libpam-fprintd
 
+- name: Install laptop packages - xorg
+  become: true
+  when: display_server == "xorg"
+  apt:
+    state: present
+    name:
       - i3xrocks-battery
       - xserver-xorg-input-synaptics
 
 - name: Enable fingerprint on lock screen
   become: true
+  when: display_server == "xorg"
   copy:
     dest: /etc/pam.d/gnome-flashback
     owner: root
@@ -26,6 +33,7 @@
 
 - name: Configure synaptic touchpad
   become: true
+  when: display_server == "xorg"
   copy:
     src: xorg.conf.d/70-synaptics.conf
     dest: /etc/X11/xorg.conf.d/
