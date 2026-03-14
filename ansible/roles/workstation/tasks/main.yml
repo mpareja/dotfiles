@@ -104,33 +104,43 @@
         - fonts-noto-color-emoji
         - fonts-open-sans
         - g++
+        - gh
         - git-delta
         - git-gui
         - gparted
         - hexchat
         - inotify-tools
         - iotop
+        - iperf3
         - jq
         - libnotify-bin
         - make
         - meld
         - mitmproxy
+        - nethogs
         - openssh-server
         - p7zip-full
         - pcmanfm
         - pkgconf
         - playerctl
+        - postgresql-client
         - regolith-desktop
         - regolith-look-ayu
         - regolith-look-nord
+        - rustdesk
         - samba
         - silversearcher-ag
         - spotify-client
+        - tmate
         - tmux
         - traceroute
         - tree
+        - ulauncher
+        - uuid
         - vifm
         - vim-gtk3
+        - vlc
+        - vokoscreen-ng
         - wireshark
         - wmctrl
         - x11vnc
