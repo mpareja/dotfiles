@@ -14,7 +14,9 @@ bindsym $alt+F4 kill
 bindsym $alt+Shift+F4 [con_id="__focused__"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)
 
 # Application Shortcuts
+## Launch // Firefox
 bindsym Ctrl+$alt+Shift+f exec firefox
+## Launch // Calculator
 bindsym XF86Calculator exec gnome-calculator
 
 # # change container layout (stacked, tabbed, toggle split)
@@ -62,11 +64,13 @@ for_window [title="- Shutter"] floating enable
 for_window [title="Microsoft Teams Notification"] floating enable
 
 # Alt Tab - stolen from /usr/share/regolith/i3/config.d/40_i3-swap-focus
-# in order to use Alt instaed of Super
+# in order to use Alt instaed of Super.
+# NOTE: this doesn't appear to work in sway
 bindsym $alt+Tab exec --no-startup-id pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
 
 # STARTUP APPLICATIONS
 exec --no-startup-id dropbox start
+exec --no-startup-id /home/mpareja/apps/activitywatch/aw-qt
 
 # WORKSPACE & APP CONFIGURATION
 
@@ -82,8 +86,7 @@ for_window [title=" - Slack$"] move workspace 1: comms; move workspace to output
 # exec --no-startup-id $i3-wm.program.nm-applet
 
 # Screenshots (desktop, active window, selection)
-bindsym Print exec --no-startup-id flameshot gui
-bindsym $mod+Print exec --no-startup-id "flash info 'Taking screenshot in 4 seconds'; sleep 4; flameshot gui"
+bindsym Print exec --no-startup-id gradia --screenshot
 
 # STARTUP Policy Kit so apps that prompt for root access work
 # It's possible this won't be required once this issue is resolved:

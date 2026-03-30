@@ -1,0 +1,15 @@
+# Wayland does not allow global keybindings, so we need
+# to configure them in Sway
+
+# Close the most recent notification
+bindsym Ctrl+space exec dunstctl close
+
+# Close all active notifications
+bindsym Ctrl+Shift+space exec dunstctl close-all
+
+# Redisplay the last notification from history
+bindsym Ctrl+grave exec dunstctl history-pop
+
+# Open the context menu for a notification (e.g., to click links)
+bindsym Ctrl+Shift+period exec dunstctl context
+

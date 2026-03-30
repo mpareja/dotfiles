@@ -58,7 +58,7 @@ back_and_forth() {
 if is_focused && ! is_empty_workspace; then
   scratchpad_hide
 else
-  focus_within_workspace || scratchpad_show || focus_and_carry || exec "$@"
+  focus_within_workspace || scratchpad_show || focus_and_carry || "$@"
 fi
 
 ## Test Scenarios:

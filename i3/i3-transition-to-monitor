@@ -3,10 +3,12 @@
 set -eou pipefail
 #set -x
 
-# required when invoked by udev
 detect_socket() {
-  local THE_USER=$(ps ax -o comm,uid | grep "^i3\s" | awk '{ print $2 }')
-  ls -t /run/user/$THE_USER/i3/ipc-socket* | head -1
+  i3 --get-socketpath || sway --get-socketpath || (
+    # required when invoked by udev
+    local THE_USER=$(ps ax -o comm,uid | grep "^i3\s" | awk '{ print $2 }')
+    ls -t /run/user/$THE_USER/i3/ipc-socket* | head -1
+  )
 }
 
 S="-s $(detect_socket)"

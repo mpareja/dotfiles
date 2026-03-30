@@ -21,11 +21,11 @@ config_tmux() {
 }
 
 is_regolith_1() {
-  grep '=1' /etc/regolith/version 2>&1 >/dev/null
+  grep '=1' /etc/regolith/version >/dev/null 2>&1
 }
 
 is_regolith_2() {
-  grep '=2' /etc/regolith/version 2>&1 >/dev/null
+  grep '=2' /etc/regolith/version >/dev/null 2>&1
 }
 
 config_i3() {
@@ -46,10 +46,11 @@ config_i3() {
     replace Xresources ~/.config/regolith2/Xresources
     xrdb merge ~/.config/regolith2/Xresources
   else
-    mkdir -p ~/.config/regolith3/common-wm/config.d
+    mkdir -p ~/.config/regolith3/{common-wm,sway}/config.d
     mkdir -p ~/.config/regolith3/picom
 
     replace regolith-addon-config ~/.config/regolith3/common-wm/config.d/regolith-addon-config
+    replace dunst-keybindings ~/.config/regolith3/sway/config.d/dunst-keybindings
     replace picom.conf ~/.config/regolith3/picom/config
     replace Xresources ~/.config/regolith3/Xresources
     xrdb merge ~/.config/regolith3/Xresources
@@ -114,13 +115,6 @@ mac_install() {
 
 linux_install() {
 	add_bashrc_source bashrc ~/.bashrc
-
-	if [ -d /etc/regolith ]; then
-		echo Regolith detected: skipping colour configuration
-	else
-		### enable solarized for gnome
-		$DOTFILES/gnome/solarized.sh dark
-	fi
 
 	config_tmux
 	config_i3
