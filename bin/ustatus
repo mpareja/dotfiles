@@ -1,3 +1,12 @@
 #!/bin/bash
 
-eval "$@" && flash user-available "PASS: $*"|| flash user-busy "FAIL: $*"
+eval "$@"
+status=$?
+
+if [ $status -eq 0 ]; then
+  flash user-available "PASS: $*"
+else
+  flash user-busy "FAIL: $*"
+fi
+
+exit $status
