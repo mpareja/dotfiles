@@ -7,7 +7,9 @@ finish() {
 
 	echo
 	if [ $code -eq 0 ]; then
-		echo Setup completed successfully.
+		echo 'Setup completed successfully.'
+		echo
+		echo "If this is the initial run, you'll want to restart so .profile and docker group can take affect."
 	else
 		echo ERROR: setup failed.
 		exit $code
@@ -23,22 +25,22 @@ echo "GIT_EMAIL:    $GIT_EMAIL"
 echo "GIT_USERNAME: $GIT_USERNAME"
 echo
 
-read -n 1 -p 'Do you want to configure GitHub (y/N)? ' INST_GITHUB
-read -n 1 -p 'Do you want to install Docker (y/N)? ' INST_DOCKER
-read -n 1 -p 'Do you want to install N node version manager (y/N)? ' INST_N
-read -n 1 -p 'Do you want to recreate Vim folder (y/N)? ' INST_VIM
-read -n 1 -p 'Do you want to install Dropbox (y/N)? ' INST_DROPBOX
+read -n 1 -p 'Do you want to install Docker (y/N)? ' INST_DOCKER; echo
+read -n 1 -p 'Do you want to install N node version manager (y/N)? ' INST_N; echo
+read -n 1 -p 'Do you want to install keyd (y/N)? ' INST_KEYD; echo
+read -n 1 -p 'Vim cannot be installed until Ansible setup has completed. Do you want to recreate Vim folder (y/N)? ' INST_VIM; echo
 
 echo
 
 header Installing and configuring machine...
 
 # packages require by installer
-sudo apt install -y curl wget git
+sudo apt install -y ansible-core curl git make openssh-server wget
 
-[ "$INST_CHROME" == 'y' ] && echo && install_chrome
-[ "$INST_GITHUB" == 'y' ] && echo && configure_github
+configure_github
+
 [ "$INST_DOCKER" == 'y' ] && echo && install_docker # required by dotfiles for kmonad install
+[ "$INST_KEYD" == 'y' ] && echo && echo "Installing keyd..." && ../keyd/install.sh
 
 install_dotfiles
 
@@ -51,8 +53,6 @@ export PATH=$N_PREFIX/bin:$PATH
 
 [ "$INST_N" == 'y' ] && echo && install_n
 [ "$INST_VIM" == 'y' ] && echo && configure_vim # must be after installing node
-
-[ "$INST_DROPBOX" == 'y' ] && echo && install_dropbox
 
 # need a final command since above conditional can have valid non-zero exit code
 # which would inadvertantly trigger the "setup failed" message

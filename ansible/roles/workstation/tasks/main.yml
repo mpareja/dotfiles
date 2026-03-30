@@ -46,7 +46,7 @@
   blockinfile:
     dest: /etc/hosts
     marker: "# {mark} ANSIBLE: enable FQDN to enable sending via gmail"
-    block: "127.0.0.1	localhost.localdomain localhost {{ inventory_hostname }}"
+    block: "127.0.0.1  localhost.localdomain localhost {{ inventory_hostname }}"
 
 - name: 'perf: disable kernel mitigations'
   become: true
@@ -61,8 +61,9 @@
   - name: 'add browser-router as desktop application'
     copy:
       src: applications
-      dest: /home/{{ ansible_user_id }}/.local/share/applications/
+      dest: /home/{{ ansible_user_id }}/.local/share/
       mode: 0644
+    notify: update-desktop-database for user
   - name: 'register browser-router as https mime handler'
     community.general.gio_mime:
       mime_type: x-scheme-handler/https
@@ -71,6 +72,19 @@
 - name: Install common packages
   become: true
   block:
+
+  - name: snap install
+    community.general.snap:
+      name:
+        - localsend
+      state: present
+
+  - name: snap install
+    community.general.snap:
+      name:
+        - dbeaver-ce
+      classic: true
+      state: present
 
   - name: Add non-free apt repositories
     become: true
@@ -96,6 +110,7 @@
         - curl
         - direnv
         - dos2unix
+        - dropbox
         # dmenu is required by dunst actions
         - dmenu
         - dunst
@@ -105,14 +120,17 @@
         - fonts-open-sans
         - g++
         - gh
+        - git
         - git-delta
         - git-gui
         - gparted
+        - google-chrome-stable
         - hexchat
         - inotify-tools
         - iotop
         - iperf3
         - jq
+        - kubectl
         - libnotify-bin
         - make
         - meld
@@ -127,7 +145,7 @@
         - regolith-desktop
         - regolith-look-ayu
         - regolith-look-nord
-        - rustdesk
+        - remmina
         - samba
         - silversearcher-ag
         - spotify-client
@@ -141,6 +159,7 @@
         - vim-gtk3
         - vlc
         - vokoscreen-ng
+        - wget
         - wireshark
         - wmctrl
         - x11vnc

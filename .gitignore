@@ -1,3 +1,4 @@
 .DS_Store
 kmonad/kmonad
 ansible/inventory.ini
+ansible/host_vars/*.yml

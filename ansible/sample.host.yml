@@ -1,0 +1,2 @@
+display_server: wayland
+ansible_become_exe: "{{ 'sudo.ws' if '/usr/bin/sudo.ws' is file else 'sudo' }}"

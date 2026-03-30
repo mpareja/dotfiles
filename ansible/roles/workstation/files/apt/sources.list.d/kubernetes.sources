@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://pkgs.k8s.io/core:/stable:/v1.35/deb/
+Suites: /
+Components:
+Signed-By: /etc/apt/keyrings/kubernetes.asc

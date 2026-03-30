@@ -4,28 +4,17 @@ header() {
 	echo ======= $*
 }
 
-install_dropbox() {
-	local DISTRO=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
-	local RELEASE=$(lsb_release -sc)
-
-	if ! wget -q https://linux.dropboxstatic.com/$DISTRO/dists/$RELEASE/ -O /dev/null; then
-		echo "NOTE: dropbox hasn't updated their APT repository for $RELEASE, falling back to bionic!"
-		RELEASE=bionic
-	fi
-
-	sudo add-apt-repository -u -y "deb http://linux.dropbox.com/ubuntu $RELEASE main" # DROPBOX
-	# add dropbox GPG key
-	sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
-	sudo apt update
-	sudo apt install -y dropbox
-}
-
 configure_github() {
 	header Configure GitHub SSH key...
-	mkdir -p ~/.ssh
-	cd ~/.ssh
-	ssh-keygen -t rsa -C "$GIT_EMAIL" -f ./id_rsa
-	cat ./id_rsa.pub
+
+	if [ ! -f ~/.ssh/id_rsa.pub ]; then
+		echo Generating a new SSH key...
+		mkdir -p ~/.ssh
+		cd ~/.ssh
+		ssh-keygen -t rsa -C "$GIT_EMAIL" -f ./id_rsa
+	fi
+
+	cat ~/.ssh/id_rsa.pub
 	echo
 	echo Add the above public key to your GitHub account: https://github.com/settings/ssh/new
 	echo

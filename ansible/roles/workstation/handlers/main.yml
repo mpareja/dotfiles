@@ -9,3 +9,6 @@
 - name: update apt
   become: true
   command: /usr/bin/apt-get update
+
+- name: update-desktop-database for user
+  command: update-desktop-database /home/{{ ansible_user_id }}/.local/share/applications
