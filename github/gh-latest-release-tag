@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ORG_REPO=$1
+
+URL=$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/$ORG_REPO/releases/latest)
+
+# print tag after the last /
+echo $URL | awk -F'/' '{print $NF}'
