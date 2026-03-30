@@ -8,14 +8,27 @@
     group: root
   notify: reload sysctl
 
-- name: '.profile: include global node and dotfiles bins'
+- name: '.profile: define add_to_path function'
   blockinfile:
     dest: /home/{{ ansible_user_id }}/.profile
-    marker: '# {mark} ANSIBLE: include global node and dotfiles bins'
+    marker: '# {mark} ANSIBLE: define add_to_path function'
     block: |
-      if echo ":$PATH:" | grep -qv ":$HOME/projects/dotfiles/bin:" ; then
-          PATH="$PATH:$HOME/projects/dotfiles/bin:$HOME/.n/bin"
-      fi
+      add_to_path() {
+          local DIR="$1"
+          if [ -d "$DIR" ] && (echo ":$PATH:" | grep -qv ":$DIR:") ; then
+              export PATH="$DIR:$PATH"
+          fi
+      }
+
+- name: '.profile: update PATH with node, dotfiles, and home bin directories'
+  blockinfile:
+    dest: /home/{{ ansible_user_id }}/.profile
+    marker: '# {mark} ANSIBLE: update PATH with node, dotfiles, and home bin directories'
+    block: |
+      add_to_path "$HOME/.n/bin"
+      add_to_path "$HOME/.local/bin"
+      add_to_path "$HOME/projects/dotfiles/bin"
+      add_to_path "$HOME/bin"
 
 - name: '.bashrc: HISTSIZE'
   lineinfile:
