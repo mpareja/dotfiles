@@ -51,7 +51,7 @@ bindsym $mod+Shift+comma exec ~/projects/dotfiles/i3/i3-move-to-named-workspace
 bindsym $mod+Ctrl+z exec toggle-app 'title="tiddlers - Obsidian"' obsidian
 bindsym $mod+Ctrl+c exec toggle-app 'class="Spotify"' spotify
 bindsym $mod+Ctrl+e exec toggle-app 'title="(Mozilla Thunderbird)"' thunderbird
-bindsym $mod+Ctrl+x exec toggle-app 'title="(^Meet - .* - Google Chrome|^Meet - .* — Mozilla Firefox|^Zoom Meeting)"'
+bindsym $mod+Ctrl+x exec toggle-app 'title="(^Meet - .* - Google Chrome|^Meet - .* — Mozilla Firefox|^Zoom Meeting| \| Microsoft Teams - Google Chrome$)"'
 bindsym $mod+Ctrl+g exec toggle-app 'title="ChatGPT"' gtk-launch chrome-cadlkienfkclaiaibeoongdcgmdikeeg-Default.desktop
 bindsym $mod+Ctrl+s [title=" - Slack$"] focus
 # bindsym $mod+Ctrl+e [title="Inbox .* - [a-zA-Z0-9 .]*[ Gm]*ail"] focus
