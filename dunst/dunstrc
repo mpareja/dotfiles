@@ -20,18 +20,16 @@
     ### Geometry ###
 
     # dynamic width from 0 to 300
-    # width = (0, 300)
-    # constant width of 300
-    width = 300
+    width = (0, 300)
 
-    # The maximum height of a single notification, excluding the frame.
-    height = 300
+    # The min/max height of a single notification, excluding the frame.
+    height = (0, 300)
 
     # Position the notification in the top right corner
     origin = top-right
 
     # Offset from the origin
-    offset = 10x50
+    offset = (10, 50)
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -250,8 +248,7 @@
     # * close_current: Close current notification.
     # * close_all: Close all notifications.
     mouse_left_click = close_current
-    mouse_middle_click = do_action
-    mouse_right_click = close_all
+    mouse_right_click = do_action
 
     ### Shortcuts (X11 only)
 
