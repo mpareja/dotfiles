@@ -1,0 +1,105 @@
+- name: Install common graphical environment packages
+  become: true
+  block:
+
+  - name: Add non-free apt repositories
+    become: true
+    copy:
+      src: apt
+      dest: /etc
+      mode: 0644
+      owner: root
+      group: root
+    notify: update apt
+
+  # by default, handlers are run after all tasks to avoid duplication, we need it now
+  - name: Ensure update apt has run, if necessary
+    meta: flush_handlers
+
+  - name: snap install
+    community.general.snap:
+      name:
+        - localsend
+      state: present
+
+  - name: snap install
+    community.general.snap:
+      name:
+        - dbeaver-ce
+      classic: true
+      state: present
+
+  - name: 'https: use Firefox except for Google Meets'
+    block:
+    - name: 'add browser-router as desktop application'
+      copy:
+        src: applications
+        dest: /home/{{ ansible_user_id }}/.local/share/
+        mode: 0644
+      notify: update-desktop-database for user
+    - name: 'register browser-router as https mime handler'
+      community.general.gio_mime:
+        mime_type: x-scheme-handler/https
+        handler: browser-router.desktop
+    - name: 'register browser-router as http mime handler'
+      community.general.gio_mime:
+        mime_type: x-scheme-handler/http
+        handler: browser-router.desktop
+
+  - name: apt install
+    apt:
+      state: present
+      name:
+        - dropbox
+        # dmenu is required by dunst actions
+        - dmenu
+        - dunst
+        - filezilla
+        - fonts-liberation
+        - fonts-noto-color-emoji
+        - fonts-open-sans
+        - git-gui
+        - google-chrome-stable
+        - gparted
+        - hexchat
+        - meld
+        - pcmanfm
+        - playerctl
+        - regolith-desktop
+        - regolith-look-ayu
+        - regolith-look-nord
+        - remmina
+        - spotify-client
+        - ulauncher
+        - vlc
+        - vokoscreen-ng
+        - wireshark
+        - wmctrl
+        - x11vnc
+        - xfonts-terminus
+
+  # we use dunst and don't know how to prevent installation above
+  - name: apt remove regolith-rofication
+    apt:
+      state: absent
+      name: regolith-rofication
+
+  - name: apt install - xorg
+    when: display_server == "xorg"
+    apt:
+      state: present
+      name:
+        - flameshot
+        - i3xrocks-memory
+        - i3xrocks-time
+        - i3xrocks-volume
+        - regolith-session-flashback
+        - xclip
+        - xdotool
+
+  - name: apt install - wayland
+    when: display_server == "wayland"
+    apt:
+      state: present
+      name:
+        - regolith-session-sway
